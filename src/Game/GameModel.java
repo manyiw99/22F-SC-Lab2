@@ -47,7 +47,12 @@ public class GameModel {
     }
 
     public Card drawCard(){
-        return deck.draw();
+        Card card = deck.draw();
+        if(card==null){
+            deck=new Deck();
+            drawCard();
+        }
+        return card;
     }
 
     public int getCurrentPlayerPoint(int i){

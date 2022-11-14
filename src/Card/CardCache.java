@@ -6,7 +6,7 @@ import java.util.Optional;
 public class CardCache {
     private static Hashtable<String, Card> cardMap = new Hashtable<String, Card>();
 
-    public static Card getShape(String cardKey) {
+    public static Card getCard(String cardKey) {
         Card cachedCard = cardMap.get(cardKey);
         return (Card) cachedCard.clone();  //shallow clone
     }

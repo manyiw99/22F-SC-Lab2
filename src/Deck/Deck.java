@@ -16,20 +16,20 @@ public class Deck implements Iterable<Card>{
         cards=new ArrayList<Card>(56);
 
         CardCache.loadCache();
-        cards.add((Card)CardCache.getShape("LeafCard"));
+        cards.add((Card)CardCache.getCard("LeafCard"));
         for(int i=0; i<STOP_NUM;i++){
-            cards.add((Card)CardCache.getShape("StopCard"));
+            cards.add((Card)CardCache.getCard("StopCard"));
         }
         for(int i=0; i<OTHER_NUM;i++){
-            cards.add((Card)CardCache.getShape("FireworksCard"));
-            cards.add((Card)CardCache.getShape("StraightCard"));
-            cards.add((Card)CardCache.getShape("PMCard"));
-            cards.add((Card)CardCache.getShape("Mul2Card"));
-            cards.add((Card)CardCache.getShape("Bonus200"));
-            cards.add((Card)CardCache.getShape("Bonus300"));
-            cards.add((Card)CardCache.getShape("Bonus400"));
-            cards.add((Card)CardCache.getShape("Bonus500"));
-            cards.add((Card)CardCache.getShape("Bonus600"));
+            cards.add((Card)CardCache.getCard("FireworksCard"));
+            cards.add((Card)CardCache.getCard("StraightCard"));
+            cards.add((Card)CardCache.getCard("PMCard"));
+            cards.add((Card)CardCache.getCard("Mul2Card"));
+            cards.add((Card)CardCache.getCard("Bonus200"));
+            cards.add((Card)CardCache.getCard("Bonus300"));
+            cards.add((Card)CardCache.getCard("Bonus400"));
+            cards.add((Card)CardCache.getCard("Bonus500"));
+            cards.add((Card)CardCache.getCard("Bonus600"));
         }
 
         // Shuffle the cards

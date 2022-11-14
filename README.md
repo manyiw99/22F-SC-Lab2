@@ -7,5 +7,5 @@
 4. strategy pattern
 5. (?) composite pattern
 
-使用了nullability
+使用了nullability  
 封装：使用了enum, final, access modifier, iterator

@@ -3,7 +3,7 @@
 使用的设计模式
 1. 迭代器模式
 2. Prototype pattern
-3. singlton pattern
+3. singleton pattern
 4. strategy pattern
 5. (?) composite pattern
 

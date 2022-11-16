@@ -2,6 +2,7 @@ package Tools;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 public class DiceCalculation {
@@ -10,7 +11,7 @@ public class DiceCalculation {
      * @param num
      * @return
      */
-    public static int[] generateDice(int num){
+    public static Optional<int[]> generateDice(int num){
         System.out.println("The dice are: ");
         Random random = new Random();
         int[] dice = new int[num];
@@ -20,7 +21,7 @@ public class DiceCalculation {
         }
 
         System.out.println();
-        return dice;
+        return Optional.ofNullable(dice);
     }
 
     /**
@@ -54,4 +55,6 @@ public class DiceCalculation {
         // 最后返回的是输入的骰子可以获得的最大points，dice有可能是六位也有可能是12345位
         return 100;
     }
+
+    // Add all above methods for straight card
 }

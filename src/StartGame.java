@@ -87,20 +87,27 @@ public class StartGame {
 
             // If nextPlay=true, pass the dice to the next player
             boolean nextPlay = false;
-            boolean firstTime=false;
+
             while (!nextPlay) {
                 System.out.println("Choose Roll the dice or Display the current score(entering R or D):");
                 String input = inputValidationTool.readUser();
+                boolean isContinuous=false;
                 if (input.equals("R")) {
-                    if(!firstTime) {
+                    while(!isContinuous) {
                         if (card.getSuit() == Suit.BONUS) {
                             System.out.println("You have drawn Bonus Card, the bonus points are " + ((BonusCard) card).getBonus());
                         } else {
                             System.out.println("You have drawn " + card.getSuit() + " Card.");
                         }
-                        firstTime=true;
+
+                        // For bonus card, mul2 card, stop card, firework card and straight card
+                        playPoints = gm.playGame(card)+playPoints;
+                        isContinuous=!gm.isContinous(card);
+                        //System.out.println("Continuous after tutto: "+isContinuous);
+
+                        //if (card.getSuit() == Suit.PM)
+                        //if (card.getSuit() == Suit.LeafCard)
                     }
-                    playPoints = gm.playGame(card);
 
                     curentPlayScore=curentPlayScore+playPoints;
                     gm.setCurrentPlayerPoint(curentPlayScore,i);

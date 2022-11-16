@@ -90,4 +90,16 @@ public class GameModel {
     public int getWinningPoints(){
         return points.get();
     }
+
+    public boolean isContinous(Card card){
+        return card.getContinuousAfterTutto();
+    }
+
+    /**
+     * Get leading players according to points, used for PMCard
+     * @return
+     */
+    public List<Player> getLeadingPlayers(){
+        return players.get();
+    }
 }

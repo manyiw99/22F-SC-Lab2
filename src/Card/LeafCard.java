@@ -13,4 +13,8 @@ public class LeafCard extends Card{
     public int playGame() {
         return 0;
     }
+
+    public boolean isWin(){
+        return true;
+    }
 }

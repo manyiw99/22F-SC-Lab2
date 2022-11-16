@@ -13,6 +13,7 @@ public class StopCard extends Card{
      */
     @Override
     public int playGame() {
+        super.continuousAfterTutto=false;
         return 0;
     }
 }

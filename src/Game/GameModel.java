@@ -35,17 +35,6 @@ public class GameModel {
         return players.get();
     }
 
-    /**
-     * Sort thr order of players
-     */
-    public void sortOrder(){
-        // Set order for each player
-
-        // 从0开始设置order
-        players.get().get(0).setOrder(Optional.ofNullable(1));
-        players.get().get(1).setOrder(Optional.ofNullable(0));
-    }
-
     public Card drawCard(){
         Card card = deck.draw();
         if(card==null){
@@ -75,15 +64,15 @@ public class GameModel {
         return null;
     }
 
-    public void setCurrentPlayerPoint(int point, int order){
+    public void setCurrentPlayerPointByName(int point, String name){
         for(int j=0; j<players.get().size(); j++) {
-            if (players.get().get(j).getOrder().get() == order) {
+            if (players.get().get(j).getName().get() == name) {
                 players.get().get(j).setPoints(Optional.ofNullable(point));
             }
         }
     }
 
-    public int playGame(Card card){
+    public Optional<Integer> playGame(Card card){
         return card.playGame();
     }
 
@@ -96,10 +85,27 @@ public class GameModel {
     }
 
     /**
-     * Get leading players according to points, used for PMCard
+     * Get leading players names according to points, used for PMCard
      * @return
      */
-    public List<Player> getLeadingPlayers(){
-        return players.get();
+    public List<String> getLeadingPlayers(){
+        List<String> names = new ArrayList<>();
+        names.add("q");
+        return names;
+    }
+
+    /**
+     * Sort thr order of players
+     */
+    public void sortOrder(){
+        // Set order for each player
+
+        // 从0开始设置order
+        players.get().get(0).setOrder(Optional.ofNullable(1));
+        players.get().get(1).setOrder(Optional.ofNullable(0));
+    }
+
+    public boolean leaf_isWin(Card card){
+        return card.isWin();
     }
 }

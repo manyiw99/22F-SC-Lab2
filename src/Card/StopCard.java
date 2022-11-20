@@ -12,8 +12,8 @@ public class StopCard extends Card{
      * @return
      */
     @Override
-    public int playGame() {
+    public Optional<Integer> playGame() {
         super.continuousAfterTutto=false;
-        return 0;
+        return Optional.ofNullable(0);
     }
 }

@@ -7,7 +7,7 @@ public class StraightCard extends Card{
         super(suit);
     }
     @Override
-    public int playGame() {
-        return 0;
+    public Optional<Integer> playGame() {
+        return Optional.ofNullable(2000);
     }
 }

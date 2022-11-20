@@ -1,9 +1,8 @@
 package Tools;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
+
+import static Tools.InputValidation.*;
 
 public class DiceCalculation {
     /**
@@ -17,7 +16,7 @@ public class DiceCalculation {
         int[] dice = new int[num];
         for(int d=0; d< dice.length; d++){
             dice[d] = random.nextInt(6)+1;
-            System.out.print("("+d+") "+dice[d] +"    ");
+            System.out.print("("+(d+1)+") "+dice[d] +"    ");
         }
 
         System.out.println();
@@ -54,6 +53,27 @@ public class DiceCalculation {
     public static int calculatePoints(int[] dice){
         // 最后返回的是输入的骰子可以获得的最大points，dice有可能是六位也有可能是12345位
         return 100;
+    }
+
+    public static int[] selectDice(List<int[]> allValidDice){
+        int[] selectedDice = null;
+
+        boolean isSelected = false;
+        while(!isSelected){
+            System.out.println("Please choose the valid dice you want to keep(enter the number): ");
+            for(int a=0;a<allValidDice.size();a++){
+                System.out.println("("+(a+1)+")  "+ Arrays.toString(allValidDice.get(a)));
+            }
+            String selectedInput = readUser();
+            if(validateSelectNum(selectedInput,allValidDice.size())){
+                selectedDice = allValidDice.get(Integer.parseInt(selectedInput)-1);
+                isSelected = true;
+            }else{
+                System.out.println("Your selection is wrong, please enter again.");
+            }
+        }
+
+        return selectedDice;
     }
 
     // Add all above methods for straight card

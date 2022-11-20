@@ -31,13 +31,24 @@ public class InputValidation {
      * 1. validate the number of players: int, 2-4
      * 2. validate names
      * 3. validate the points need to win: int>=0
-     * 4. validate the select index: int<=5 and int>=0
      * @param input
-     *        type: NUM, NAME, POINTS, SELECT
+     *        type: NUM, NAME, POINTS
      * @return
      */
     public static boolean inputValidation(String input, String type){
 
+        return true;
+    }
+
+    /**
+     * validate the select index: int<=len+1 and int>=1
+     * @param input
+     * @param len
+     * @return
+     */
+    public static boolean validateSelectNum(String input, int len){
+        //input为用户输入的选择keep的骰子编号，从1开始
+        //首先验证是否为数字，其次数字范围
         return true;
     }
 

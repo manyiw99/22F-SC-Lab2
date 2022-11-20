@@ -8,7 +8,9 @@ public class FireworksCard extends Card{
         super(suit);
     }
     @Override
-    public int playGame() {
-        return 0;
+    public Optional<Integer> playGame() {
+
+        super.continuousAfterTutto=false;
+        return Optional.ofNullable(0);
     }
 }

@@ -10,3 +10,5 @@
 使用了nullability  
 封装：使用了enum, final, access modifier, iterator   
 依赖关系：startGame依赖于tool与gameModel, gameModel依赖于card,deck,player, card依赖于tool, deck依赖于card
+inheritance
+downcast

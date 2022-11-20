@@ -10,8 +10,8 @@ public class LeafCard extends Card{
     }
 
     @Override
-    public int playGame() {
-        return 0;
+    public Optional<Integer> playGame() {
+        return Optional.ofNullable(0);
     }
 
     public boolean isWin(){

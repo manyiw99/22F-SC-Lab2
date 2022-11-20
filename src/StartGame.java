@@ -7,7 +7,6 @@ import java.util.*;
 
 public class StartGame {
     GameModel gm;
-    ArrayList<Player> players;
     InputValidation inputValidationTool;
 
     /**
@@ -19,7 +18,7 @@ public class StartGame {
     public void setup(){
         int num = 0,points=0;
 
-        players = new ArrayList<>(num);
+        ArrayList<Player> players = new ArrayList<>(num);
 
         System.out.println("Please enter the number of players:");
         boolean isNum = false;
@@ -65,7 +64,7 @@ public class StartGame {
     }
 
     /**
-     * @return true: the game is finished
+     * @return names of players as string[]
      */
     public String[] play(){
         String winner[] = new String[gm.getPlayers().size()];
@@ -73,14 +72,10 @@ public class StartGame {
         for(int i =0;i<gm.getPlayers().size();i++) {
 
             //Get the current player
-            int curentPlayScore = gm.getCurrentPlayerPoint(i);
+            int currentPlayScore = gm.getCurrentPlayerPoint(i);
             String currentPlayerName = gm.getCurrentPlayerName(i);
 
-            System.out.println("----------Player "+(i+1)+": "+currentPlayerName+" turn -------------------------------");
-
-            // Draw card randomly
-            // Card card = gm.drawCard();
-            Card card=new BonusCard(Optional.ofNullable(Suit.BONUS),200);
+            System.out.println("----------Player "+(i+1)+": "+currentPlayerName+" turn ------------------------------------");
 
             // All points gained from dice
             int playPoints = 0;
@@ -91,40 +86,74 @@ public class StartGame {
             while (!nextPlay) {
                 System.out.println("Choose Roll the dice or Display the current score(entering R or D):");
                 String input = inputValidationTool.readUser();
-                boolean isContinuous=false;
+                boolean isContinuous=true; //If continuous after TUTTO
+                boolean isNullability=false; //If there's nullability in this round
                 if (input.equals("R")) {
-                    while(!isContinuous) {
+                    boolean isPM =false;
+                    while(isContinuous) {
+                        // Draw card randomly
+                        Card card = gm.drawCard();
+                        //Card card=new BonusCard(Optional.ofNullable(Suit.BONUS),200);
                         if (card.getSuit() == Suit.BONUS) {
                             System.out.println("You have drawn Bonus Card, the bonus points are " + ((BonusCard) card).getBonus());
                         } else {
                             System.out.println("You have drawn " + card.getSuit() + " Card.");
                         }
 
-                        // For bonus card, mul2 card, stop card, firework card and straight card
-                        playPoints = gm.playGame(card)+playPoints;
-                        isContinuous=!gm.isContinous(card);
-                        //System.out.println("Continuous after tutto: "+isContinuous);
+                        // Deal with PM Card-------------------------------------
+                        if (card.getSuit() == Suit.PM){
+                            isPM=true;
+                        }
 
-                        //if (card.getSuit() == Suit.PM)
-                        //if (card.getSuit() == Suit.LeafCard)
+                        if(card.getSuit()==Suit.LEAF){
+                            if(gm.leaf_isWin(card)){
+                                winner[i] = currentPlayerName;
+                                break;
+                            }
+                        }
+
+                        //Play game
+                        Optional<Integer> pointsFromCard = gm.playGame(card);
+                        // Null
+                        if(pointsFromCard.isEmpty()){
+                            // If null, reset all playpoints this round
+                            playPoints=0;
+                            isNullability=true;
+                            break;
+                        }else{
+                            playPoints = pointsFromCard.get()+playPoints;
+                        }
+
+                        isContinuous=gm.isContinous(card);
+                        //System.out.println("Value of isContinuous - "+isContinuous);
                     }
 
-                    curentPlayScore=curentPlayScore+playPoints;
-                    gm.setCurrentPlayerPoint(curentPlayScore,i);
-                    System.out.println("Your current score is: " + curentPlayScore);
+                    //If current player is not leading player, deduct 1000 for leading player
+                    if(isPM && (!isNullability)){
+                        List<String> leadingPlay=gm.getLeadingPlayers();
+                        for(int l=0; l<leadingPlay.size();l++){
+                            if(!leadingPlay.get(l).equals(currentPlayerName)){
+                                gm.setCurrentPlayerPointByName(currentPlayScore-1000,leadingPlay.get(l));
+                            }
+                        }
+                    }
+
+                    currentPlayScore=currentPlayScore+playPoints;
+                    gm.setCurrentPlayerPointByName(currentPlayScore,currentPlayerName);
+                    System.out.println("Your current score is: " + currentPlayScore);
                     nextPlay=true;
 
                 // choose display ------------------------------------------------------------------------------------------------
                 } else if (input.equals("D")) {
                     nextPlay=false;
-                    System.out.println("Your current score is: " + curentPlayScore);
+                    System.out.println("Your current score is: " + currentPlayScore);
                 }else{
                     nextPlay=false;
                     System.out.println("Input wrong. Please enter again.");
                 }
             }
 
-            if(curentPlayScore>= gm.getWinningPoints()){
+            if(currentPlayScore>= gm.getWinningPoints()){
                 winner[i]=currentPlayerName;
             }
         }

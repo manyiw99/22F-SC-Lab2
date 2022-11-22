@@ -36,6 +36,36 @@ public class InputValidation {
      * @return
      */
     public static boolean inputValidation(String input, String type){
+        if (input == null) {
+            return false;
+        }
+        switch (type) {
+            case "NUM":
+                if (input.equals(" ") || input.length() != 1) {
+                    return false;
+                }
+                int numOfPlayer = Integer.parseInt(input);
+                if (numOfPlayer < 2 || numOfPlayer > 4) {
+                    return false;
+                }
+                break;
+            case "NAME":
+                if (input.indexOf(" ") != -1) {
+                    return false;
+                }
+                break;
+            case "POINTS":
+                for (int i = 0; i < input.length(); i++) {
+                    if (!Character.isDigit(input.charAt(i))) {
+                        return false;
+                    }
+                }
+                int points = Integer.parseInt(input);
+                if (points < 0) {
+                    return false;
+                }
+                break;
+        }
 
         return true;
     }
@@ -47,6 +77,18 @@ public class InputValidation {
      * @return
      */
     public static boolean validateSelectNum(String input, int len){
+        if (input == null) {
+            return false;
+        }
+        for (int i = 0; i < input.length(); i++) {
+            if (!Character.isDigit(input.charAt(i))) {
+                return false;
+            }
+        }
+        int inputNum = Integer.parseInt(input);
+        if (inputNum < 1 || inputNum > len + 1) {
+            return false;
+        }
         //input为用户输入的选择keep的骰子编号，从1开始
         //首先验证是否为数字，其次数字范围
         return true;

@@ -65,6 +65,8 @@ public class InputValidation {
                     return false;
                 }
                 break;
+            default:
+                return false;
         }
 
         return true;

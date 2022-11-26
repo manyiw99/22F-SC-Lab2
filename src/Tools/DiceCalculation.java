@@ -7,16 +7,17 @@ import static Tools.InputValidation.*;
 public class DiceCalculation {
     /**
      * Random generate dice
+     *
      * @param num
      * @return
      */
-    public static Optional<int[]> generateDice(int num){
+    public static Optional<int[]> generateDice(int num) {
         System.out.println("The dice are: ");
         Random random = new Random();
         int[] dice = new int[num];
-        for(int d=0; d< dice.length; d++){
-            dice[d] = random.nextInt(6)+1;
-            System.out.print("("+(d+1)+") "+dice[d] +"    ");
+        for (int d = 0; d < dice.length; d++) {
+            dice[d] = random.nextInt(6) + 1;
+            System.out.print("(" + (d + 1) + ") " + dice[d] + "    ");
         }
 
         System.out.println();
@@ -25,12 +26,13 @@ public class DiceCalculation {
 
     /**
      * Check if the dice valid
+     *
      * @param dice
      * @return
      */
-    public static boolean isValidate(int[] dice){
+    public static boolean isValidate(Optional<int[]> dice) {
         //return true as long as the dice is not null
-        if (dice == null) {
+        if (!dice.isPresent()) {
             return false;
         }
         return true;
@@ -38,10 +40,11 @@ public class DiceCalculation {
 
     /**
      * Return all possible combinations of valid dice
+     *
      * @param dice
      * @return
      */
-    public static List<int[]> allValidDice(int[] dice){
+    public static List<int[]> allValidDice(int[] dice) {
         // todo: find out all the combination of valid dices
         // problem: five and one should be less than 3
         List<int[]> result = new ArrayList<>();
@@ -61,6 +64,7 @@ public class DiceCalculation {
 
     /**
      * Count all the valid dice from the input and calculate the final points
+     *
      * @param dice
      * @return
      */
@@ -73,7 +77,7 @@ public class DiceCalculation {
             }
             dice[i] = 0;
         }
-        return  result;
+        return result;
     }
 
     public static int calculateThreeDices(int[] dice, int result) {
@@ -93,7 +97,8 @@ public class DiceCalculation {
         if (value == -1) {
             System.out.println("no value occurs three times");
             return -1;
-        };
+        }
+        ;
 
         // replace two other occurrences of value in dice with 0
         for (; j < dice.length && found < 3; j++) {
@@ -114,7 +119,8 @@ public class DiceCalculation {
         }
         return false;
     }
-    public static int calculatePoints(int[] dice){
+
+    public static int calculatePoints(int[] dice) {
         int len = dice.length, point = 0;
         if (len == 1 || len == 2) {
             point = calculateSingleDices(dice, point);
@@ -130,28 +136,27 @@ public class DiceCalculation {
                 sum = Arrays.stream(dice).sum();
             }
         }
-            return point;
+        return point;
 
 
-        }
-        // 最后返回的是输入的骰子可以获得的最大points，dice有可能是六位也有可能是12345位
+    }
+    // 最后返回的是输入的骰子可以获得的最大points，dice有可能是六位也有可能是12345位
 
 
-
-    public static int[] selectDice(List<int[]> allValidDice){
+    public static int[] selectDice(List<int[]> allValidDice) {
         int[] selectedDice = null;
 
         boolean isSelected = false;
-        while(!isSelected){
+        while (!isSelected) {
             System.out.println("Please choose the valid dice you want to keep(enter the number): ");
-            for(int a=0;a<allValidDice.size();a++){
-                System.out.println("("+(a+1)+")  "+ Arrays.toString(allValidDice.get(a)));
+            for (int a = 0; a < allValidDice.size(); a++) {
+                System.out.println("(" + (a + 1) + ")  " + Arrays.toString(allValidDice.get(a)));
             }
             String selectedInput = readUser();
-            if(validateSelectNum(selectedInput,allValidDice.size())){
-                selectedDice = allValidDice.get(Integer.parseInt(selectedInput)-1);
+            if (validateSelectNum(selectedInput, allValidDice.size())) {
+                selectedDice = allValidDice.get(Integer.parseInt(selectedInput) - 1);
                 isSelected = true;
-            }else{
+            } else {
                 System.out.println("Your selection is wrong, please enter again.");
             }
         }

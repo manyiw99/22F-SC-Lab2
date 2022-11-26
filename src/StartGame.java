@@ -15,25 +15,25 @@ public class StartGame {
      * 3. Get players' names and sort them
      * 4. Get the points that need to win
      */
-    public void setup(){
-        int num = 0,points=0;
+    public void setup() {
+        int num = 0, points = 0;
 
         ArrayList<Player> players = new ArrayList<>(num);
 
         System.out.println("Please enter the number of players:");
         boolean isNum = false;
-        while(!isNum) {
+        while (!isNum) {
             String input = inputValidationTool.readUser();
             if (inputValidationTool.inputValidation(input, "NUM")) {
                 num = Integer.parseInt(input);
-                isNum=true;
+                isNum = true;
             } else {
                 System.out.println("Input wrong. Please enter again.");
             }
         }
 
-        for(int i=1; i<=num; i++) {
-            System.out.println("Please enter the name of player "+i+":");
+        for (int i = 1; i <= num; i++) {
+            System.out.println("Please enter the name of player " + i + ":");
             boolean isName = false;
             while (!isName) {
                 String input = inputValidationTool.readUser();
@@ -49,33 +49,33 @@ public class StartGame {
 
         System.out.println("Please enter the points need to win:");
         boolean isPoints = false;
-        while(!isPoints) {
+        while (!isPoints) {
             String input = inputValidationTool.readUser();
             if (inputValidationTool.inputValidation(input, "POINTS")) {
                 points = Integer.parseInt(input);
-                isPoints=true;
+                isPoints = true;
             } else {
                 System.out.println("Input wrong. Please enter again.");
             }
         }
 
-        gm = GameModel.getInstance(Optional.ofNullable(players),Optional.ofNullable(points));
+        gm = GameModel.getInstance(Optional.ofNullable(players), Optional.ofNullable(points));
         gm.sortOrder();
     }
 
     /**
      * @return names of players as string[]
      */
-    public String[] play(){
+    public String[] play() {
         String winner[] = new String[gm.getPlayers().size()];
         // The round is continued until each player has the same number of turns
-        for(int i =0;i<gm.getPlayers().size();i++) {
+        for (int i = 0; i < gm.getPlayers().size(); i++) {
 
             //Get the current player
             int currentPlayScore = gm.getCurrentPlayerPoint(i);
             String currentPlayerName = gm.getCurrentPlayerName(i);
 
-            System.out.println("----------Player "+(i+1)+": "+currentPlayerName+" turn ------------------------------------");
+            System.out.println("----------Player " + (i + 1) + ": " + currentPlayerName + " turn ------------------------------------");
 
             // All points gained from dice
             int playPoints = 0;
@@ -86,11 +86,11 @@ public class StartGame {
             while (!nextPlay) {
                 System.out.println("Choose Roll the dice or Display the current score(entering R or D):");
                 String input = inputValidationTool.readUser();
-                boolean isContinuous=true; //If continuous after TUTTO
-                boolean isNullability=false; //If there's nullability in this round
+                boolean isContinuous = true; //If continuous after TUTTO
+                boolean isNullability = false; //If there's nullability in this round
                 if (input.equals("R")) {
-                    boolean isPM =false;
-                    while(isContinuous) {
+                    boolean isPM = false;
+                    while (isContinuous) {
                         // Draw card randomly
                         Card card = gm.drawCard();
                         //Card card=new BonusCard(Optional.ofNullable(Suit.BONUS),200);
@@ -101,12 +101,12 @@ public class StartGame {
                         }
 
                         // Deal with PM Card-------------------------------------
-                        if (card.getSuit() == Suit.PM){
-                            isPM=true;
+                        if (card.getSuit() == Suit.PM) {
+                            isPM = true;
                         }
 
-                        if(card.getSuit()==Suit.LEAF){
-                            if(gm.leaf_isWin(card)){
+                        if (card.getSuit() == Suit.LEAF) {
+                            if (gm.leaf_isWin(card)) {
                                 winner[i] = currentPlayerName;
                                 break;
                             }
@@ -115,65 +115,65 @@ public class StartGame {
                         //Play game
                         Optional<Integer> pointsFromCard = gm.playGame(card);
                         // Null
-                        if(pointsFromCard.isEmpty()){
+                        if (pointsFromCard.isEmpty()) {
                             // If null, reset all playpoints this round
-                            playPoints=0;
-                            isNullability=true;
+                            playPoints = 0;
+                            isNullability = true;
                             break;
-                        }else{
-                            playPoints = pointsFromCard.get()+playPoints;
+                        } else {
+                            playPoints = pointsFromCard.get() + playPoints;
                         }
 
-                        isContinuous=gm.isContinous(card);
+                        isContinuous = gm.isContinous(card);
                         //System.out.println("Value of isContinuous - "+isContinuous);
                     }
 
                     //If current player is not leading player, deduct 1000 for leading player
-                    if(isPM && (!isNullability)){
-                        List<String> leadingPlay=gm.getLeadingPlayers();
-                        for(int l=0; l<leadingPlay.size();l++){
-                            if(!leadingPlay.get(l).equals(currentPlayerName)){
-                                gm.setCurrentPlayerPointByName(currentPlayScore-1000,leadingPlay.get(l));
+                    if (isPM && (!isNullability)) {
+                        List<String> leadingPlay = gm.getLeadingPlayers();
+                        for (int l = 0; l < leadingPlay.size(); l++) {
+                            if (!leadingPlay.get(l).equals(currentPlayerName)) {
+                                gm.setCurrentPlayerPointByName(currentPlayScore - 1000, leadingPlay.get(l));
                             }
                         }
                     }
 
-                    currentPlayScore=currentPlayScore+playPoints;
-                    gm.setCurrentPlayerPointByName(currentPlayScore,currentPlayerName);
+                    currentPlayScore = currentPlayScore + playPoints;
+                    gm.setCurrentPlayerPointByName(currentPlayScore, currentPlayerName);
                     System.out.println("Your current score is: " + currentPlayScore);
-                    nextPlay=true;
+                    nextPlay = true;
 
-                // choose display ------------------------------------------------------------------------------------------------
+                    // choose display ------------------------------------------------------------------------------------------------
                 } else if (input.equals("D")) {
-                    nextPlay=false;
+                    nextPlay = false;
                     System.out.println("Your current score is: " + currentPlayScore);
-                }else{
-                    nextPlay=false;
+                } else {
+                    nextPlay = false;
                     System.out.println("Input wrong. Please enter again.");
                 }
             }
 
-            if(currentPlayScore>= gm.getWinningPoints()){
-                winner[i]=currentPlayerName;
+            if (currentPlayScore >= gm.getWinningPoints()) {
+                winner[i] = currentPlayerName;
             }
         }
 
         return winner;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         StartGame startGame = new StartGame();
         // Get user input and initialize the game
         startGame.setup();
 
         boolean isFinish = false;
-        while(!isFinish){
+        while (!isFinish) {
             String[] winner = startGame.play();
-            if(winner.length==0){
-                isFinish=false;
-            }else{
-                System.out.println("Game end! Winner is "+Arrays.toString(winner));
-                isFinish=true;
+            if (winner.length == 0) {
+                isFinish = false;
+            } else {
+                System.out.println("Game end! Winner is " + Arrays.toString(winner));
+                isFinish = true;
             }
         }
     }

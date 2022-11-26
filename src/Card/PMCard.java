@@ -16,7 +16,7 @@ public class PMCard extends Card{
     public Optional<Integer> playGame() {
         Optional<int[]> dice = diceTool.generateDice(6);
         //If contains at least one valid dice--------------------------------------------------------
-        if(diceTool.isValidate(dice.get())){
+        if(diceTool.isValidate(dice)){
             // Cannot stop until TUTTO
             System.out.println("You cannot stop before TUTTO.");
             while(dice.isPresent()){

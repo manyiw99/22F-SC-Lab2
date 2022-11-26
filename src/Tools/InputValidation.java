@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class InputValidation {
     /**
@@ -94,6 +96,14 @@ public class InputValidation {
         //input为用户输入的选择keep的骰子编号，从1开始
         //首先验证是否为数字，其次数字范围
         return true;
+    }
+
+    public static boolean validateSelectStraight(List<Integer> input, List<Integer> allValidDice){
+        if (input == null) {
+            return false;
+        }
+
+        return allValidDice.containsAll(input);
     }
 
 }

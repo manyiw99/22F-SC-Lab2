@@ -12,14 +12,15 @@ public class GameModel {
     private Deck deck;
     private static GameModel INSTANCE;  //Singleton design pattern
 
-    private GameModel(Optional<ArrayList<Player>> players, Optional<Integer> points){
-        this.players=players;
-        this.points=points;
-        deck=new Deck();
+    private GameModel(Optional<ArrayList<Player>> players, Optional<Integer> points) {
+        this.players = players;
+        this.points = points;
+        deck = new Deck();
     }
 
     /**
      * Implementation of singleton design pattern
+     *
      * @param players
      * @param points
      * @return
@@ -31,21 +32,21 @@ public class GameModel {
         return INSTANCE;
     }
 
-    public ArrayList<Player> getPlayers(){
+    public ArrayList<Player> getPlayers() {
         return players.get();
     }
 
-    public Card drawCard(){
+    public Card drawCard() {
         Card card = deck.draw();
-        if(card==null){
-            deck=new Deck();
+        if (card == null) {
+            deck = new Deck();
             drawCard();
         }
         return card;
     }
 
-    public int getCurrentPlayerPoint(int i){
-        for(int j=0; j<players.get().size(); j++) {
+    public int getCurrentPlayerPoint(int i) {
+        for (int j = 0; j < players.get().size(); j++) {
             if (players.get().get(j).getOrder().get() == i) {
                 return players.get().get(i).getPoints().get();
             }
@@ -54,8 +55,8 @@ public class GameModel {
         return -1;
     }
 
-    public String getCurrentPlayerName(int i){
-        for(int j=0; j<players.get().size(); j++) {
+    public String getCurrentPlayerName(int i) {
+        for (int j = 0; j < players.get().size(); j++) {
             if (players.get().get(j).getOrder().get() == i) {
                 return players.get().get(i).getName().get();
             }
@@ -64,31 +65,32 @@ public class GameModel {
         return null;
     }
 
-    public void setCurrentPlayerPointByName(int point, String name){
-        for(int j=0; j<players.get().size(); j++) {
+    public void setCurrentPlayerPointByName(int point, String name) {
+        for (int j = 0; j < players.get().size(); j++) {
             if (players.get().get(j).getName().get() == name) {
                 players.get().get(j).setPoints(Optional.ofNullable(point));
             }
         }
     }
 
-    public Optional<Integer> playGame(Card card){
+    public Optional<Integer> playGame(Card card) {
         return card.playGame();
     }
 
-    public int getWinningPoints(){
+    public int getWinningPoints() {
         return points.get();
     }
 
-    public boolean isContinous(Card card){
+    public boolean isContinous(Card card) {
         return card.getContinuousAfterTutto();
     }
 
     /**
      * Get leading players names according to points, used for PMCard
+     *
      * @return
      */
-    public List<String> getLeadingPlayers(){
+    public List<String> getLeadingPlayers() {
         List<String> names = new ArrayList<>();
         names.add("q");
         return names;
@@ -97,7 +99,7 @@ public class GameModel {
     /**
      * Sort thr order of players
      */
-    public void sortOrder(){
+    public void sortOrder() {
         // Set order for each player
 
         // 从0开始设置order
@@ -105,7 +107,7 @@ public class GameModel {
         players.get().get(1).setOrder(Optional.ofNullable(0));
     }
 
-    public boolean leaf_isWin(Card card){
+    public boolean leaf_isWin(Card card) {
         return card.isWin();
     }
 }

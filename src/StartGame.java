@@ -92,8 +92,8 @@ public class StartGame {
                     boolean isPM = false;
                     while (isContinuous) {
                         // Draw card randomly
-                        Card card = gm.drawCard();
-                        //Card card=new BonusCard(Optional.ofNullable(Suit.BONUS),200);
+//                        Card card = gm.drawCard();
+                        Card card=new StraightCard(Optional.ofNullable(Suit.STRAIGHT));
                         if (card.getSuit() == Suit.BONUS) {
                             System.out.println("You have drawn Bonus Card, the bonus points are " + ((BonusCard) card).getBonus());
                         } else {

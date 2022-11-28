@@ -1,5 +1,6 @@
 package Card;
 
+import Tools.DiceCalculationAllCards;
 import Tools.DiceCalculationStraight;
 
 import java.util.ArrayList;
@@ -12,15 +13,15 @@ public class StraightCard extends Card {
         super(suit);
     }
 
-    public DiceCalculationStraight diceTool;
+    public DiceCalculationStraight diceTool = new DiceCalculationStraight();
     private List<Integer> expectedDice = new ArrayList<>(List.of(1,2,3,4,5,6));
     private List<Integer> diceList = new ArrayList<>();
 
     @Override
     public Optional<Integer> playGame() {
-//        Optional<int[]> dice = diceTool.generateDice(6);
-        int[] test = {1,2,3,4,5,6};
-        Optional<int[]> dice = Optional.of(test);
+        Optional<int[]> dice = DiceCalculationAllCards.generateDice(6);
+//        int[] test = {1,2,3,4,5,6};
+//        Optional<int[]> dice = Optional.of(test);
         int playPoints = 0;
 
         //If contains at least one valid dice--------------------------------------------------------
@@ -40,7 +41,7 @@ public class StraightCard extends Card {
                 expectedDice.removeAll(diceTool.diceToList(Optional.of(selectedDice)));
 
                 // Roll the remaining dice
-                dice = diceTool.generateDice(diceList.size() - selectedDice.length);
+                dice = DiceCalculationAllCards.generateDice(diceList.size() - selectedDice.length);
 
                 if (diceList.size() - selectedDice.length == 0) { //Tutto and continue throwing dice
                     playPoints += 2000;
@@ -52,7 +53,7 @@ public class StraightCard extends Card {
                         dice = Optional.empty();
                     } else if (chooseInput.equals("C")) { // continue---------------------
                         expectedDice = new ArrayList<>(List.of(1,2,3,4,5,6));
-                        dice = diceTool.generateDice(6);
+                        dice = DiceCalculationAllCards.generateDice(6);
                     } else {
                         continuousAfterTutto = false;
                         System.out.println("Input wrong. Please enter again.");

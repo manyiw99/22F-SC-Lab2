@@ -1,5 +1,7 @@
 package Card;
 
+import Tools.DiceCalculationAllCards;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +16,7 @@ public class PMCard extends Card{
      */
     @Override
     public Optional<Integer> playGame() {
-        Optional<int[]> dice = diceTool.generateDice(6);
+        Optional<int[]> dice = DiceCalculationAllCards.generateDice(6);
         //If contains at least one valid dice--------------------------------------------------------
         if(diceTool.isValidate(dice)){
             // Cannot stop until TUTTO

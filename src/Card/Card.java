@@ -29,7 +29,7 @@ public abstract class Card implements Cloneable {
     public Optional<Integer> playGame() {
         int playPoints = 0;
         // Generate dice randomly
-        Optional<int[]> dice = diceTool.generateDice(6);
+        Optional<int[]> dice = DiceCalculationAllCards.generateDice(6);
         //If contains at least one valid dice--------------------------------------------------------
         if (diceTool.isValidate(dice)) {
             while (dice.isPresent()) {
@@ -37,7 +37,7 @@ public abstract class Card implements Cloneable {
                 String chooseInput = inputValidation_tool.readUser();
 
                 if (chooseInput.equals("S")) { // stop ----------------------------
-                    playPoints = playPoints + diceTool.calculatePoints(dice.get());
+                    playPoints = playPoints + DiceCalculationOtherCards.calculatePoints(dice.get());
                     continuousAfterTutto = false;
                     dice = Optional.empty();
                 } else if (chooseInput.equals("C")) { // continue---------------------
@@ -48,7 +48,7 @@ public abstract class Card implements Cloneable {
 
                     // Roll the remaining dice
                     dice = remainingDice(dice, selectedDice);
-                    playPoints += diceTool.calculatePoints(selectedDice);
+                    playPoints += DiceCalculationOtherCards.calculatePoints(selectedDice);
                 } else {
                     continuousAfterTutto = false;
                     System.out.println("Input wrong. Please enter again.");
@@ -102,7 +102,7 @@ public abstract class Card implements Cloneable {
             }
         } else {
             continuousAfterTutto = false;
-            dice = diceTool.generateDice(dice.get().length - selectedDice.length);
+            dice = DiceCalculationAllCards.generateDice(dice.get().length - selectedDice.length);
         }
 
         return dice;

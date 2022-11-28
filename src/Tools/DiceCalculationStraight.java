@@ -8,19 +8,19 @@ import java.util.stream.Collectors;
 
 import static Tools.InputValidation.*;
 
-public class DiceCalculationStraight extends DiceCalculationAll {
+public class DiceCalculationStraight implements DiceCalculationStraightCard {
 
     public boolean isValidate(Optional<int[]> dice, int i) {
         return false;
     }
 
-    public static List<Integer> allValidDice(List<Integer> diceList, List<Integer> expectedList) {
+    public List<Integer> allValidDice(List<Integer> diceList, List<Integer> expectedList) {
         List<Integer> expectedDiceCopy = new ArrayList<>(expectedList);
         expectedDiceCopy.retainAll(diceList);
         return expectedDiceCopy;
     }
 
-    public static int[] selectDice(List<Integer> allValidDice, List<Integer> expectedDice) {
+    public int[] selectDice(List<Integer> allValidDice, List<Integer> expectedDice) {
         while (true) {
             System.out.println("Please choose the valid dice you want to keep(eg.3,4,6): ");
             for (Integer integer : allValidDice) {
@@ -46,7 +46,7 @@ public class DiceCalculationStraight extends DiceCalculationAll {
         }
     }
 
-    public static List<Integer> diceToList(Optional<int[]> dice) {
+    public List<Integer> diceToList(Optional<int[]> dice) {
         int[] diceNum = dice.get();
         List<Integer> diceList = new ArrayList<>();
         for (int i : diceNum) {
@@ -54,4 +54,5 @@ public class DiceCalculationStraight extends DiceCalculationAll {
         }
         return diceList;
     }
+
 }

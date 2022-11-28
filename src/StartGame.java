@@ -169,7 +169,16 @@ public class StartGame {
         boolean isFinish = false;
         while (!isFinish) {
             String[] winner = startGame.play();
-            if (winner.length == 0) {
+
+            boolean isWin=true;
+            for(int i=0;i<winner.length;i++){
+                if(winner[i]==null){
+                    isWin=false;
+                    break;
+                }
+            }
+
+            if (!isWin) {
                 isFinish = false;
             } else {
                 System.out.println("Game end! Winner is " + Arrays.toString(winner));

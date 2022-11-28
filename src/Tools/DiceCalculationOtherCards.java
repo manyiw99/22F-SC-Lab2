@@ -17,25 +17,63 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
         return result;
     }
 
-    static int[] selectDice(List<int[]> allValidDice) {
-        int[] selectedDice = null;
+//    static int[] selectDice(List<int[]> allValidDice) {
+//        int[] selectedDice = null;
+//
+//        boolean isSelected = false;
+//        while (!isSelected) {
+//            System.out.println("Please choose the valid dice you want to keep( eg. [1],[2,2,2],[6] ): ");
+//            for (int a = 0; a < allValidDice.size(); a++) {
+//                System.out.println("(" + (a + 1) + ")  " + Arrays.toString(allValidDice.get(a)));
+//            }
+//            String selectedInput = readUser();
+//            if (validateSelectNum(selectedInput, allValidDice.size())) {
+//                selectedDice = allValidDice.get(Integer.parseInt(selectedInput) - 1);
+//                isSelected = true;
+//            } else {
+//                System.out.println("Your selection is wrong, please enter again.");
+//            }
+//        }
+//
+//        return selectedDice;
+//    }
+
+    static List<int[]> selectDice(int[] dice) {
+        List<int[]> selectedDice = new ArrayList<>();
 
         boolean isSelected = false;
         while (!isSelected) {
-            System.out.println("Please choose the valid dice you want to keep(enter the number): ");
-            for (int a = 0; a < allValidDice.size(); a++) {
-                System.out.println("(" + (a + 1) + ")  " + Arrays.toString(allValidDice.get(a)));
-            }
+            System.out.println("Please enter the valid dice you want to keep( eg. [1],[2,2,2],[6] ): ");
             String selectedInput = readUser();
-            if (validateSelectNum(selectedInput, allValidDice.size())) {
-                selectedDice = allValidDice.get(Integer.parseInt(selectedInput) - 1);
-                isSelected = true;
+            if (validateSelectedDice(selectedInput, dice)) {
+                String[] dices = selectedInput.split(",");
+                for(int i=0; i<dices.length;i++){
+                    int[] formatDice = new int[]{};
+                    if(dices[i].length()==3){
+                        formatDice[0]=Integer.parseInt(dices[i].substring(1,2));
+                    }else if(dices[i].length()==7){
+                        formatDice[0]=Integer.parseInt(dices[i].substring(1,2));
+                        formatDice[1]=Integer.parseInt(dices[i].substring(1,2));
+                        formatDice[2]=Integer.parseInt(dices[i].substring(1,2));
+                    }else{
+                        System.out.println("Your input is invalid dice, please enter again.");
+                        break;
+                    }
+                    selectedDice.add(formatDice);
+                    isSelected = true;
+                }
+                //selectedDice = allValidDice.get(Integer.parseInt(selectedInput) - 1);
+
             } else {
-                System.out.println("Your selection is wrong, please enter again.");
+                System.out.println("Your input is invalid dice, please enter again.");
             }
         }
 
         return selectedDice;
+    }
+
+    private static boolean validateSelectedDice(String input, int[] dice){
+        return true;
     }
 
     static int[] count(int[] dice) {
@@ -181,6 +219,11 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
             }
         }
         return false;
+    }
+
+    // Use of overload
+    static int calculatePoints(List<int[]> dice){
+        return 10;
     }
 
     static int calculatePoints(int[] dice) {

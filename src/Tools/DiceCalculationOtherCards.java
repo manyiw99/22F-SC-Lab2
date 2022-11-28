@@ -96,5 +96,7 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
 
     List<int[]> allValidDice(int[] dice);
 
+    List<int[]> allValidDice(int[] dice, int k);
+
     int[] selectDice(List<int[]> allValidDice);
 }

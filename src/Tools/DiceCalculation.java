@@ -4,7 +4,7 @@ import java.util.*;
 
 import static Tools.InputValidation.*;
 
-public class DiceCalculation implements DiceCalculationOtherCards {
+public abstract class DiceCalculation implements DiceCalculationOtherCards {
 
     /**
      * Check if the dice valid
@@ -21,6 +21,14 @@ public class DiceCalculation implements DiceCalculationOtherCards {
         return true;
     }
 
+    @Override
+    public List<int[]> allValidDice(int[] dice, int k) {
+        List<Integer> pos = allValidValue(dice);
+        int[] choice = pos.stream().mapToInt(i -> i).toArray();
+        List<int[]> result = combination(choice, k);
+        return result;
+    }
+
     /**
      * Return all possible combinations of valid dice
      *
@@ -30,7 +38,7 @@ public class DiceCalculation implements DiceCalculationOtherCards {
 
     public static List<Integer> allValidValue(int[] dice) {
         List<Integer> pos = new ArrayList<Integer>();
-        int[] counter = count(dice);
+        int[] counter = DiceCalculationOtherCards.count(dice);
         for (int i = 1; i < 7; i++) {
             if (((i != 1) && counter[i] < 3) || ((i != 5) && counter[i] < 3) && counter[i] == 0) {
                 continue;
@@ -44,14 +52,6 @@ public class DiceCalculation implements DiceCalculationOtherCards {
         return pos;
     }
 
-    public static List<int[]> allValidDice(int[] dice, int k){
-        // todo: remove the ones which are not valid
-        List<Integer> pos = allValidValue(dice);
-        int[] choice = pos.stream().mapToInt(i -> i).toArray();
-        List<int[]> result = combination(choice, k);
-        return result;
-
-    }
 
     @Override
     public int[] selectDice(List<int[]> allValidDice) {
@@ -83,33 +83,8 @@ public class DiceCalculation implements DiceCalculationOtherCards {
         return true;
     }
 
-    // Add all above methods for straight card
-    public static int calculatePointsStraightCard(int[] dice, int[] counter) {
-        for (int i = 0; i < dice.length; i++) {
-            counter[dice[i]] += 1;
-        }
-        for (int i = 1; i < counter.length; i++) {
-            if (counter[i] != 1) {
-                return 0;
-            }
-        }
-        return 2000;
-    }
 
-    public static List<int[]> allValidDiceStraightCard(int[] dice, int k){
-        // todo: find out all the combination of valid dices
 
-        List<Integer> unique = new ArrayList<Integer>();
-        int[] counter = count(dice);
-        for (int i = 1; i < 7; i++) {
-            if (counter[i] > 0) {
-                unique.add(i);
-            }
-        }
-        int[] choice = unique.stream().mapToInt(i -> i).toArray();
-        List<int[]> result = combination(choice, k);
-        return result;
-    }
     public static List<int[]> combination(int[] e, int k){
         List<int[]> result = new ArrayList<>();
         int[] ignore = new int[e.length-k]; // --> [0][0]

@@ -72,6 +72,16 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
         return selectedDice;
     }
 
+    /**
+     * 1. not null, not empty
+     * 2. isdigit()
+     * 3. int[] format, split by comma
+     * 4. overall length < dice.length()
+     * 5. valid
+     * @param input
+     * @param dice
+     * @return
+     */
     private static boolean validateSelectedDice(String input, int[] dice){
         return true;
     }

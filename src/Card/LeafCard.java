@@ -1,6 +1,7 @@
 package Card;
 
 import Tools.DiceCalculationAllCards;
+import Tools.DiceCalculationOtherCards;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,11 +17,11 @@ public class LeafCard extends Card {
     public Optional<Integer> playGame() {
         int TuttoNum = 0; //number of times that Tutto, it has to be 2 to finish
         Optional<int[]> dice = DiceCalculationAllCards.generateDice(6);
-        if (diceTool.isValidate(dice)) {
+        if (DiceCalculationOtherCards.isValidate(dice)) {
             // Cannot stop until NULL
             System.out.println("You cannot stop before TUTTO twice or NULL.");
             while (dice.isPresent()) {
-                List<int[]> allValidDiceChoice = diceTool.allValidDice(dice.get());
+                List<int[]> allValidDiceChoice = DiceCalculationOtherCards.allValidDice(dice.get());
                 int[] allValidDice = allValidDiceChoice.get(allValidDiceChoice.size());
                 // Roll the remaining dice and keep all valid dice
                 dice = super.remainingDice(dice, allValidDice);
@@ -32,7 +33,7 @@ public class LeafCard extends Card {
                     }
                     System.out.println("TUTTO! You cannot stop before another TUTTO.");
                     dice = DiceCalculationAllCards.generateDice(6);
-                    if (!diceTool.isValidate(dice)) { //If no valid dice
+                    if (!DiceCalculationOtherCards.isValidate(dice)) { //If no valid dice
                         break;
                     }
                 }

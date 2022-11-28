@@ -21,11 +21,11 @@ public class FireworksCard extends Card {
         Optional<int[]> dice = DiceCalculationAllCards.generateDice(6);
         //for(int i =0; i<6;i++) diceCopy[i] = dice.get()[i];
         //If contains at least one valid dice--------------------------------------------------------
-        if (diceTool.isValidate(dice)) {
+        if (DiceCalculationOtherCards.isValidate(dice)) {
             // Cannot stop until NULL
             System.out.println("You cannot stop before NULL.");
             while (dice.isPresent()) {
-                List<int[]> allValidDiceChoice = diceTool.allValidDice(dice.get());
+                List<int[]> allValidDiceChoice = DiceCalculationOtherCards.allValidDice(dice.get());
                 int[] allValidDice = allValidDiceChoice.get(allValidDiceChoice.size());
                 // Roll the remaining dice and keep all valid dice
                 dice = super.remainingDice(dice, allValidDice);
@@ -33,7 +33,7 @@ public class FireworksCard extends Card {
                 if (dice.isEmpty()) { //Tutto and continue throwing dice
                     System.out.println("TUTTO! You cannot stop before NULL.");
                     dice = DiceCalculationAllCards.generateDice(6);
-                    if (!diceTool.isValidate(dice)) { //If no valid dice
+                    if (!DiceCalculationOtherCards.isValidate(dice)) { //If no valid dice
                         break;
                     }
                 }

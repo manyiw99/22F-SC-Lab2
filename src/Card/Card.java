@@ -31,7 +31,7 @@ public abstract class Card implements Cloneable {
         // Generate dice randomly
         Optional<int[]> dice = DiceCalculationAllCards.generateDice(6);
         //If contains at least one valid dice--------------------------------------------------------
-        if (diceTool.isValidate(dice)) {
+        if (DiceCalculationOtherCards.isValidate(dice)) {
             while (dice.isPresent()) {
                 System.out.println("Your dice are valid. Choose Continue or Stop(enter C or S):");
                 String chooseInput = inputValidation_tool.readUser();
@@ -41,10 +41,10 @@ public abstract class Card implements Cloneable {
                     continuousAfterTutto = false;
                     dice = Optional.empty();
                 } else if (chooseInput.equals("C")) { // continue---------------------
-                    List<int[]> allValidDice = diceTool.allValidDice(dice.get());
+                    List<int[]> allValidDice = DiceCalculationOtherCards.allValidDice(dice.get());
 
                     // Get the dice to keep-----------------------------------------
-                    int[] selectedDice = diceTool.selectDice(allValidDice);
+                    int[] selectedDice = DiceCalculationOtherCards.selectDice(allValidDice);
 
                     // Roll the remaining dice
                     dice = remainingDice(dice, selectedDice);

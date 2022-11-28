@@ -124,7 +124,7 @@ public class StartGame {
                             playPoints = pointsFromCard.get() + playPoints;
                         }
 
-                        isContinuous = gm.isContinous(card);
+                        isContinuous = gm.isContinuous(card);
                         //System.out.println("Value of isContinuous - "+isContinuous);
                     }
 

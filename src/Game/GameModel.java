@@ -81,7 +81,7 @@ public class GameModel {
         return points.get();
     }
 
-    public boolean isContinous(Card card) {
+    public boolean isContinuous(Card card) {
         return card.getContinuousAfterTutto();
     }
 

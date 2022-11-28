@@ -122,6 +122,7 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
         List<int[]> result = new ArrayList<>();
         int[] counter = DiceCalculationOtherCards.count(dice);
 
+<<<<<<< HEAD
 
         return result;
     }
@@ -147,4 +148,9 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
 
         return selectedDice;
     }
+=======
+    List<int[]> allValidDice(int[] dice, int k);
+
+    int[] selectDice(List<int[]> allValidDice);
+>>>>>>> 681cf2c2e0df15ddb1aa1a80c75c8be350a5b21d
 }

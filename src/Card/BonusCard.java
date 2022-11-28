@@ -1,5 +1,7 @@
 package Card;
 
+import Tools.DiceCalculation;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;

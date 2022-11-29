@@ -1,9 +1,6 @@
 package Tools;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static Tools.InputValidation.readUser;
@@ -277,10 +274,23 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
      */
     static boolean isValidate(Optional<int[]> dice) {
         //return true as long as the dice is not null
-        if (!dice.isPresent()) {
-            return false;
+        int[] result = new int[6];
+        if (dice.isPresent()) {
+            result = dice.get();
         }
-        return true;
+        int[] counter = count(result);
+        for (int i = 1; i < 7; i++) {
+            if (i == 1 || i == 5) {
+                if (counter[i] > 0) {
+                    return true;
+                }
+            } else {
+                if (counter[i] >= 3) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 

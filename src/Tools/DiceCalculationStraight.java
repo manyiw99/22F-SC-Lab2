@@ -10,10 +10,6 @@ import static Tools.InputValidation.*;
 
 public class DiceCalculationStraight implements DiceCalculationStraightCard {
 
-    public boolean isValidate(Optional<int[]> dice, int i) {
-        return false;
-    }
-
     public List<Integer> allValidDice(List<Integer> diceList, List<Integer> expectedList) {
         List<Integer> expectedDiceCopy = new ArrayList<>(expectedList);
         expectedDiceCopy.retainAll(diceList);

@@ -33,8 +33,7 @@ public abstract class Card implements Cloneable {
         //If contains at least one valid dice--------------------------------------------------------
         if (DiceCalculationOtherCards.isValidate(dice)) {
             while (dice.isPresent()) {
-                System.out.println("Your dice are valid. Choose Continue or Stop(enter C or S):");
-                String chooseInput = inputValidation_tool.readUser();
+                String chooseInput = ContinueOrStop();
 
                 if (chooseInput.equals("S")) { // stop ----------------------------
                     playPoints = playPoints + DiceCalculationOtherCards.calculatePoints(dice.get());
@@ -90,8 +89,7 @@ public abstract class Card implements Cloneable {
             dice = Optional.empty();
             boolean isContinuous = false;
             while (!isContinuous) {
-                System.out.println("Tutto! Choose Continue or Stop(enter C or S):");
-                String chooseInputAfterTutto = inputValidation_tool.readUser();
+                String chooseInputAfterTutto = ContinueOrStop();
                 if (chooseInputAfterTutto.equals("S")) { // stop ----------------------------
                     isContinuous = true;
                     continuousAfterTutto = false;
@@ -110,6 +108,11 @@ public abstract class Card implements Cloneable {
         }
 
         return dice;
+    }
+
+    public String ContinueOrStop() {
+        System.out.println("Tutto! Choose Continue or Stop(enter C or S):");
+        return inputValidation_tool.readUser();
     }
 
     public Object clone() {

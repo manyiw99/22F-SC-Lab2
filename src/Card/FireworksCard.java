@@ -41,7 +41,6 @@ public class FireworksCard extends Card {
                 }
                 playPoints = playPoints + DiceCalculationOtherCards.calculatePoints(diceArray);
                 if (dice.isEmpty()) { //Tutto and continue throwing dice
-                    System.out.println("TUTTO! You cannot stop before NULL.");
                     dice = DiceCalculationAllCards.generateDice(6);
                     if (!DiceCalculationOtherCards.isValidate(dice)) { //If no valid dice
                         break;
@@ -56,5 +55,10 @@ public class FireworksCard extends Card {
             System.out.println("You have rolled a null. Next turn.");
             return Optional.empty();
         }
+    }
+    @Override
+    public String ContinueOrStop(){
+        System.out.println("TUTTO! You cannot stop before NULL.");
+        return "C";
     }
 }

@@ -230,7 +230,7 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards {
 
     static boolean exitThreeDices(int[] dice) {
         int[] counter = count(dice);
-        for (int i = 1; i < 8; i++) {
+        for (int i = 1; i < 7; i++) {
             if (counter[i] == 3) {
                 return true;
             }
@@ -255,7 +255,7 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards {
         int point = 0;
         boolean existThree = exitThreeDices(dice);
         while (existThree) {
-            calculateThreeDices(dice, point);
+            point += calculateThreeDices(dice, point);
             existThree = exitThreeDices(dice);
         }
         for (int i : dice) {

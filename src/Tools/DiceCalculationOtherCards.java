@@ -83,17 +83,17 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards {
      */
     private static boolean validateSelectedDice(String input, int[] dice) {
         int[] counter = count(dice);
-        List<int[]> selected = (List<int[]>) Stream.of(input.split(","));
-        for (int[] i : selected) {
-            if (i.length == 1) {
-                int e1 = i[0];
-                if (counter[e1] == 0 || (e1 != 1 && e1 != 5)) {
-                    return false;
-                }
-            } else if (i.length == 3) {
-                int e2 = i[0];
-                if (counter[e2] < 3) {
-                    return false;
+        List<String> separatedInput = List.of(input.split(","));
+        for (String i : separatedInput) {
+            String value = i.substring(1,i.length() - 2);
+            if (value.length() == 1 && value.charAt(0) != '1' && value.charAt(0) == '5') {
+                return false;
+            } else if (value.length() == 5) {
+                char target = value.charAt(0);
+                for (int j = 2; j < value.length(); j = j + 2) {
+                    if (value.charAt(j) != target) {
+                        return false;
+                    }
                 }
             } else {
                 return false;

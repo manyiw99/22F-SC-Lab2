@@ -195,7 +195,7 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
             } else {
                 result += 50;
             }
-            dice[i] = 0;
+//            dice[i] = 0;
         }
         return result;
     }
@@ -242,28 +242,32 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
 
     // Use of overload
     static int calculatePoints(List<int[]> dice){
-        return 10;
-    }
-
-    static int calculatePoints(int[] dice) {
-        int len = dice.length, point = 0;
-        if (len == 1 || len == 2) {
-            point = calculateSingleDices(dice, point);
-        } else {
-            int sum = Arrays.stream(dice).sum();
-            while (sum != 0) {
-                boolean existThree = exitThreeDices(dice);
-                if (existThree) {
-                    calculateThreeDices(dice, point);
-                } else {
-                    calculateSingleDices(dice, point);
-                }
-                sum = Arrays.stream(dice).sum();
+        int point = 0;
+        for (int[] i : dice) {
+            if (i.length == 1) {
+                point = calculateSingleDices(i, point);
+            } else {
+                point = calculateThreeDices(i, point);
             }
         }
         return point;
+    }
 
-
+    static int calculatePoints(int[] dice) {
+        int point = 0;
+        boolean existThree = exitThreeDices(dice);
+        while (existThree) {
+            calculateThreeDices(dice, point);
+            existThree = exitThreeDices(dice);
+        }
+        for (int i : dice) {
+            if (i == 1 ) {
+                point += 100;
+            } else if (i == 5) {
+                point += 50;
+            }
+        }
+        return point;
     }
 
     /**

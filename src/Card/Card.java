@@ -41,13 +41,17 @@ public abstract class Card implements Cloneable {
                     continuousAfterTutto = false;
                     dice = Optional.empty();
                 } else if (chooseInput.equals("C")) { // continue---------------------
-                    List<int[]> allValidDice = DiceCalculationOtherCards.allValidDice(dice.get());
+                    //List<int[]> allValidDice = DiceCalculationOtherCards.allValidDice(dice.get());
 
                     // Get the dice to keep-----------------------------------------
-                    int[] selectedDice = DiceCalculationOtherCards.selectDice(allValidDice);
+                    List<int[]> selectedDice = DiceCalculationOtherCards.selectDice(dice.get());
+                    int selectedDiceLength=0;
+                    for(int l=0; l<selectedDice.size(); l++){
+                        selectedDiceLength=selectedDice.get(l).length+selectedDiceLength;
+                    }
 
                     // Roll the remaining dice
-                    dice = remainingDice(dice, selectedDice);
+                    dice = remainingDice(dice, selectedDiceLength);
                     playPoints += DiceCalculationOtherCards.calculatePoints(selectedDice);
                 } else {
                     continuousAfterTutto = false;
@@ -78,11 +82,11 @@ public abstract class Card implements Cloneable {
 
     /**
      * @param dice
-     * @param selectedDice
+     * @param selectedDiceLength
      * @return if tutto, return Optional.empty(); else, return diceTool.generateDice(dice.get().length - selectedDice.length);
      */
-    public Optional<int[]> remainingDice(Optional<int[]> dice, int[] selectedDice) {
-        if (dice.get().length - selectedDice.length == 0) {
+    public Optional<int[]> remainingDice(Optional<int[]> dice, int selectedDiceLength) {
+        if (dice.get().length - selectedDiceLength == 0) {
             dice = Optional.empty();
             boolean isContinuous = false;
             while (!isContinuous) {
@@ -102,7 +106,7 @@ public abstract class Card implements Cloneable {
             }
         } else {
             continuousAfterTutto = false;
-            dice = DiceCalculationAllCards.generateDice(dice.get().length - selectedDice.length);
+            dice = DiceCalculationAllCards.generateDice(dice.get().length - selectedDiceLength);
         }
 
         return dice;

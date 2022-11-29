@@ -17,7 +17,7 @@ public interface DiceCalculationAllCards {
         int[] dice = new int[num];
         for (int d = 0; d < dice.length; d++) {
             dice[d] = random.nextInt(6) + 1;
-            System.out.print("(" + (d + 1) + ") " + dice[d] + "    ");
+            System.out.print(dice[d] + "    ");
         }
 
         System.out.println();

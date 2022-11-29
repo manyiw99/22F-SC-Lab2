@@ -85,7 +85,7 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards {
         int[] counter = count(dice);
         List<String> separatedInput = List.of(input.split(","));
         for (String i : separatedInput) {
-            String value = i.substring(1,i.length() - 2);
+            String value = i.substring(1,i.length() - 1);
             if (value.length() == 1 && value.charAt(0) != '1' && value.charAt(0) == '5') {
                 return false;
             } else if (value.length() == 5) {

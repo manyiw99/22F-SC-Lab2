@@ -23,13 +23,15 @@ public class PMCard extends Card{
             // Cannot stop until TUTTO
             System.out.println("You cannot stop before TUTTO.");
             while(dice.isPresent()){
+                // Get the dice to keep-----------------------------------------
                 List<int[]> selectedDice = DiceCalculationOtherCards.selectDice(dice.get());
 
-                // Get the dice to keep-----------------------------------------
-//                int[] selectedDice = DiceCalculationOtherCards.selectDice(allValidDice);
-
+                int selectedDiceLength=0;
+                for (int l = 0; l < selectedDice.size(); l++) {
+                    selectedDiceLength = selectedDice.get(l).length + selectedDiceLength;
+                }
                 // Roll the remaining dice
-                dice = super.remainingDice(dice,selectedDice.get(0).length);
+                dice = super.remainingDice(dice,selectedDiceLength);
             }
 
             return Optional.ofNullable(1000);

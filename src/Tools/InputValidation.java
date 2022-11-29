@@ -52,7 +52,7 @@ public class InputValidation {
                 }
                 break;
             case "NAME":
-                if (input.indexOf(" ") != -1) {
+                if (input.contains(" ")) {
                     return false;
                 }
                 break;

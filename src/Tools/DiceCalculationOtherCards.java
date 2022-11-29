@@ -84,6 +84,9 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
      * @return
      */
     private static boolean validateSelectedDice(String input, int[] dice){
+        if (input == null || input.contains(" ")) {
+            return false;
+        }
         int[] counter = count(dice);
         List<int[]> selected = (List<int[]>) Stream.of(input.split(","));
         for (int[] i : selected) {

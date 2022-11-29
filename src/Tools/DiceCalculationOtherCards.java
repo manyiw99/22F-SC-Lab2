@@ -1,9 +1,6 @@
 package Tools;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static Tools.InputValidation.readUser;
@@ -124,20 +121,12 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards {
         List<Integer> pos = new ArrayList<Integer>();
         int[] counter = DiceCalculationOtherCards.count(dice);
         for (int i = 1; i < 7; i++) {
-            if (((i == 1 || i == 5) && counter[i] != 0) || counter[i] == 3) {
+            if (counter[i] >= 3 || ((i == 1 || i == 5) && counter[i] > 0)) {
                 int size = counter[i];
                 for (int j = 0; j < size; j++) {
                     pos.add(i);
                 }
             }
-//            if (((i != 1) && counter[i] < 3) || ((i != 5) && counter[i] < 3) && counter[i] == 0) {
-//                continue;
-//            } else {
-//                int size = counter[i];
-//                for (int j = 0; j < size; j++) {
-//                    pos.add(i);
-//                }
-//            }
         }
         return pos;
     }
@@ -204,7 +193,7 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards {
             } else {
                 result += 50;
             }
-            dice[i] = 0;
+//            dice[i] = 0;
         }
         return result;
     }
@@ -250,29 +239,33 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards {
     }
 
     // Use of overload
-    static int calculatePoints(List<int[]> dice) {
-        return 10;
-    }
-
-    static int calculatePoints(int[] dice) {
-        int len = dice.length, point = 0;
-        if (len == 1 || len == 2) {
-            point = calculateSingleDices(dice, point);
-        } else {
-            int sum = Arrays.stream(dice).sum();
-            while (sum != 0) {
-                boolean existThree = exitThreeDices(dice);
-                if (existThree) {
-                    calculateThreeDices(dice, point);
-                } else {
-                    calculateSingleDices(dice, point);
-                }
-                sum = Arrays.stream(dice).sum();
+    static int calculatePoints(List<int[]> dice){
+        int point = 0;
+        for (int[] i : dice) {
+            if (i.length == 1) {
+                point = calculateSingleDices(i, point);
+            } else {
+                point = calculateThreeDices(i, point);
             }
         }
         return point;
+    }
 
-
+    static int calculatePoints(int[] dice) {
+        int point = 0;
+        boolean existThree = exitThreeDices(dice);
+        while (existThree) {
+            calculateThreeDices(dice, point);
+            existThree = exitThreeDices(dice);
+        }
+        for (int i : dice) {
+            if (i == 1 ) {
+                point += 100;
+            } else if (i == 5) {
+                point += 50;
+            }
+        }
+        return point;
     }
 
     /**
@@ -283,10 +276,23 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards {
      */
     static boolean isValidate(Optional<int[]> dice) {
         //return true as long as the dice is not null
-        if (!dice.isPresent()) {
-            return false;
+        int[] result = new int[6];
+        if (dice.isPresent()) {
+            result = dice.get();
         }
-        return true;
+        int[] counter = count(result);
+        for (int i = 1; i < 7; i++) {
+            if (i == 1 || i == 5) {
+                if (counter[i] > 0) {
+                    return true;
+                }
+            } else {
+                if (counter[i] >= 3) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 

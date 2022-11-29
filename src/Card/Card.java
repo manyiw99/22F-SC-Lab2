@@ -33,7 +33,9 @@ public abstract class Card implements Cloneable {
         //If contains at least one valid dice--------------------------------------------------------
         if (DiceCalculationOtherCards.isValidate(dice)) {
             while (dice.isPresent()) {
-                String chooseInput = ContinueOrStop();
+
+                System.out.println("You have valid dice! Choose Continue or Stop(enter C or S):");
+                String chooseInput = inputValidation_tool.readUser();
 
                 if (chooseInput.equals("S")) { // stop ----------------------------
                     playPoints = playPoints + DiceCalculationOtherCards.calculatePoints(dice.get());

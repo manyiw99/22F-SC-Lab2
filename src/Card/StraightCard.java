@@ -2,6 +2,7 @@ package Card;
 
 import Tools.DiceCalculationAllCards;
 import Tools.DiceCalculationStraight;
+import Tools.InputValidation;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,7 +47,7 @@ public class StraightCard extends Card {
                 if (diceList.size() - selectedDice.length == 0) { //Tutto and continue throwing dice
                     playPoints += 2000;
                     System.out.println("TUTTO! Choose Continue or Stop(enter C or S):");
-                    String chooseInput = inputValidation_tool.readUser();
+                    String chooseInput = InputValidation.readUser();
 
                     if (chooseInput.equals("S")) { // stop ----------------------------
                         continuousAfterTutto = false;

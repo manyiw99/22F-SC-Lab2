@@ -93,7 +93,8 @@ public class StartGame {
                     while (isContinuous) {
                         // Draw card randomly
 //                        Card card = gm.drawCard();
-                        Card card=new FireworksCard(Optional.ofNullable(Suit.FIREWORKS));
+//                        Card card=new FireworksCard(Optional.ofNullable(Suit.FIREWORKS));
+                        Card card = new StraightCard(Optional.ofNullable(Suit.STRAIGHT));
                         if (card.getSuit() == Suit.BONUS) {
                             System.out.println("You have drawn Bonus Card, the bonus points are " + ((BonusCard) card).getBonus());
                         } else {

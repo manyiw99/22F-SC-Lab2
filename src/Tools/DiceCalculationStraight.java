@@ -17,6 +17,7 @@ public class DiceCalculationStraight implements DiceCalculationStraightCard {
     }
 
     public int[] selectDice(List<Integer> allValidDice, List<Integer> expectedDice) {
+
         while (true) {
             System.out.println("Please choose the valid dice you want to keep(eg.3,4,6): ");
             for (Integer integer : allValidDice) {
@@ -29,7 +30,13 @@ public class DiceCalculationStraight implements DiceCalculationStraightCard {
             String[] strings = selectedInput.split(",");
             int[] values = new int[strings.length];
             for (int i = 0; i < strings.length; i++) {
-                values[i] = Integer.parseInt(strings[i]);
+                if (strings[i].equals("1") || strings[i].equals("2") || strings[i].equals("3") || strings[i].equals("4") ||
+                        strings[i].equals("5") || strings[i].equals("6")) {
+                    values[i] = Integer.parseInt(strings[i]);
+                }else {
+                    values[i] = 7;
+                }
+
             }
             List<Integer> inputList = Arrays.stream(values).boxed().collect(Collectors.toList());
 

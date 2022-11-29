@@ -90,15 +90,19 @@ public class StartGame {
                 boolean isNullability = false; //If there's nullability in this round
                 if (input.equals("R")) {
                     boolean isPM = false;
+                    boolean isLeaf=false;
                     while (isContinuous) {
                         // Draw card randomly
-//                        Card card = gm.drawCard();
-                        Card card=new FireworksCard(Optional.ofNullable(Suit.FIREWORKS));
+                        Card card = gm.drawCard();
+                        //Card card=new StraightCard(Optional.ofNullable(Suit.STRAIGHT));
                         if (card.getSuit() == Suit.BONUS) {
                             System.out.println("You have drawn Bonus Card, the bonus points are " + ((BonusCard) card).getBonus());
                         } else {
                             System.out.println("You have drawn " + card.getSuit() + " Card.");
                         }
+
+                        //Play game
+                        Optional<Integer> pointsFromCard = gm.playGame(card);
 
                         // Deal with PM Card-------------------------------------
                         if (card.getSuit() == Suit.PM) {
@@ -106,14 +110,13 @@ public class StartGame {
                         }
 
                         if (card.getSuit() == Suit.LEAF) {
-                            if (gm.leaf_isWin(card)) {
+                            if (pointsFromCard.get()==99999) {
                                 winner[i] = currentPlayerName;
+                                isLeaf=true;
                                 break;
                             }
                         }
 
-                        //Play game
-                        Optional<Integer> pointsFromCard = gm.playGame(card);
                         // Null
                         if (pointsFromCard.isEmpty()) {
                             // If null, reset all playpoints this round
@@ -125,7 +128,10 @@ public class StartGame {
                         }
 
                         isContinuous = gm.isContinuous(card);
-                        //System.out.println("Value of isContinuous - "+isContinuous);
+                        if(isContinuous){
+                            System.out.println("You chose continue after TUTTO. Draw card again.");
+                        }
+
                     }
 
                     //If current player is not leading player, deduct 1000 for leading player
@@ -140,7 +146,11 @@ public class StartGame {
 
                     currentPlayScore = currentPlayScore + playPoints;
                     gm.setCurrentPlayerPointByName(currentPlayScore, currentPlayerName);
-                    System.out.println("Your current score is: " + currentPlayScore);
+                    if(!isLeaf) {
+                        System.out.println("Your current score is: " + currentPlayScore);
+                    }else{
+                        System.out.println("You win! Please wait for the end of this round.");
+                    }
                     nextPlay = true;
 
                     // choose display ------------------------------------------------------------------------------------------------
@@ -170,18 +180,21 @@ public class StartGame {
         while (!isFinish) {
             String[] winner = startGame.play();
 
-            boolean isWin=true;
+            List<String> w = new ArrayList<>();
             for(int i=0;i<winner.length;i++){
-                if(winner[i]==null){
-                    isWin=false;
-                    break;
+                if(winner[i]!=null){
+                    w.add(winner[i]);
                 }
             }
 
-            if (!isWin) {
+            if (w.size()==0) {
                 isFinish = false;
             } else {
-                System.out.println("Game end! Winner is " + Arrays.toString(winner));
+                String str = "";
+                for(int i=0;i<w.size();i++){
+                    str = str+w.get(i);
+                }
+                System.out.println("Game end! Winner is " + str);
                 isFinish = true;
             }
         }

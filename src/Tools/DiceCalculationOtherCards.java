@@ -126,14 +126,12 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
         List<Integer> pos = new ArrayList<Integer>();
         int[] counter = DiceCalculationOtherCards.count(dice);
         for (int i = 1; i < 7; i++) {
-            if (((i != 1) && counter[i] < 3) || ((i != 5) && counter[i] < 3) && counter[i] == 0) {
-                continue;
-            } else {
+            if (counter[i] >= 3 || ((i == 1 || i == 5) && counter[i] > 0)) {
                 int size = counter[i];
                 for (int j = 0; j < size; j++) {
                     pos.add(i);
                 }
-            }
+            } 
         }
         return pos;
     }

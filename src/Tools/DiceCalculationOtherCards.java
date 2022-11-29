@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 import static Tools.InputValidation.readUser;
 import static Tools.InputValidation.validateSelectNum;
 
-public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
+public interface DiceCalculationOtherCards extends DiceCalculationAllCards {
 
 //    static List<int[]> allValidDice(int[] dice, int k) {
 //        List<Integer> pos = allValidValue(dice);
@@ -48,15 +48,15 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
             String selectedInput = readUser();
             if (validateSelectedDice(selectedInput, dice)) {
                 String[] dices = selectedInput.split(",");
-                for(int i=0; i<dices.length;i++){
+                for (int i = 0; i < dices.length; i++) {
                     int[] formatDice = new int[]{};
-                    if(dices[i].length()==3){
-                        formatDice[0]=Integer.parseInt(dices[i].substring(1,2));
-                    }else if(dices[i].length()==7){
-                        formatDice[0]=Integer.parseInt(dices[i].substring(1,2));
-                        formatDice[1]=Integer.parseInt(dices[i].substring(1,2));
-                        formatDice[2]=Integer.parseInt(dices[i].substring(1,2));
-                    }else{
+                    if (dices[i].length() == 3) {
+                        formatDice[0] = Integer.parseInt(dices[i].substring(1, 2));
+                    } else if (dices[i].length() == 7) {
+                        formatDice[0] = Integer.parseInt(dices[i].substring(1, 2));
+                        formatDice[1] = Integer.parseInt(dices[i].substring(1, 2));
+                        formatDice[2] = Integer.parseInt(dices[i].substring(1, 2));
+                    } else {
                         System.out.println("Your input is invalid dice, please enter again.");
                         break;
                     }
@@ -79,11 +79,12 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
      * 3. int[] format, split by comma
      * 4. overall length < dice.length()
      * 5. valid
+     *
      * @param input
      * @param dice
      * @return
      */
-    private static boolean validateSelectedDice(String input, int[] dice){
+    private static boolean validateSelectedDice(String input, int[] dice) {
         int[] counter = count(dice);
         List<int[]> selected = (List<int[]>) Stream.of(input.split(","));
         for (int[] i : selected) {
@@ -123,14 +124,20 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
         List<Integer> pos = new ArrayList<Integer>();
         int[] counter = DiceCalculationOtherCards.count(dice);
         for (int i = 1; i < 7; i++) {
-            if (((i != 1) && counter[i] < 3) || ((i != 5) && counter[i] < 3) && counter[i] == 0) {
-                continue;
-            } else {
+            if (((i == 1 || i == 5) && counter[i] != 0) || counter[i] == 3) {
                 int size = counter[i];
                 for (int j = 0; j < size; j++) {
                     pos.add(i);
                 }
             }
+//            if (((i != 1) && counter[i] < 3) || ((i != 5) && counter[i] < 3) && counter[i] == 0) {
+//                continue;
+//            } else {
+//                int size = counter[i];
+//                for (int j = 0; j < size; j++) {
+//                    pos.add(i);
+//                }
+//            }
         }
         return pos;
     }
@@ -243,7 +250,7 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
     }
 
     // Use of overload
-    static int calculatePoints(List<int[]> dice){
+    static int calculatePoints(List<int[]> dice) {
         return 10;
     }
 

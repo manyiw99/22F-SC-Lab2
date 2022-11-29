@@ -25,11 +25,21 @@ public class FireworksCard extends Card {
             // Cannot stop until NULL
             System.out.println("You cannot stop before NULL.");
             while (dice.isPresent()) {
-                List<int[]> allValidDiceChoice = DiceCalculationOtherCards.allValidDice(dice.get());
-                int[] allValidDice = allValidDiceChoice.get(allValidDiceChoice.size());
+//                List<int[]> allValidDiceChoice = DiceCalculationOtherCards.selectDice(dice.get());
+//                int[] allValidDice = allValidDiceChoice.get(allValidDiceChoice.size());
+                List<Integer> allValidDice = DiceCalculationOtherCards.allValidValue(dice.get());
+                if (allValidDice.size() == 0){
+                    super.continuousAfterTutto = false;
+                    System.out.println("You have rolled a null. Next turn.");
+                    return Optional.of(playPoints);
+                }
                 // Roll the remaining dice and keep all valid dice
-                dice = super.remainingDice(dice, allValidDice);
-                playPoints = playPoints + DiceCalculationOtherCards.calculatePoints(allValidDice);
+                dice = super.remainingDice(dice, allValidDice.size());
+                int[] diceArray = new int[allValidDice.size()];
+                for (int i = 0; i < allValidDice.size(); i++) {
+                    diceArray[i] = allValidDice.get(i);
+                }
+                playPoints = playPoints + DiceCalculationOtherCards.calculatePoints(diceArray);
                 if (dice.isEmpty()) { //Tutto and continue throwing dice
                     System.out.println("TUTTO! You cannot stop before NULL.");
                     dice = DiceCalculationAllCards.generateDice(6);

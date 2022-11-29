@@ -45,9 +45,9 @@ public abstract class Card implements Cloneable {
 
                     // Get the dice to keep-----------------------------------------
                     List<int[]> selectedDice = DiceCalculationOtherCards.selectDice(dice.get());
-                    int selectedDiceLength=0;
-                    for(int l=0; l<selectedDice.size(); l++){
-                        selectedDiceLength=selectedDice.get(l).length+selectedDiceLength;
+                    int selectedDiceLength = 0;
+                    for (int l = 0; l < selectedDice.size(); l++) {
+                        selectedDiceLength = selectedDice.get(l).length + selectedDiceLength;
                     }
 
                     // Roll the remaining dice

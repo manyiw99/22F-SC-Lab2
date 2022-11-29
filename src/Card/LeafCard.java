@@ -21,10 +21,10 @@ public class LeafCard extends Card {
             // Cannot stop until NULL
             System.out.println("You cannot stop before TUTTO twice or NULL.");
             while (dice.isPresent()) {
-                List<int[]> allValidDiceChoice = DiceCalculationOtherCards.allValidDice(dice.get());
-                int[] allValidDice = allValidDiceChoice.get(allValidDiceChoice.size());
+                List<int[]> selectedDice = DiceCalculationOtherCards.selectDice(dice.get());
+//                int[] allValidDice = allValidDiceChoice.get(allValidDiceChoice.size());
                 // Roll the remaining dice and keep all valid dice
-                dice = super.remainingDice(dice, allValidDice);
+                dice = super.remainingDice(dice, selectedDice.get(0).length);
                 if (dice.isEmpty()) { //Tutto and continue throwing dice
                     TuttoNum++;
                     if (TuttoNum == 2) {

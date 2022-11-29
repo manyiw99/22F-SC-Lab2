@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import static Tools.InputValidation.*;
 
-public class DiceCalculationStraight implements DiceCalculationStraightCard {
+public class DiceCalculationStraight implements DiceCalculationAllCards{
 
     public List<Integer> allValidDice(List<Integer> diceList, List<Integer> expectedList) {
         List<Integer> expectedDiceCopy = new ArrayList<>(expectedList);

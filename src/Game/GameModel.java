@@ -91,9 +91,25 @@ public class GameModel {
      * @return
      */
     public List<String> getLeadingPlayers() {
-        List<String> names = new ArrayList<>();
-        names.add("q");
-        return names;
+        List<String> res = new ArrayList<>();
+
+        Integer[] points =new Integer[players.get().size()];
+        for(int i=0; i<players.get().size();i++){
+            points[i]=players.get().get(i).getPoints().get();
+        }
+
+        //After sort: int[] points
+        Arrays.sort(points, Collections.reverseOrder());
+
+        for (int i = 0; i < points.length; i++){
+            for(int j=0; j< players.get().size();j++){
+                if(players.get().get(j).getPoints().get()==points[i]){
+                    res.add(players.get().get(j).getName().get());
+                }
+            }
+        }
+
+        return res;
     }
 
     /**
@@ -102,12 +118,35 @@ public class GameModel {
     public void sortOrder() {
         // Set order for each player
 
-        // 从0开始设置order
-        players.get().get(0).setOrder(Optional.ofNullable(1));
-        players.get().get(1).setOrder(Optional.ofNullable(0));
+        // create string array called names
+        String names[]=new String[players.get().size()];
+        for(int i=0; i<players.get().size();i++){
+            names[i]=players.get().get(i).getName().get();
+        }
+
+        String temp;
+        for (int i = 0; i < names.length; i++) {
+            for (int j = i + 1; j < names.length; j++) {
+                // to compare one string with other strings
+                if (names[i].compareTo(names[j]) > 0) {
+                    // swapping
+                    temp = names[i];
+                    names[i] = names[j];
+                    names[j] = temp;
+                }
+            }
+        }
+
+        // print output array
+        // The names in alphabetical order are String[] names
+        for (int i = 0; i < names.length; i++){
+            for(int j=0; j< players.get().size();j++){
+                if(players.get().get(j).getName().get()==names[i]){
+                    players.get().get(j).setOrder(Optional.ofNullable(i));
+                }
+            }
+        }
+
     }
 
-    public boolean leaf_isWin(Card card) {
-        return card.isWin();
-    }
 }

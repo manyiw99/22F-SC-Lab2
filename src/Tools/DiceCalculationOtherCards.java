@@ -4,18 +4,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static Tools.InputValidation.readUser;
 import static Tools.InputValidation.validateSelectNum;
 
 public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
 
-    static List<int[]> allValidDice(int[] dice, int k) {
-        List<Integer> pos = allValidValue(dice);
-        int[] choice = pos.stream().mapToInt(i -> i).toArray();
-        List<int[]> result = combination(choice, k);
-        return result;
-    }
+//    static List<int[]> allValidDice(int[] dice, int k) {
+//        List<Integer> pos = allValidValue(dice);
+//        int[] choice = pos.stream().mapToInt(i -> i).toArray();
+//        List<int[]> result = combination(choice, k);
+//        return result;
+//    }
 
 //    static int[] selectDice(List<int[]> allValidDice) {
 //        int[] selectedDice = null;
@@ -83,6 +84,23 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
      * @return
      */
     private static boolean validateSelectedDice(String input, int[] dice){
+        int[] counter = count(dice);
+        List<int[]> selected = (List<int[]>) Stream.of(input.split(","));
+        for (int[] i : selected) {
+            if (i.length == 1) {
+                int e1 = i[0];
+                if (counter[e1] == 0 || (e1 != 1 && e1 != 5)) {
+                    return false;
+                }
+            } else if (i.length == 3) {
+                int e2 = i[0];
+                if (counter[e2] < 3) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -117,61 +135,54 @@ public interface DiceCalculationOtherCards extends DiceCalculationAllCards{
         return pos;
     }
 
-    static boolean selectedSizeValidation(int[] dice, int k){
-        List<Integer> pos = allValidValue(dice);
-        if (k > pos.size()) {
-            return false;
-        }
-        return true;
-    }
 
-    static List<int[]> combination(int[] e, int k){
-        List<int[]> result = new ArrayList<>();
-        int[] ignore = new int[e.length-k]; // --> [0][0]
-        int[] combination = new int[k]; // --> [][][]
-
-        // set initial ignored elements
-        //(last k elements will be ignored)
-        for(int w = 0; w < ignore.length; w++)
-            ignore[w] = e.length - k +(w+1);
-
-        int i = 0, r = 0, g = 0;
-
-        boolean terminate = false;
-        while(!terminate){
-
-            // selecting N-k non-ignored elements
-            while(i < e.length && r < k){
-
-                if(i != ignore[g]){
-                    combination[r] = i;
-                    r++;
-                }
-                else{
-                    if(g != ignore.length-1)
-                        g++;
-                }
-                i++;
-            }
-            result.add(combination);
-            i = 0; r = 0; g = 0;
-
-            terminate = true;
-
-            // shifting ignored indices
-            for(int w = 0 ; w < ignore.length; w++){
-                if(ignore[w] > w){
-                    ignore[w]--;
-
-                    if(w > 0)
-                        ignore[w-1] = ignore[w]-1;
-                    terminate = false;
-                    break;
-                }
-            }
-        }
-        return result;
-    }
+//    static List<int[]> combination(int[] e, int k){
+//        List<int[]> result = new ArrayList<>();
+//        int[] ignore = new int[e.length-k]; // --> [0][0]
+//        int[] combination = new int[k]; // --> [][][]
+//
+//        // set initial ignored elements
+//        //(last k elements will be ignored)
+//        for(int w = 0; w < ignore.length; w++)
+//            ignore[w] = e.length - k +(w+1);
+//
+//        int i = 0, r = 0, g = 0;
+//
+//        boolean terminate = false;
+//        while(!terminate){
+//
+//            // selecting N-k non-ignored elements
+//            while(i < e.length && r < k){
+//
+//                if(i != ignore[g]){
+//                    combination[r] = i;
+//                    r++;
+//                }
+//                else{
+//                    if(g != ignore.length-1)
+//                        g++;
+//                }
+//                i++;
+//            }
+//            result.add(combination);
+//            i = 0; r = 0; g = 0;
+//
+//            terminate = true;
+//
+//            // shifting ignored indices
+//            for(int w = 0 ; w < ignore.length; w++){
+//                if(ignore[w] > w){
+//                    ignore[w]--;
+//
+//                    if(w > 0)
+//                        ignore[w-1] = ignore[w]-1;
+//                    terminate = false;
+//                    break;
+//                }
+//            }
+//        }
+//        return result;
+//    }
 
     /**
      * Count all the valid dice from the input and calculate the final points

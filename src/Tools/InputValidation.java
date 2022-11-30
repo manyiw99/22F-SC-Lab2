@@ -46,6 +46,11 @@ public class InputValidation {
                 if (input.equals(" ") || input.length() != 1) {
                     return false;
                 }
+                for (int i = 0; i < input.length(); i++) {
+                    if (!Character.isDigit(input.charAt(i))) {
+                        return false;
+                    }
+                }
                 int numOfPlayer = Integer.parseInt(input);
                 if (numOfPlayer < 2 || numOfPlayer > 4) {
                     return false;

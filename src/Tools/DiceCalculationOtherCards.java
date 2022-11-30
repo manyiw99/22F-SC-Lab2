@@ -94,7 +94,9 @@ public class DiceCalculationOtherCards implements DiceCalculationAllCards {
         }
         int[] counter = count(dice);
         List<String> separatedInput = formatSelectedInput(input);
+        System.out.println(separatedInput);
         for (String i : separatedInput) {
+            System.out.println(i);
             if (i.length() == 3) {
                 char c = i.charAt(1);
                 if ((c != '1' && c != '5') || counter[Character.getNumericValue(c)] < 1) {
@@ -106,15 +108,22 @@ public class DiceCalculationOtherCards implements DiceCalculationAllCards {
                     sb.append(i.charAt(j));
                 }
                 String value = sb.toString();
+                System.out.println(value);
                 char target = value.charAt(0);
                 for (int j = 1; j < value.length(); j++) {
-                    if (i.charAt(j) != target) {
+                    if (value.charAt(j) != target) {
+                        System.out.println(i.charAt(j));
+                        System.out.println(target);
+                        System.out.println("1");
                         return false;
                     }
                     if (counter[Character.getNumericValue(target)] < 3) {
+                        System.out.println(counter[Character.getNumericValue(target)]);
                         return false;
                     }
                 }
+            } else {
+                return false;
             }
         }
 

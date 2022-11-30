@@ -26,17 +26,24 @@ public class DiceCalculationStraight implements DiceCalculationAllCards{
             System.out.println();
             String selectedInput = readUser();
 
-            //convert input "String" to List<Integer>
-            String[] strings = selectedInput.split(",");
-            int[] values = new int[strings.length];
-            for (int i = 0; i < strings.length; i++) {
-                if (strings[i].equals("1") || strings[i].equals("2") || strings[i].equals("3") || strings[i].equals("4") ||
-                        strings[i].equals("5") || strings[i].equals("6")) {
-                    values[i] = Integer.parseInt(strings[i]);
-                }else {
-                    values[i] = 7;
-                }
+            int[] values;
 
+            if (selectedInput != null){
+                //convert input "String" to List<Integer>
+                String[] strings = selectedInput.split(",");
+                values = new int[strings.length];
+                for (int i = 0; i < strings.length; i++) {
+                    if (strings[i].equals("1") || strings[i].equals("2") || strings[i].equals("3") || strings[i].equals("4") ||
+                            strings[i].equals("5") || strings[i].equals("6")) {
+                        values[i] = Integer.parseInt(strings[i]);
+                    }else {
+                        values[i] = 7;
+                    }
+
+                }
+            }else {
+                values = new int[1];
+                values[0] = 7;
             }
             List<Integer> inputList = Arrays.stream(values).boxed().collect(Collectors.toList());
 

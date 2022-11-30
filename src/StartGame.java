@@ -93,8 +93,8 @@ public class StartGame {
                     boolean isLeaf=false;
                     while (isContinuous) {
                         // Draw card randomly
-//                        Card card = gm.drawCard();
-                        Card card=new StraightCard(Optional.ofNullable(Suit.STRAIGHT));
+                        Card card = gm.drawCard();
+//                        Card card=new StraightCard(Optional.ofNullable(Suit.STRAIGHT));
 
 //                        Card card = gm.drawCard();
 

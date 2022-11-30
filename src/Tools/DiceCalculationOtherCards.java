@@ -112,9 +112,6 @@ public class DiceCalculationOtherCards implements DiceCalculationAllCards {
                 char target = value.charAt(0);
                 for (int j = 1; j < value.length(); j++) {
                     if (value.charAt(j) != target) {
-                        System.out.println(i.charAt(j));
-                        System.out.println(target);
-                        System.out.println("1");
                         return false;
                     }
                     if (counter[Character.getNumericValue(target)] < 3) {

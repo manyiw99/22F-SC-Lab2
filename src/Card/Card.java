@@ -30,40 +30,43 @@ public abstract class Card implements Cloneable {
         // Generate dice randomly
         Optional<int[]> dice = DiceCalculationAllCards.generateDice(6);
         //If contains at least one valid dice--------------------------------------------------------
-        if (DiceCalculationOtherCards.isValidate(dice)) {
+        //if (DiceCalculationOtherCards.isValidate(dice)) {
             while (dice.isPresent()) {
-                System.out.println("Your dice are valid. Choose Continue or Stop(enter C or S):");
-                String chooseInput = inputValidation_tool.readUser();
+                if (DiceCalculationOtherCards.isValidate(dice)) {
 
-                if (chooseInput.equals("S")) { // stop ----------------------------
-                    playPoints = playPoints + DiceCalculationOtherCards.calculatePoints(dice.get());
-                    continuousAfterTutto = false;
-                    dice = Optional.empty();
-                } else if (chooseInput.equals("C")) { // continue---------------------
+                    System.out.println("Your dice are valid. Choose Continue or Stop(enter C or S):");
+                    String chooseInput = inputValidation_tool.readUser();
 
-                    // Get the dice to keep-----------------------------------------
-                    List<int[]> selectedDice = DiceCalculationOtherCards.selectDice(dice.get());
-                    int selectedDiceLength = 0;
-                    for (int l = 0; l < selectedDice.size(); l++) {
-                        selectedDiceLength = selectedDice.get(l).length + selectedDiceLength;
+                    if (chooseInput.equals("S")) { // stop ----------------------------
+                        playPoints = playPoints + DiceCalculationOtherCards.calculatePoints(dice.get());
+                        continuousAfterTutto = false;
+                        dice = Optional.empty();
+                    } else if (chooseInput.equals("C")) { // continue---------------------
+
+                        // Get the dice to keep-----------------------------------------
+                        List<int[]> selectedDice = DiceCalculationOtherCards.selectDice(dice.get());
+                        int selectedDiceLength = 0;
+                        for (int l = 0; l < selectedDice.size(); l++) {
+                            selectedDiceLength = selectedDice.get(l).length + selectedDiceLength;
+                        }
+
+                        // Roll the remaining dice
+                        dice = remainingDice(dice, selectedDiceLength);
+                        playPoints += DiceCalculationOtherCards.calculatePoints(selectedDice);
+                    } else {
+                        continuousAfterTutto = false;
+                        System.out.println("Input wrong. Please enter again.");
                     }
-
-                    // Roll the remaining dice
-                    dice = remainingDice(dice, selectedDiceLength);
-                    playPoints += DiceCalculationOtherCards.calculatePoints(selectedDice);
-                } else {
+                }else {
                     continuousAfterTutto = false;
-                    System.out.println("Input wrong. Please enter again.");
+                    System.out.println("You have rolled a null. Next turn.");
+                    return Optional.empty();
                 }
             }
 
             return Optional.of(finalPoints(playPoints));
             // No valid dice ------------------------------------------------------------------------------------------
-        } else {
-            continuousAfterTutto = false;
-            System.out.println("You have rolled a null. Next turn.");
-            return Optional.empty();
-        }
+
     }
 
     public int finalPoints(int playPoints) {

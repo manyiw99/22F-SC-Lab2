@@ -114,23 +114,50 @@ public class DiceCalculationOtherCards implements DiceCalculationAllCards {
      */
     private static boolean validateSelectedDice(String input, int[] dice) {
         // System.out.println("test(manyi) - "+input);   // OK
+        if (input == null || !input.contains("[")){
+            return false;
+        }
         int[] counter = count(dice);
-        List<String> separatedInput = List.of(input.split(","));
+        List<String> separatedInput = new ArrayList<>();
+        int length = 0;
+        while(length < input.length()){
+            //System.out.println("length===="+length);
+            int index = input.indexOf("],[",length);
+
+            if(index!=-1){
+                String sub = input.substring(length,index+1);
+                separatedInput.add(sub);
+                length = index+2;
+            }else{
+                String sub = input.substring(length);
+                separatedInput.add(sub);
+                length = input.length();
+            }
+        }
         for (String i : separatedInput) {
-            String value = i.substring(1,i.length() - 1);
-            if (value.length() == 1 && value.charAt(0) != '1' && value.charAt(0) == '5') {
-                return false;
-            } else if (value.length() == 5) {
+            if (i.length() == 3) {
+                char c = i.charAt(1);
+                if ((c != '1' && c != '5') || counter[Character.getNumericValue(c)] < 1) {
+                    return false;
+                }
+            } else if (i.length() == 7) {
+                StringBuilder sb = new StringBuilder();
+                for (int j = 1; j < i.length(); j += 2){
+                    sb.append(i.charAt(j));
+                }
+                String value = sb.toString();
                 char target = value.charAt(0);
-                for (int j = 2; j < value.length(); j = j + 2) {
-                    if (value.charAt(j) != target) {
+                for (int j = 1; j < value.length(); j++) {
+                    if (i.charAt(j) != target) {
+                        return false;
+                    }
+                    if (counter[Character.getNumericValue(target)] < 3) {
                         return false;
                     }
                 }
-            } else {
-                return false;
             }
         }
+
         return true;
     }
 

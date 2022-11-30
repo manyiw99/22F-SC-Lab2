@@ -30,10 +30,11 @@ public abstract class Card implements Cloneable {
         // Generate dice randomly
         Optional<int[]> dice = DiceCalculationAllCards.generateDice(6);
         //If contains at least one valid dice--------------------------------------------------------
-        if (DiceCalculationOtherCards.isValidate(dice)) {
-            while (dice.isPresent()) {
-                System.out.println("You have valid dice! Choose Continue or Stop(enter C or S):");
+        //if (DiceCalculationOtherCards.isValidate(dice)) {
+        while (dice.isPresent()) {
+            if (DiceCalculationOtherCards.isValidate(dice)) {
 
+                System.out.println("Your dice are valid. Choose Continue or Stop(enter C or S):");
                 String chooseInput = inputValidation_tool.readUser();
 
                 if (chooseInput.equals("S")) { // stop ----------------------------
@@ -56,15 +57,16 @@ public abstract class Card implements Cloneable {
                     continuousAfterTutto = false;
                     System.out.println("Input wrong. Please enter again.");
                 }
+            }else {
+                continuousAfterTutto = false;
+                System.out.println("You have rolled a null. Next turn.");
+                return Optional.empty();
             }
-
-            return Optional.of(finalPoints(playPoints));
-            // No valid dice ------------------------------------------------------------------------------------------
-        } else {
-            continuousAfterTutto = false;
-            System.out.println("You have rolled a null. Next turn.");
-            return Optional.empty();
         }
+
+        return Optional.of(finalPoints(playPoints));
+        // No valid dice ------------------------------------------------------------------------------------------
+
     }
 
     public int finalPoints(int playPoints) {
@@ -125,10 +127,4 @@ public abstract class Card implements Cloneable {
         return clone;
     }
 
-    public boolean isWin() {
-        System.out.println("Error - isWin method in Card Class");
-        return false;
-    }
-
-    ;
 }

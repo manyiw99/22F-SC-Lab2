@@ -8,62 +8,37 @@ import java.util.Optional;
 import static Tools.InputValidation.readUser;
 
 public class DiceCalculationOtherCards implements DiceCalculationAllCards {
+    public static List<String> formatSelectedInput (String input) {
+        List<String> formatInput = new ArrayList<>();
+        int length=0;
+        while(length<input.length()){
+            //System.out.println("length===="+length);
+            int index = input.indexOf("],[",length);
 
-//    static List<int[]> allValidDice(int[] dice, int k) {
-//        List<Integer> pos = allValidValue(dice);
-//        int[] choice = pos.stream().mapToInt(i -> i).toArray();
-//        List<int[]> result = combination(choice, k);
-//        return result;
-//    }
-
-//    static int[] selectDice(List<int[]> allValidDice) {
-//        int[] selectedDice = null;
-//
-//        boolean isSelected = false;
-//        while (!isSelected) {
-//            System.out.println("Please choose the valid dice you want to keep( eg. [1],[2,2,2],[6] ): ");
-//            for (int a = 0; a < allValidDice.size(); a++) {
-//                System.out.println("(" + (a + 1) + ")  " + Arrays.toString(allValidDice.get(a)));
-//            }
-//            String selectedInput = readUser();
-//            if (validateSelectNum(selectedInput, allValidDice.size())) {
-//                selectedDice = allValidDice.get(Integer.parseInt(selectedInput) - 1);
-//                isSelected = true;
-//            } else {
-//                System.out.println("Your selection is wrong, please enter again.");
-//            }
-//        }
-//
-//        return selectedDice;
-//    }
+            if(index!=-1){
+                String sub = input.substring(length,index+1);
+                formatInput.add(sub);
+                length=index+2;
+            }else{
+                String sub = input.substring(length);
+                formatInput.add(sub);
+                length=input.length();
+            }
+        }
+        return formatInput;
+    }
 
     public static List<int[]> selectDice(int[] dice) {
         List<int[]> selectedDice = new ArrayList<>();
 
         boolean isSelected = false;
         while (!isSelected) {
-            System.out.println("Please enter the valid dice you want to keep( eg. [1],[2,2,2],[6] ): ");
+            System.out.println("Please enter the valid dice you want to keep( eg. [1],[2,2,2],[5] ): ");
             String selectedInput = readUser();
             if (validateSelectedDice(selectedInput, dice)) {
                 String[] dices = null;
                 if(selectedInput.contains("],[")) {
-                    List<String> formatInput = new ArrayList<>();
-                    int length=0;
-                    while(length<selectedInput.length()){
-                        //System.out.println("length===="+length);
-                        int index = selectedInput.indexOf("],[",length);
-
-                        if(index!=-1){
-                            String sub = selectedInput.substring(length,index+1);
-                            formatInput.add(sub);
-                            length=index+2;
-                        }else{
-                            String sub = selectedInput.substring(length);
-                            formatInput.add(sub);
-                            length=selectedInput.length();
-                        }
-
-                    }
+                    List<String> formatInput = formatSelectedInput(selectedInput);
                     dices=formatInput.toArray(new String[formatInput.size()]);
 
                 }else{
@@ -118,22 +93,7 @@ public class DiceCalculationOtherCards implements DiceCalculationAllCards {
             return false;
         }
         int[] counter = count(dice);
-        List<String> separatedInput = new ArrayList<>();
-        int length = 0;
-        while(length < input.length()){
-            //System.out.println("length===="+length);
-            int index = input.indexOf("],[",length);
-
-            if(index!=-1){
-                String sub = input.substring(length,index+1);
-                separatedInput.add(sub);
-                length = index+2;
-            }else{
-                String sub = input.substring(length);
-                separatedInput.add(sub);
-                length = input.length();
-            }
-        }
+        List<String> separatedInput = formatSelectedInput(input);
         for (String i : separatedInput) {
             if (i.length() == 3) {
                 char c = i.charAt(1);

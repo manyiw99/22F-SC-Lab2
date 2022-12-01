@@ -1,13 +1,7 @@
-package CardTest;
+package Card;
 
-import Card.StraightCard;
-import Card.Suit;
 import Tools.DiceCalculationOtherCards;
-import Tools.DiceCalculationStraight;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 import static org.mockito.Mockito.*;
 

@@ -14,9 +14,10 @@ public abstract class Card implements Cloneable {
     public InputValidation inputValidation_tool;
     public DiceCalculationOtherCards diceCalculationTool;
 
-    public Card(Optional<Suit> suit) {
+    public Card(Optional<Suit> suit, InputValidation inputValidation) {
         this.suit = suit;
         this.continuousAfterTutto = false;
+        this.inputValidation_tool = inputValidation;
     }
 
     // Strategy design pattern

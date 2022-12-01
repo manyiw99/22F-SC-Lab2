@@ -9,13 +9,14 @@ import java.util.List;
 import java.util.Optional;
 
 public class StraightCard extends Card {
+    public DiceCalculationStraight diceTool;
+    public InputValidation inputValidation;
 
-    public StraightCard(Optional<Suit> suit) {
-        super(suit);
+    public StraightCard(Optional<Suit> suit, InputValidation inputValidation, DiceCalculationStraight diceTool) {
+        super(suit,inputValidation);
+        this.diceTool=diceTool;
     }
 
-    public DiceCalculationStraight diceTool = new DiceCalculationStraight();
-    public InputValidation inputValidation = new InputValidation();
     private List<Integer> expectedDice = new ArrayList<>(List.of(1,2,3,4,5,6));
     private List<Integer> diceList = new ArrayList<>();
 

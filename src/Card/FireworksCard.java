@@ -1,6 +1,7 @@
 package Card;
 
 import Tools.DiceCalculationOtherCards;
+import Tools.InputValidation;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,8 +12,9 @@ public class FireworksCard extends Card {
 
     public DiceCalculationOtherCards diceCalculationTool;
 
-    public FireworksCard(Optional<Suit> suit) {
-        super(suit);
+    public FireworksCard(Optional<Suit> suit, DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
+        super(suit, inputValidation);
+        this.diceCalculationTool = diceCalculationOtherCards;
     }
 
     @Override
@@ -29,7 +31,7 @@ public class FireworksCard extends Card {
 //                List<int[]> allValidDiceChoice = DiceCalculationOtherCards.selectDice(dice.get());
 //                int[] allValidDice = allValidDiceChoice.get(allValidDiceChoice.size());
                 List<Integer> allValidDice = diceCalculationTool.allValidValue(dice.get());
-                if (allValidDice.size() == 0){
+                if (allValidDice.size() == 0) {
                     super.continuousAfterTutto = false;
                     System.out.println("You have rolled a null. Next turn.");
                     return Optional.of(playPoints);
@@ -57,8 +59,9 @@ public class FireworksCard extends Card {
             return Optional.empty();
         }
     }
+
     @Override
-    public String ContinueOrStop(){
+    public String ContinueOrStop() {
         System.out.println("TUTTO! You cannot stop before NULL.");
         return "C";
     }

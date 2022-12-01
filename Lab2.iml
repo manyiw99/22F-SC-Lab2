@@ -20,7 +20,6 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="library" name="bluecatcode.mockito.1.10.19.extended" level="project" />
     <orderEntry type="module-library" scope="TEST">
       <library name="JUnit5.7.0">
         <CLASSES>
@@ -37,6 +36,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="eu.benschroeder.mockito.extension" level="project" />
+    <orderEntry type="library" name="nhaarman.mockitokotlin2.mockito.kotlin" level="project" />
   </component>
 </module>

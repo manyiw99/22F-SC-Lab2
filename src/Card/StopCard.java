@@ -1,19 +1,25 @@
 package Card;
 
+import Tools.DiceCalculationOtherCards;
+import Tools.InputValidation;
+
 import java.util.Optional;
 
-public class StopCard extends Card{
-    public StopCard(Optional<Suit> suit) {
-        super(suit);
+public class StopCard extends Card {
+    public DiceCalculationOtherCards diceTool;
+    public StopCard(Optional<Suit> suit, DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
+        super(suit, inputValidation);
+        this.diceTool = diceCalculationOtherCards;
     }
 
     /**
      * Next turn
+     *
      * @return
      */
     @Override
     public Optional<Integer> playGame() {
-        super.continuousAfterTutto=false;
+        super.continuousAfterTutto = false;
         return Optional.ofNullable(0);
     }
 }

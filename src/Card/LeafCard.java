@@ -1,6 +1,7 @@
 package Card;
 
 import Tools.DiceCalculationOtherCards;
+import Tools.InputValidation;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,8 +10,9 @@ import java.util.Optional;
 public class LeafCard extends Card {
     public DiceCalculationOtherCards diceCalculationTool;
 
-    public LeafCard(Optional<Suit> leaf) {
-        super(leaf);
+    public LeafCard(Optional<Suit> leaf, DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
+        super(leaf, inputValidation);
+        this.diceCalculationTool = diceCalculationOtherCards;
     }
 
     @Override
@@ -21,12 +23,7 @@ public class LeafCard extends Card {
             // Cannot stop until NULL
             System.out.println("You cannot stop before TUTTO twice or NULL.");
             while (dice.isPresent()) {
-<<<<<<< HEAD
-                List<int[]> selectedDice = diceCalculationTool.selectDice(dice.get());
-//                int[] allValidDice = allValidDiceChoice.get(allValidDiceChoice.size());
-=======
-                List<Integer> allValidValue = DiceCalculationOtherCards.allValidValue(dice.get());
->>>>>>> c62a1811e91617cbe3f86505c8a2277eac901fb2
+                List<Integer> allValidValue = diceCalculationTool.allValidValue(dice.get());
                 // Roll the remaining dice and keep all valid dice
                 dice = super.remainingDice(dice, allValidValue.size());
                 if (dice.isEmpty()) { //Tutto and continue throwing dice

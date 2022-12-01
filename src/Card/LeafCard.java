@@ -21,10 +21,14 @@ public class LeafCard extends Card {
             // Cannot stop until NULL
             System.out.println("You cannot stop before TUTTO twice or NULL.");
             while (dice.isPresent()) {
+<<<<<<< HEAD
                 List<int[]> selectedDice = diceCalculationTool.selectDice(dice.get());
 //                int[] allValidDice = allValidDiceChoice.get(allValidDiceChoice.size());
+=======
+                List<Integer> allValidValue = DiceCalculationOtherCards.allValidValue(dice.get());
+>>>>>>> c62a1811e91617cbe3f86505c8a2277eac901fb2
                 // Roll the remaining dice and keep all valid dice
-                dice = super.remainingDice(dice, selectedDice.get(0).length);
+                dice = super.remainingDice(dice, allValidValue.size());
                 if (dice.isEmpty()) { //Tutto and continue throwing dice
                     TuttoNum++;
                     if (TuttoNum == 2) {
@@ -38,14 +42,12 @@ public class LeafCard extends Card {
                     }
                 }
             }
-            System.out.println("You have rolled a null. Next turn.");
-            return Optional.empty();
             // No valid dice ------------------------------------------------------------------------------------------
         } else {
             super.continuousAfterTutto = false;
-            System.out.println("You have rolled a null. Next turn.");
-            return Optional.empty();
         }
+        System.out.println("You have rolled a null. Next turn.");
+        return Optional.empty();
     }
 
 }

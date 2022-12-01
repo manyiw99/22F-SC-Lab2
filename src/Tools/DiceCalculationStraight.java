@@ -1,14 +1,13 @@
 package Tools;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static Tools.InputValidation.*;
 
-public class DiceCalculationStraight implements DiceCalculationAllCards{
+public class DiceCalculationStraight extends DiceCalculation{
+
+    public InputValidation inputValidation = new InputValidation();
 
     public List<Integer> allValidDice(List<Integer> diceList, List<Integer> expectedList) {
         List<Integer> expectedDiceCopy = new ArrayList<>(expectedList);
@@ -24,7 +23,7 @@ public class DiceCalculationStraight implements DiceCalculationAllCards{
                 System.out.print(integer + "  ");
             }
             System.out.println();
-            String selectedInput = readUser();
+            String selectedInput = inputValidation.readUser();
 
             int[] values;
 
@@ -47,7 +46,7 @@ public class DiceCalculationStraight implements DiceCalculationAllCards{
             }
             List<Integer> inputList = Arrays.stream(values).boxed().collect(Collectors.toList());
 
-            if (validateSelectStraight(inputList, allValidDice)) {
+            if (inputValidation.validateSelectStraight(inputList, allValidDice)) {
 //                expectedDice.removeAll(inputList);
                 return values;
             } else {

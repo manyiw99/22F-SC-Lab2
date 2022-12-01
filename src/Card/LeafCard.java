@@ -1,6 +1,5 @@
 package Card;
 
-import Tools.DiceCalculationAllCards;
 import Tools.DiceCalculationOtherCards;
 
 import java.util.List;
@@ -8,6 +7,7 @@ import java.util.Optional;
 
 // Prototype design pattern
 public class LeafCard extends Card {
+    public DiceCalculationOtherCards diceCalculationTool;
 
     public LeafCard(Optional<Suit> leaf) {
         super(leaf);
@@ -16,12 +16,12 @@ public class LeafCard extends Card {
     @Override
     public Optional<Integer> playGame() {
         int TuttoNum = 0; //number of times that Tutto, it has to be 2 to finish
-        Optional<int[]> dice = DiceCalculationAllCards.generateDice(6);
-        if (DiceCalculationOtherCards.isValidate(dice)) {
+        Optional<int[]> dice = diceCalculationTool.generateDice(6);
+        if (diceCalculationTool.isValidate(dice)) {
             // Cannot stop until NULL
             System.out.println("You cannot stop before TUTTO twice or NULL.");
             while (dice.isPresent()) {
-                List<int[]> selectedDice = DiceCalculationOtherCards.selectDice(dice.get());
+                List<int[]> selectedDice = diceCalculationTool.selectDice(dice.get());
 //                int[] allValidDice = allValidDiceChoice.get(allValidDiceChoice.size());
                 // Roll the remaining dice and keep all valid dice
                 dice = super.remainingDice(dice, selectedDice.get(0).length);
@@ -32,8 +32,8 @@ public class LeafCard extends Card {
                         return Optional.ofNullable(99999);// return 99999 score and end game
                     }
                     System.out.println("TUTTO! You cannot stop before another TUTTO.");
-                    dice = DiceCalculationAllCards.generateDice(6);
-                    if (!DiceCalculationOtherCards.isValidate(dice)) { //If no valid dice
+                    dice = diceCalculationTool.generateDice(6);
+                    if (!diceCalculationTool.isValidate(dice)) { //If no valid dice
                         break;
                     }
                 }

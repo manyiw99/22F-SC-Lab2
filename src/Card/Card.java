@@ -12,6 +12,7 @@ public abstract class Card implements Cloneable {
     public Optional<Suit> suit; //type of card
     public boolean continuousAfterTutto;
     public InputValidation inputValidation_tool;
+    public DiceCalculationOtherCards diceCalculationTool;
 
     public Card(Optional<Suit> suit) {
         this.suit = suit;
@@ -28,23 +29,23 @@ public abstract class Card implements Cloneable {
     public Optional<Integer> playGame() {
         int playPoints = 0;
         // Generate dice randomly
-        Optional<int[]> dice = DiceCalculationAllCards.generateDice(6);
+        Optional<int[]> dice = diceCalculationTool.generateDice(6);
         //If contains at least one valid dice--------------------------------------------------------
         //if (DiceCalculationOtherCards.isValidate(dice)) {
         while (dice.isPresent()) {
-            if (DiceCalculationOtherCards.isValidate(dice)) {
+            if (diceCalculationTool.isValidate(dice)) {
 
                 System.out.println("Your dice are valid. Choose Continue or Stop(enter C or S):");
                 String chooseInput = inputValidation_tool.readUser();
 
                 if (chooseInput.equals("S")) { // stop ----------------------------
-                    playPoints = playPoints + DiceCalculationOtherCards.calculatePoints(dice.get());
+                    playPoints = playPoints + diceCalculationTool.calculatePoints(dice.get());
                     continuousAfterTutto = false;
                     dice = Optional.empty();
                 } else if (chooseInput.equals("C")) { // continue---------------------
 
                     // Get the dice to keep-----------------------------------------
-                    List<int[]> selectedDice = DiceCalculationOtherCards.selectDice(dice.get());
+                    List<int[]> selectedDice = diceCalculationTool.selectDice(dice.get());
                     int selectedDiceLength = 0;
                     for (int l = 0; l < selectedDice.size(); l++) {
                         selectedDiceLength = selectedDice.get(l).length + selectedDiceLength;
@@ -52,7 +53,7 @@ public abstract class Card implements Cloneable {
 
                     // Roll the remaining dice
                     dice = remainingDice(dice, selectedDiceLength);
-                    playPoints += DiceCalculationOtherCards.calculatePoints(selectedDice);
+                    playPoints += diceCalculationTool.calculatePoints(selectedDice);
                 } else {
                     continuousAfterTutto = false;
                     System.out.println("Input wrong. Please enter again.");
@@ -106,7 +107,7 @@ public abstract class Card implements Cloneable {
             }
         } else {
             continuousAfterTutto = false;
-            dice = DiceCalculationAllCards.generateDice(dice.get().length - selectedDiceLength);
+            dice = diceCalculationTool.generateDice(dice.get().length - selectedDiceLength);
         }
 
         return dice;

@@ -1,12 +1,14 @@
 package Card;
 
-import Tools.DiceCalculationAllCards;
 import Tools.DiceCalculationOtherCards;
 
 import java.util.List;
 import java.util.Optional;
 
 public class PMCard extends Card{
+
+    public DiceCalculationOtherCards diceCalculationTool;
+
     public PMCard(Optional<Suit> suit) {
         super(suit);
     }
@@ -17,15 +19,15 @@ public class PMCard extends Card{
      */
     @Override
     public Optional<Integer> playGame() {
-        Optional<int[]> dice = DiceCalculationAllCards.generateDice(6);
+        Optional<int[]> dice = diceCalculationTool.generateDice(6);
         //If contains at least one valid dice--------------------------------------------------------
 
             // Cannot stop until TUTTO
             System.out.println("You cannot stop before TUTTO.");
             while(dice.isPresent()) {
-                if (DiceCalculationOtherCards.isValidate(dice)) {
+                if (diceCalculationTool.isValidate(dice)) {
                     // Get the dice to keep-----------------------------------------
-                    List<int[]> selectedDice = DiceCalculationOtherCards.selectDice(dice.get());
+                    List<int[]> selectedDice = diceCalculationTool.selectDice(dice.get());
 
                     int selectedDiceLength = 0;
                     for (int l = 0; l < selectedDice.size(); l++) {

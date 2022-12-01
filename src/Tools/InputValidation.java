@@ -14,7 +14,7 @@ public class InputValidation {
      * Get user input from terminal
      * @return
      */
-    public static String readUser(){
+    public String readUser(){
         String inputLine = null;
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -37,7 +37,7 @@ public class InputValidation {
      *        type: NUM, NAME, POINTS
      * @return
      */
-    public static boolean inputValidation(String input, String type){
+    public boolean inputValidation(String input, String type){
         if (input == null) {
             return false;
         }
@@ -85,7 +85,7 @@ public class InputValidation {
      * @param len
      * @return
      */
-    public static boolean validateSelectNum(String input, int len){
+    public boolean validateSelectNum(String input, int len){
         if (input == null) {
             return false;
         }
@@ -103,7 +103,7 @@ public class InputValidation {
         return true;
     }
 
-    public static boolean validateSelectStraight(List<Integer> input, List<Integer> allValidDice){
+    public boolean validateSelectStraight(List<Integer> input, List<Integer> allValidDice){
         if (input == null) {
             return false;
         }

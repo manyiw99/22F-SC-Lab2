@@ -1,6 +1,5 @@
 package Card;
 
-import Tools.DiceCalculationAllCards;
 import Tools.DiceCalculationStraight;
 import Tools.InputValidation;
 
@@ -10,17 +9,19 @@ import java.util.List;
 import java.util.Optional;
 
 public class StraightCard extends Card {
+
     public StraightCard(Optional<Suit> suit) {
         super(suit);
     }
 
     public DiceCalculationStraight diceTool = new DiceCalculationStraight();
+    public InputValidation inputValidation = new InputValidation();
     private List<Integer> expectedDice = new ArrayList<>(List.of(1,2,3,4,5,6));
     private List<Integer> diceList = new ArrayList<>();
 
     @Override
     public Optional<Integer> playGame() {
-        Optional<int[]> dice = DiceCalculationAllCards.generateDice(6);
+        Optional<int[]> dice = diceTool.generateDice(6);
 //        int[] test = {1,2,3,4,5,6};
 //        Optional<int[]> dice = Optional.of(test);
         int playPoints = 0;
@@ -42,19 +43,19 @@ public class StraightCard extends Card {
                 expectedDice.removeAll(diceTool.diceToList(Optional.of(selectedDice)));
 
                 // Roll the remaining dice
-                dice = DiceCalculationAllCards.generateDice(diceList.size() - selectedDice.length);
+                dice = diceTool.generateDice(diceList.size() - selectedDice.length);
 
                 if (diceList.size() - selectedDice.length == 0) { //Tutto and continue throwing dice
                     playPoints += 2000;
                     System.out.println("TUTTO! Choose Continue or Stop(enter C or S):");
-                    String chooseInput = InputValidation.readUser();
+                    String chooseInput = inputValidation.readUser();
 
                     if (chooseInput.equals("S")) { // stop ----------------------------
                         continuousAfterTutto = false;
                         dice = Optional.empty();
                     } else if (chooseInput.equals("C")) { // continue---------------------
                         expectedDice = new ArrayList<>(List.of(1,2,3,4,5,6));
-                        dice = DiceCalculationAllCards.generateDice(6);
+                        dice = diceTool.generateDice(6);
                     } else {
                         continuousAfterTutto = false;
                         System.out.println("Input wrong. Please enter again.");

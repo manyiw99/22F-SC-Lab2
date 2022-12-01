@@ -1,15 +1,16 @@
 package Card;
 
-import Tools.DiceCalculationAllCards;
 import Tools.DiceCalculationOtherCards;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 //Composite design pattern - leaf
 //Keep throwing dice until null
 public class FireworksCard extends Card {
+
+    public DiceCalculationOtherCards diceCalculationTool;
+
     public FireworksCard(Optional<Suit> suit) {
         super(suit);
     }
@@ -18,16 +19,16 @@ public class FireworksCard extends Card {
     public Optional<Integer> playGame() {
         int playPoints = 0;
         super.continuousAfterTutto = false;
-        Optional<int[]> dice = DiceCalculationAllCards.generateDice(6);
+        Optional<int[]> dice = diceCalculationTool.generateDice(6);
         //for(int i =0; i<6;i++) diceCopy[i] = dice.get()[i];
         //If contains at least one valid dice--------------------------------------------------------
-        if (DiceCalculationOtherCards.isValidate(dice)) {
+        if (diceCalculationTool.isValidate(dice)) {
             // Cannot stop until NULL
             System.out.println("You cannot stop before NULL.");
             while (dice.isPresent()) {
 //                List<int[]> allValidDiceChoice = DiceCalculationOtherCards.selectDice(dice.get());
 //                int[] allValidDice = allValidDiceChoice.get(allValidDiceChoice.size());
-                List<Integer> allValidDice = DiceCalculationOtherCards.allValidValue(dice.get());
+                List<Integer> allValidDice = diceCalculationTool.allValidValue(dice.get());
                 if (allValidDice.size() == 0){
                     super.continuousAfterTutto = false;
                     System.out.println("You have rolled a null. Next turn.");
@@ -39,10 +40,10 @@ public class FireworksCard extends Card {
                 for (int i = 0; i < allValidDice.size(); i++) {
                     diceArray[i] = allValidDice.get(i);
                 }
-                playPoints = playPoints + DiceCalculationOtherCards.calculatePoints(diceArray);
+                playPoints = playPoints + diceCalculationTool.calculatePoints(diceArray);
                 if (dice.isEmpty()) { //Tutto and continue throwing dice
-                    dice = DiceCalculationAllCards.generateDice(6);
-                    if (!DiceCalculationOtherCards.isValidate(dice)) { //If no valid dice
+                    dice = diceCalculationTool.generateDice(6);
+                    if (!diceCalculationTool.isValidate(dice)) { //If no valid dice
                         break;
                     }
                 }

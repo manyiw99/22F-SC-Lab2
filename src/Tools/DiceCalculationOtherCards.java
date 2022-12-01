@@ -1,14 +1,12 @@
 package Tools;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-import static Tools.InputValidation.readUser;
+public class DiceCalculationOtherCards extends DiceCalculation {
 
-public class DiceCalculationOtherCards implements DiceCalculationAllCards {
-    public static List<String> formatSelectedInput (String input) {
+    public InputValidation inputValidation = new InputValidation();
+
+    public List<String> formatSelectedInput (String input) {
         List<String> formatInput = new ArrayList<>();
         int length=0;
         while(length<input.length()){
@@ -28,13 +26,13 @@ public class DiceCalculationOtherCards implements DiceCalculationAllCards {
         return formatInput;
     }
 
-    public static List<int[]> selectDice(int[] dice) {
+    public List<int[]> selectDice(int[] dice) {
         List<int[]> selectedDice = new ArrayList<>();
 
         boolean isSelected = false;
         while (!isSelected) {
             System.out.println("Please enter the valid dice you want to keep( eg. [1],[2,2,2],[5] ): ");
-            String selectedInput = readUser();
+            String selectedInput = inputValidation.readUser();
             if (validateSelectedDice(selectedInput, dice)) {
                 String[] dices = null;
                 if(selectedInput.contains("],[")) {
@@ -87,7 +85,7 @@ public class DiceCalculationOtherCards implements DiceCalculationAllCards {
      * @param dice
      * @return
      */
-    private static boolean validateSelectedDice(String input, int[] dice) {
+    private boolean validateSelectedDice(String input, int[] dice) {
         // System.out.println("test(manyi) - "+input);   // OK
         if (input == null || !input.contains("[")){
             return false;
@@ -127,7 +125,7 @@ public class DiceCalculationOtherCards implements DiceCalculationAllCards {
         return true;
     }
 
-    static int[] count(int[] dice) {
+    int[] count(int[] dice) {
         var counter = new int[7];
         for (int i = 0; i < dice.length; i++) {
             counter[dice[i]] += 1;
@@ -142,9 +140,9 @@ public class DiceCalculationOtherCards implements DiceCalculationAllCards {
      * @return
      */
 
-    public static List<Integer> allValidValue(int[] dice) {
+    public List<Integer> allValidValue(int[] dice) {
         List<Integer> pos = new ArrayList<Integer>();
-        int[] counter = DiceCalculationOtherCards.count(dice);
+        int[] counter = count(dice);
         for (int i = 1; i < 7; i++) {
             if (counter[i] >= 3 || ((i == 1 || i == 5) && counter[i] > 0)) {
                 int size = counter[i];
@@ -164,7 +162,7 @@ public class DiceCalculationOtherCards implements DiceCalculationAllCards {
      * @param dice
      * @return
      */
-    static int calculateSingleDices(int[] dice, int result) {
+    int calculateSingleDices(int[] dice, int result) {
         for (int i = 0; i < dice.length; i++) {
             if (dice[i] == 1) {
                 result += 100;
@@ -176,7 +174,7 @@ public class DiceCalculationOtherCards implements DiceCalculationAllCards {
         return result;
     }
 
-    static int calculateThreeDices(int[] dice, int result) {
+    int calculateThreeDices(int[] dice, int result) {
         var counter = count(dice);
 
         // find some value that occurs three times and replace it by 0
@@ -206,7 +204,7 @@ public class DiceCalculationOtherCards implements DiceCalculationAllCards {
         return result + ((value == 1) ? 1000 : value * 100);
     }
 
-    static boolean exitThreeDices(int[] dice) {
+    boolean exitThreeDices(int[] dice) {
         int[] counter = count(dice);
         for (int i = 1; i < 7; i++) {
             if (counter[i] == 3) {
@@ -217,7 +215,7 @@ public class DiceCalculationOtherCards implements DiceCalculationAllCards {
     }
 
     // Use of overload
-    public static int calculatePoints(List<int[]> dice){
+    public int calculatePoints(List<int[]> dice){
         int point = 0;
         for (int[] i : dice) {
             if (i.length == 1) {
@@ -229,7 +227,7 @@ public class DiceCalculationOtherCards implements DiceCalculationAllCards {
         return point;
     }
 
-    public static int calculatePoints(int[] dice) {
+    public int calculatePoints(int[] dice) {
         int point = 0;
         boolean existThree = exitThreeDices(dice);
         while (existThree) {
@@ -252,7 +250,7 @@ public class DiceCalculationOtherCards implements DiceCalculationAllCards {
      * @param dice
      * @return
      */
-    public static boolean isValidate(Optional<int[]> dice) {
+    public boolean isValidate(Optional<int[]> dice) {
         //return true as long as the dice is not null
         int[] result = new int[6];
         if (dice.isPresent()) {

@@ -49,18 +49,23 @@ public class StraightCard extends Card {
 
                 if (diceList.size() - selectedDice.length == 0) { //Tutto and continue throwing dice
                     playPoints += 2000;
-                    System.out.println("TUTTO! Choose Continue or Stop(enter C or S):");
-                    String chooseInput = inputValidation.readUser();
+                    boolean validInput = false;
+                    while (!validInput){
+                        System.out.println("TUTTO! Choose Continue or Stop(enter C or S):");
+                        String chooseInput = inputValidation.readUser();
 
-                    if (chooseInput.equals("S")) { // stop ----------------------------
-                        continuousAfterTutto = false;
-                        dice = Optional.empty();
-                    } else if (chooseInput.equals("C")) { // continue---------------------
-                        expectedDice = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6));
-                        dice = diceTool.generateDice(6);
-                    } else {
-                        continuousAfterTutto = false;
-                        System.out.println("Input wrong. Please enter again.");
+                        if (chooseInput.equals("S")) { // stop ----------------------------
+                            continuousAfterTutto = false;
+                            dice = Optional.empty();
+                            validInput = true;
+                        } else if (chooseInput.equals("C")) { // continue---------------------
+                            expectedDice = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6));
+                            dice = diceTool.generateDice(6);
+                            validInput = true;
+                        } else {
+                            continuousAfterTutto = false;
+                            System.out.println("Input wrong. Please enter again.");
+                        }
                     }
                 }
             }

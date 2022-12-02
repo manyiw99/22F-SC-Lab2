@@ -11,8 +11,8 @@ import java.util.Optional;
 public abstract class Card implements Cloneable {
     public Optional<Suit> suit; //type of card
     public boolean continuousAfterTutto;
-    public InputValidation inputValidation_tool;
-    public DiceCalculationOtherCards diceCalculationTool;
+    public InputValidation inputValidation_tool = new InputValidation();
+    public DiceCalculationOtherCards diceCalculationTool = new DiceCalculationOtherCards();
 
     public Card(Optional<Suit> suit) {
         this.suit = suit;

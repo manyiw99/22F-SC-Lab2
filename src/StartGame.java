@@ -7,7 +7,7 @@ import java.util.*;
 
 public class StartGame {
     GameModel gm;
-    InputValidation inputValidationTool;
+    InputValidation inputValidationTool = new InputValidation();
 
     /**
      * 1. Read user input

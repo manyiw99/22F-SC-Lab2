@@ -58,8 +58,7 @@ public class StraightCard extends Card {
 
                 if (diceList.size() - selectedDice.length == 0) { //Tutto and continue throwing dice
                     playPoints += 2000;
-                    boolean validInput = false;
-                    while (!validInput) {
+                    while (true) {
                         System.out.println("TUTTO! Choose Continue or Stop(enter C or S):");
                         String chooseInput = super.inputValidation_tool.readUser();
 

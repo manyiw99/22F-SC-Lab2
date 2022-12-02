@@ -100,9 +100,16 @@ public class StraightCardTest {
         when(diceTool.allValidDice(Mockito.any(),Mockito.anyList())).thenReturn(diceList).thenReturn(diceList2);
         //select 4,5,6 first, then 1,2,3
         when(diceTool.selectDice(Mockito.any(),Mockito.any())).thenReturn(dice1).thenReturn(dice2);
-        when(inputValidation.readUser()).thenReturn("S");
+        when(inputValidation.readUser()).thenReturn("H").thenReturn("S");
 
         assertEquals(Optional.ofNullable(2000), straightCard.playGame());
+    }
+
+    @Test
+    public void noDiceTest(){
+        when(diceTool.generateDice(Mockito.anyInt())).thenReturn(Optional.empty());
+
+        assertEquals(Optional.ofNullable(0), straightCard.playGame());
     }
 
 }

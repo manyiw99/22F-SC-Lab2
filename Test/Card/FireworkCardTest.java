@@ -1,6 +1,6 @@
 package Card;
 
-import Tools.DiceCalculationOtherCards;
+import DiceCalculation.DiceCalculationOtherCards;
 import Tools.InputValidation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 public class FireworkCardTest {
     DiceCalculationOtherCards diceTool = mock(DiceCalculationOtherCards.class);
     InputValidation inputValidation = mock(InputValidation.class);
-    FireworksCard fireworksCard = new FireworksCard(Optional.of(Suit.FIREWORKS), diceTool, inputValidation);
+    FireworksCard fireworksCard = new FireworksCard(diceTool, inputValidation);
 
     @Test
     public void noValidDiceAtFirstTest() {

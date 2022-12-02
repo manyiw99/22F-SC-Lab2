@@ -1,13 +1,11 @@
 package Card;
 
-import Tools.DiceCalculationOtherCards;
+import DiceCalculation.DiceCalculationOtherCards;
 import Tools.InputValidation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
@@ -18,7 +16,8 @@ public class PMCardTest {
 
     DiceCalculationOtherCards diceTool = mock(DiceCalculationOtherCards.class);
     InputValidation inputValidation = mock(InputValidation.class);
-    PMCard pmCard = new PMCard(Optional.of(Suit.PM), diceTool, inputValidation);
+    //PMCard pmCard = new PMCard(Optional.of(Suit.PM), diceTool, inputValidation);
+    PMCard pmCard = new PMCard(diceTool, inputValidation);
 
     @Test
     public void noValidDiceTest() {

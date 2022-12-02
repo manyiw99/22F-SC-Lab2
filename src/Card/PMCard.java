@@ -1,6 +1,6 @@
 package Card;
 
-import Tools.DiceCalculationOtherCards;
+import DiceCalculation.*;
 import Tools.InputValidation;
 
 import java.util.List;
@@ -9,12 +9,18 @@ import java.util.Optional;
 public class PMCard extends Card {
 
     public DiceCalculationOtherCards diceCalculationTool;
-    public InputValidation inputValidation;
+//    public InputValidation inputValidation;
 
-    public PMCard(Optional<Suit> suit, DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
-        super(suit);
-        this.diceCalculationTool = diceCalculationOtherCards;
-        this.inputValidation = inputValidation;
+//    public PMCard(Optional<Suit> suit, DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
+//        super(suit);
+//        this.diceCalculationTool = diceCalculationOtherCards;
+//        this.inputValidation = inputValidation;
+//    }
+
+    public PMCard(DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
+        super(diceCalculationOtherCards,inputValidation);
+
+        this.diceCalculationTool=diceCalculationOtherCards;
     }
 
     /**

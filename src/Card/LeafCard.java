@@ -1,6 +1,6 @@
 package Card;
 
-import Tools.DiceCalculationOtherCards;
+import DiceCalculation.*;
 import Tools.InputValidation;
 
 import java.util.List;
@@ -9,12 +9,22 @@ import java.util.Optional;
 // Prototype design pattern
 public class LeafCard extends Card {
     public DiceCalculationOtherCards diceCalculationTool;
-    public InputValidation inputValidation;
+    //public InputValidation inputValidation;
 
-    public LeafCard(Optional<Suit> leaf, DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
-        super(leaf);
-        this.diceCalculationTool = diceCalculationOtherCards;
-        this.inputValidation = inputValidation;
+//    public LeafCard(Optional<Suit> leaf, DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
+//        super(leaf);
+//        this.diceCalculationTool = diceCalculationOtherCards;
+//        this.inputValidation = inputValidation;
+//    }
+
+    public LeafCard(DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
+        super(diceCalculationOtherCards,inputValidation);
+
+        if(diceCalculation instanceof DiceCalculationOtherCards){
+            super.diceCalculation=(DiceCalculationOtherCards)diceCalculation;
+        }
+
+        this.diceCalculationTool=diceCalculationOtherCards;
     }
 
     @Override

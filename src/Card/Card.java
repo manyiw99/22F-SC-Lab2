@@ -1,6 +1,7 @@
 package Card;
 
-import Tools.*;
+import DiceCalculation.*;
+import Tools.InputValidation;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,14 +10,19 @@ import java.util.Optional;
 // Composite design pattern - composite
 // prototype design pattern
 public abstract class Card implements Cloneable {
-    public Optional<Suit> suit; //type of card
+    // public Optional<Suit> suit; //type of card
     public boolean continuousAfterTutto;
-    public InputValidation inputValidation_tool = new InputValidation();
-    public DiceCalculationOtherCards diceCalculationTool = new DiceCalculationOtherCards();
+    public InputValidation inputValidation_tool;
+    public DiceCalculation diceCalculation;
 
-    public Card(Optional<Suit> suit) {
-        this.suit = suit;
+//    public Card(Optional<Suit> suit) {
+//        this.suit = suit;
+//        this.continuousAfterTutto = false;
+//    }
+    public Card( DiceCalculation diceCalculation, InputValidation inputValidation) {
         this.continuousAfterTutto = false;
+        this.inputValidation_tool=inputValidation;
+        this.diceCalculation=diceCalculation;
     }
 
     // Strategy design pattern
@@ -27,6 +33,7 @@ public abstract class Card implements Cloneable {
      * @return
      */
     public Optional<Integer> playGame() {
+        DiceCalculationOtherCards diceCalculationTool = (DiceCalculationOtherCards)diceCalculation;
         int playPoints = 0;
         // Generate dice randomly
         Optional<int[]> dice = diceCalculationTool.generateDice(6);
@@ -74,9 +81,9 @@ public abstract class Card implements Cloneable {
         return playPoints;
     }
 
-    public Suit getSuit() {
-        return suit.get();
-    }
+//    public Suit getSuit() {
+//        return suit.get();
+//    }
 
     public boolean getContinuousAfterTutto() {
         return continuousAfterTutto;
@@ -107,7 +114,7 @@ public abstract class Card implements Cloneable {
             }
         } else {
             continuousAfterTutto = false;
-            dice = diceCalculationTool.generateDice(dice.get().length - selectedDiceLength);
+            dice = diceCalculation.generateDice(dice.get().length - selectedDiceLength);
         }
 
         return dice;

@@ -1,4 +1,6 @@
-package Tools;
+package DiceCalculation;
+
+import Tools.InputValidation;
 
 import java.util.*;
 
@@ -92,9 +94,9 @@ public class DiceCalculationOtherCards extends DiceCalculation {
         }
         int[] counter = count(dice);
         List<String> separatedInput = formatSelectedInput(input);
-        System.out.println(separatedInput);
+        //System.out.println(separatedInput);
         for (String i : separatedInput) {
-            System.out.println(i);
+            //System.out.println(i);
             if (i.length() == 3) {
                 char c = i.charAt(1);
                 if ((c != '1' && c != '5') || counter[Character.getNumericValue(c)] < 1) {
@@ -106,14 +108,14 @@ public class DiceCalculationOtherCards extends DiceCalculation {
                     sb.append(i.charAt(j));
                 }
                 String value = sb.toString();
-                System.out.println(value);
+                //System.out.println(value);
                 char target = value.charAt(0);
                 for (int j = 1; j < value.length(); j++) {
                     if (value.charAt(j) != target) {
                         return false;
                     }
                     if (counter[Character.getNumericValue(target)] < 3) {
-                        System.out.println(counter[Character.getNumericValue(target)]);
+                        //System.out.println(counter[Character.getNumericValue(target)]);
                         return false;
                     }
                 }

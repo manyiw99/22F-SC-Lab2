@@ -42,27 +42,46 @@ public class LeafCard extends Card {
                     selectedDiceLength = selectedDice.get(l).length + selectedDiceLength;
                 }
                 // Roll the remaining dice
-                dice = super.remainingDice(dice, selectedDiceLength);
+                dice = remainingDice(dice, selectedDiceLength);
                 if (dice.isEmpty()) { //Tutto and continue throwing dice
                     TuttoNum++;
                     if (TuttoNum == 2) {
                         System.out.println("You WIN! You finished two TUTTO.");
+                        super.continuousAfterTutto = false;
                         return Optional.ofNullable(99999);// return 99999 score and end game
                     }
-                    System.out.println("TUTTO! You cannot stop before another TUTTO.");
+                    System.out.println("You cannot stop before another TUTTO.");
                     System.out.println("Take another round.");
                     dice = diceCalculationTool.generateDice(6);
                     if (!diceCalculationTool.isValidate(dice)) { //If no valid dice
                         break;
                     }
                 }
+                if (!diceCalculationTool.isValidate(dice)) { //If no valid dice
+
+                    break;
+                }
             }
             // No valid dice ------------------------------------------------------------------------------------------
         } else {
             super.continuousAfterTutto = false;
         }
+        super.continuousAfterTutto = false;
         System.out.println("You have rolled a null. Next turn.");
         return Optional.empty();
+    }
+
+    @Override
+    public Optional<int[]> remainingDice(Optional<int[]> dice, int selectedDiceLength) {
+        if (dice.get().length - selectedDiceLength == 0) {
+            dice = Optional.empty();
+            continuousAfterTutto = true;
+        } else {
+            continuousAfterTutto = false;
+            dice = diceCalculation.generateDice(dice.get().length - selectedDiceLength);
+        }
+
+        return dice;
     }
 
 }

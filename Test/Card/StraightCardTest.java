@@ -17,7 +17,7 @@ public class StraightCardTest {
 
     DiceCalculationStraight diceTool = mock(DiceCalculationStraight.class);
     InputValidation inputValidation = mock(InputValidation.class);
-    StraightCard straightCard = new StraightCard(Optional.of(Suit.STRAIGHT), inputValidation, diceTool);
+    StraightCard straightCard = new StraightCard(diceTool,inputValidation);
 
     public List<Integer> diceToList(int[] dice) {
         List<Integer> diceList = new ArrayList<>();

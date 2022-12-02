@@ -43,7 +43,7 @@ public class LeafCard extends Card {
                     selectedDiceLength = selectedDice.get(l).length + selectedDiceLength;
                 }
                 // Roll the remaining dice
-                dice = super.remainingDice(dice, selectedDiceLength);
+                dice = remainingDice(dice, selectedDiceLength);
                 if (dice.isEmpty()) { //Tutto and continue throwing dice
                     TuttoNum++;
                     if (TuttoNum == 2) {
@@ -70,6 +70,19 @@ public class LeafCard extends Card {
         super.continuousAfterTutto = false;
         System.out.println("You have rolled a null. Next turn.");
         return Optional.empty();
+    }
+
+    @Override
+    public Optional<int[]> remainingDice(Optional<int[]> dice, int selectedDiceLength) {
+        if (dice.get().length - selectedDiceLength == 0) {
+            dice = Optional.empty();
+            continuousAfterTutto = true;
+        } else {
+            continuousAfterTutto = false;
+            dice = diceCalculation.generateDice(dice.get().length - selectedDiceLength);
+        }
+
+        return dice;
     }
 
 }

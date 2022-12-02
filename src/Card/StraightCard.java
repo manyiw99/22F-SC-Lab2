@@ -1,6 +1,6 @@
 package Card;
 
-import DiceCalculation.DiceCalculationStraight;
+import DiceCalculation.*;
 import Tools.InputValidation;
 
 import java.util.ArrayList;
@@ -9,13 +9,22 @@ import java.util.List;
 import java.util.Optional;
 
 public class StraightCard extends Card {
-    public DiceCalculationStraight diceTool;
-    public InputValidation inputValidation;
+    private DiceCalculationStraight diceTool;
 
-    public StraightCard(Optional<Suit> suit, InputValidation inputValidation, DiceCalculationStraight diceTool) {
-        super(suit);
-        this.diceTool = diceTool;
-        this.inputValidation = inputValidation;
+//    public StraightCard(Optional<Suit> suit, InputValidation inputValidation, DiceCalculationStraight diceTool) {
+//        super(suit);
+//        this.diceTool = diceTool;
+//        this.inputValidation = inputValidation;
+//    }
+
+    public StraightCard(DiceCalculationStraight diceCalculation, InputValidation inputValidation) {
+        super(diceCalculation,inputValidation);
+
+        if(diceCalculation instanceof DiceCalculationStraight){
+            super.diceCalculation=(DiceCalculationStraight)diceCalculation;
+        }
+
+        this.diceTool=diceCalculation;
     }
 
     private List<Integer> expectedDice = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6));
@@ -52,7 +61,7 @@ public class StraightCard extends Card {
                     boolean validInput = false;
                     while (!validInput){
                         System.out.println("TUTTO! Choose Continue or Stop(enter C or S):");
-                        String chooseInput = inputValidation.readUser();
+                        String chooseInput = super.inputValidation_tool.readUser();
 
                         if (chooseInput.equals("S")) { // stop ----------------------------
                             continuousAfterTutto = false;

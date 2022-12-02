@@ -17,7 +17,7 @@ public class BonusCardTest {
 
     @Test
     public void playGameTuttoTest() {
-        BonusCard straightCard = new BonusCard(Optional.of(Suit.BONUS),200, diceTool, inputValidation);
+        BonusCard straightCard = new BonusCard(200, diceTool, inputValidation);
 
         int[] dice1 = {1, 2, 3, 4, 5, 6};
         Optional<int[]> tuttoDice = Optional.ofNullable(dice1);

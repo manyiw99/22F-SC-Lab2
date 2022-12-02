@@ -94,8 +94,6 @@ public class InputValidation {
         if (inputNum < 1 || inputNum > len + 1) {
             return false;
         }
-        //input为用户输入的选择keep的骰子编号，从1开始
-        //首先验证是否为数字，其次数字范围
         return true;
     }
 

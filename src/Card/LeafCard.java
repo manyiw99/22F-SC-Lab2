@@ -29,15 +29,21 @@ public class LeafCard extends Card {
 
     @Override
     public Optional<Integer> playGame() {
+        System.out.println("LeafCard! You cannot stop before TUTTO twice or NULL.");
         int TuttoNum = 0; //number of times that Tutto, it has to be 2 to finish
         Optional<int[]> dice = diceCalculationTool.generateDice(6);
         if (diceCalculationTool.isValidate(dice)) {
             // Cannot stop until NULL
-            System.out.println("You cannot stop before TUTTO twice or NULL.");
+
             while (dice.isPresent()) {
-                List<Integer> allValidValue = diceCalculationTool.allValidValue(dice.get());
-                // Roll the remaining dice and keep all valid dice
-                dice = super.remainingDice(dice, allValidValue.size());
+                List<int[]> selectedDice = diceCalculationTool.selectDice(dice.get());
+
+                int selectedDiceLength = 0;
+                for (int l = 0; l < selectedDice.size(); l++) {
+                    selectedDiceLength = selectedDice.get(l).length + selectedDiceLength;
+                }
+                // Roll the remaining dice
+                dice = super.remainingDice(dice, selectedDiceLength);
                 if (dice.isEmpty()) { //Tutto and continue throwing dice
                     TuttoNum++;
                     if (TuttoNum == 2) {
@@ -45,6 +51,7 @@ public class LeafCard extends Card {
                         return Optional.ofNullable(99999);// return 99999 score and end game
                     }
                     System.out.println("TUTTO! You cannot stop before another TUTTO.");
+                    System.out.println("Take another round.");
                     dice = diceCalculationTool.generateDice(6);
                     if (!diceCalculationTool.isValidate(dice)) { //If no valid dice
                         break;

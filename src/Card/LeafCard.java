@@ -57,6 +57,9 @@ public class LeafCard extends Card {
                         break;
                     }
                 }
+                if (!diceCalculationTool.isValidate(dice)) { //If no valid dice
+                    break;
+                }
             }
             // No valid dice ------------------------------------------------------------------------------------------
         } else {

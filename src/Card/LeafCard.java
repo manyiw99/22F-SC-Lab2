@@ -18,13 +18,13 @@ public class LeafCard extends Card {
 //    }
 
     public LeafCard(DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
-        super(diceCalculationOtherCards,inputValidation);
+        super(diceCalculationOtherCards, inputValidation);
 
-        if(diceCalculation instanceof DiceCalculationOtherCards){
-            super.diceCalculation=(DiceCalculationOtherCards)diceCalculation;
+        if (diceCalculation instanceof DiceCalculationOtherCards) {
+            super.diceCalculation = (DiceCalculationOtherCards) diceCalculation;
         }
 
-        this.diceCalculationTool=diceCalculationOtherCards;
+        this.diceCalculationTool = diceCalculationOtherCards;
     }
 
     @Override
@@ -34,7 +34,6 @@ public class LeafCard extends Card {
         Optional<int[]> dice = diceCalculationTool.generateDice(6);
         if (diceCalculationTool.isValidate(dice)) {
             // Cannot stop until NULL
-
             while (dice.isPresent()) {
                 List<int[]> selectedDice = diceCalculationTool.selectDice(dice.get());
 

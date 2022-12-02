@@ -2,7 +2,9 @@ package Game;
 
 import Card.*;
 import Deck.Deck;
+import DiceCalculation.*;
 import Player.Player;
+import Tools.InputValidation;
 
 import java.util.*;
 
@@ -13,13 +15,7 @@ public class GameModel {
     private Optional<Card> currentCard;
     private static GameModel INSTANCE;  //Singleton design pattern
 
-    /**
-     *
-     * @param points
-     * @pre points.isPresent()
-     */
     private GameModel(Optional<Integer> points) {
-        assert points.isPresent();
         this.players = Optional.empty();
         this.points = points;
         this.currentCard=Optional.empty();
@@ -40,13 +36,7 @@ public class GameModel {
         return INSTANCE;
     }
 
-    /**
-     *
-     * @param points
-     * @pre points.isPresent
-     */
     public void setPoints(Optional<Integer> points){
-        assert points.isPresent();
         this.points=points;
     }
 
@@ -71,15 +61,15 @@ public class GameModel {
             deck = new Deck();
             drawCard();
         }
+<<<<<<< HEAD
         this.currentCard=Optional.ofNullable(card);
-        //this.currentCard=Optional.ofNullable(new LeafCard(new DiceCalculationOtherCards(),new InputValidation()));
+//        this.currentCard=Optional.ofNullable(new StraightCard(new DiceCalculationStraight(),new InputValidation()));
+=======
+        //this.currentCard=Optional.ofNullable(card);
+        this.currentCard=Optional.ofNullable(new LeafCard(new DiceCalculationOtherCards(),new InputValidation()));
+>>>>>>> 561da4d57e6d6edc7d04efb08cdb52da9a59f515
     }
 
-    /**
-     *
-     * @return
-     * @post String!=null && !=""
-     */
     public String getClassName(){
         return currentCard.get().getClass().getSimpleName();
     }
@@ -132,7 +122,6 @@ public class GameModel {
      * Get leading players names according to points, used for PMCard
      *
      * @return
-     * @post res!=null && res.size()!=0
      */
     public List<String> getLeadingPlayers() {
         List<String> res = new ArrayList<>();

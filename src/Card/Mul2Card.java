@@ -15,10 +15,10 @@ public class Mul2Card extends Card {
 //    }
 
     public Mul2Card(DiceCalculation diceCalculationOtherCards, InputValidation inputValidation) {
-        super(diceCalculationOtherCards,inputValidation);
+        super(diceCalculationOtherCards, inputValidation);
 
-        if(diceCalculation instanceof DiceCalculationOtherCards){
-            super.diceCalculation=(DiceCalculationOtherCards)diceCalculation;
+        if (diceCalculation instanceof DiceCalculationOtherCards) {
+            super.diceCalculation = (DiceCalculationOtherCards) diceCalculation;
         }
     }
 

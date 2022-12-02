@@ -72,7 +72,11 @@ public abstract class Card implements Cloneable {
             }
         }
 
-        return Optional.of(finalPoints(playPoints));
+        if(continuousAfterTutto){
+            return Optional.of(finalPoints(playPoints));
+        }else {
+            return Optional.of(playPoints);
+        }
         // No valid dice ------------------------------------------------------------------------------------------
 
     }

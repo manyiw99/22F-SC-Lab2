@@ -62,18 +62,5 @@ public class Deck implements Iterable<Card>{
         };
     }
 
-    /**
-     * Draw a card from the deck
-     * @return null: need to create a new deck and shuffle again
-     */
-    public Card draw(){
-        if(iterator().hasNext()){
-            Card c =  iterator().next();
-            iterator().remove();
-            return c;
-        }else{
-            return null;
-        }
-    }
 
 }

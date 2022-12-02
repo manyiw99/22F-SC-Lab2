@@ -1,4 +1,4 @@
-package Card;
+package Tools;
 import Tools.DiceCalculationOtherCards;
 import Tools.InputValidation;
 import org.junit.Test;

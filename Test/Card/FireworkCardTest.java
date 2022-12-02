@@ -96,7 +96,7 @@ public class FireworkCardTest {
         int[] dice1 = {1};
         Optional<int[]> dice2 = Optional.ofNullable(dice1);
 
-        when(diceTool.generateDice(6)).thenReturn(tuttoDice).thenReturn(dice2);
+        when(diceTool.generateDice(Mockito.anyInt())).thenReturn(tuttoDice).thenReturn(dice2);
         when(diceTool.isValidate(Mockito.any())).thenReturn(true);
         when(diceTool.allValidValue(Mockito.any())).thenReturn(diceList).thenReturn(diceList2);
         when(diceTool.calculatePoints(dice)).thenReturn(1000);

@@ -61,13 +61,13 @@ public class GameModel {
             deck = new Deck();
             drawCard();
         }
-<<<<<<< HEAD
-        this.currentCard=Optional.ofNullable(card);
+
+//        this.currentCard=Optional.ofNullable(card);
 //        this.currentCard=Optional.ofNullable(new StraightCard(new DiceCalculationStraight(),new InputValidation()));
-=======
-        //this.currentCard=Optional.ofNullable(card);
-        this.currentCard=Optional.ofNullable(new LeafCard(new DiceCalculationOtherCards(),new InputValidation()));
->>>>>>> 561da4d57e6d6edc7d04efb08cdb52da9a59f515
+
+        this.currentCard=Optional.ofNullable(card);
+//        this.currentCard=Optional.ofNullable(new LeafCard(new DiceCalculationOtherCards(),new InputValidation()));
+
     }
 
     public String getClassName(){

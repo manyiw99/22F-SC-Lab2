@@ -62,7 +62,7 @@ public class GameModel {
     }
 
     public void drawCard() {
-        Card card = deck.draw();
+        Card card = draw();
         if (card == null) {
             deck = new Deck();
             drawCard();
@@ -74,6 +74,21 @@ public class GameModel {
         this.currentCard=Optional.ofNullable(card);
 //        this.currentCard=Optional.ofNullable(new LeafCard(new DiceCalculationOtherCards(),new InputValidation()));
 
+    }
+
+
+    /**
+     * Draw a card from the deck
+     * @return null: need to create a new deck and shuffle again
+     */
+    public Card draw(){
+        if(deck.iterator().hasNext()){
+            Card c =  deck.iterator().next();
+            deck.iterator().remove();
+            return c;
+        }else{
+            return null;
+        }
     }
 
     public String getClassName(){

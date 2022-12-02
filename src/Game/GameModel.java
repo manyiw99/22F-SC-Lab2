@@ -15,7 +15,13 @@ public class GameModel {
     private Optional<Card> currentCard;
     private static GameModel INSTANCE;  //Singleton design pattern
 
+    /**
+     *
+     * @param points
+     * @pre points.isPresent()
+     */
     private GameModel(Optional<Integer> points) {
+        assert points.isPresent();
         this.players = Optional.empty();
         this.points = points;
         this.currentCard=Optional.empty();
@@ -122,6 +128,7 @@ public class GameModel {
      * Get leading players names according to points, used for PMCard
      *
      * @return
+     * @post res!=null
      */
     public List<String> getLeadingPlayers() {
         List<String> res = new ArrayList<>();
@@ -142,6 +149,7 @@ public class GameModel {
             }
         }
 
+        assert res!=null;
         return res;
     }
 

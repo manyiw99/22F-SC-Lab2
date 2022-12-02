@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="openjdk-17" project-jdk-type="JavaSDK">
+=======
+<<<<<<< Updated upstream
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" default="true" project-jdk-name="openjdk-17" project-jdk-type="JavaSDK">
+=======
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_18" project-jdk-name="openjdk-17" project-jdk-type="JavaSDK">
+>>>>>>> Stashed changes
+>>>>>>> 27985640c881a57247f77144779884de94e04522
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="ProjectType">

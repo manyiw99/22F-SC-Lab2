@@ -1,4 +1,4 @@
-package Tools;
+package DiceCalculation;
 
 import java.util.Optional;
 import java.util.Random;

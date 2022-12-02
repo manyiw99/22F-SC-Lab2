@@ -1,6 +1,6 @@
 package Card;
 
-import Tools.DiceCalculationStraight;
+import DiceCalculation.DiceCalculationStraight;
 import Tools.InputValidation;
 import org.junit.Test;
 import org.mockito.Mockito;

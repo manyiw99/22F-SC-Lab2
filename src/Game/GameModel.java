@@ -1,8 +1,10 @@
 package Game;
 
-import Card.Card;
+import Card.*;
 import Deck.Deck;
+import DiceCalculation.*;
 import Player.Player;
+import Tools.InputValidation;
 
 import java.util.*;
 
@@ -10,39 +12,65 @@ public class GameModel {
     private Optional<ArrayList<Player>> players;
     private Optional<Integer> points; //winning points
     private Deck deck;
+    private Optional<Card> currentCard;
     private static GameModel INSTANCE;  //Singleton design pattern
 
-    private GameModel(Optional<ArrayList<Player>> players, Optional<Integer> points) {
-        this.players = players;
+    private GameModel(Optional<Integer> points) {
+        this.players = Optional.empty();
         this.points = points;
+        this.currentCard=Optional.empty();
         deck = new Deck();
     }
+
 
     /**
      * Implementation of singleton design pattern
      *
-     * @param players
      * @param points
      * @return
      */
-    public static synchronized GameModel getInstance(Optional<ArrayList<Player>> players, Optional<Integer> points) {
+    public static synchronized GameModel getInstance(Optional<Integer> points) {
         if (INSTANCE == null) {
-            INSTANCE = new GameModel(players, points);
+            INSTANCE = new GameModel(points);
         }
         return INSTANCE;
+    }
+
+    public void setPoints(Optional<Integer> points){
+        this.points=points;
+    }
+
+    public void addPlayer(String playerName){
+        ArrayList<Player> p = null;
+        if(players.isEmpty()){
+            p =new ArrayList<>();
+        }else{
+            p=players.get();
+        }
+        p.add(new Player(Optional.ofNullable(playerName)));
+        this.players=Optional.of(p);
     }
 
     public ArrayList<Player> getPlayers() {
         return players.get();
     }
 
-    public Card drawCard() {
+    public void drawCard() {
         Card card = deck.draw();
         if (card == null) {
             deck = new Deck();
             drawCard();
         }
-        return card;
+        this.currentCard=Optional.ofNullable(card);
+        //this.currentCard=Optional.ofNullable(new LeafCard(Optional.ofNullable(Suit.LEAF),new DiceCalculationOtherCards(),new InputValidation()));
+    }
+
+    public String getClassName(){
+        return currentCard.get().getClass().getSimpleName();
+    }
+
+    public int getBonus(){
+        return ((BonusCard) currentCard.get()).getBonus();
     }
 
     public int getCurrentPlayerPoint(int i) {
@@ -73,16 +101,16 @@ public class GameModel {
         }
     }
 
-    public Optional<Integer> playGame(Card card) {
-        return card.playGame();
+    public Optional<Integer> playGame() {
+        return currentCard.get().playGame();
     }
 
     public int getWinningPoints() {
         return points.get();
     }
 
-    public boolean isContinuous(Card card) {
-        return card.getContinuousAfterTutto();
+    public boolean isContinuous() {
+        return currentCard.get().getContinuousAfterTutto();
     }
 
     /**

@@ -1,7 +1,7 @@
 package Card;
 
-import Tools.DiceCalculationOtherCards;
-import Tools.DiceCalculationStraight;
+import DiceCalculation.DiceCalculationOtherCards;
+import DiceCalculation.DiceCalculationStraight;
 import Tools.InputValidation;
 
 import java.util.Hashtable;

@@ -1,10 +1,8 @@
 package Card;
 
-import Tools.DiceCalculationOtherCards;
+import DiceCalculation.DiceCalculationOtherCards;
 import Tools.InputValidation;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 public class Mul2Card extends Card {

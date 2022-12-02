@@ -1,6 +1,7 @@
 package Card;
 
-import Tools.*;
+import DiceCalculation.*;
+import Tools.InputValidation;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,5 @@
 import Card.*;
 import Game.GameModel;
-import Player.Player;
 import Tools.InputValidation;
 
 import java.util.*;
@@ -18,7 +17,7 @@ public class StartGame {
     public void setup() {
         int num = 0, points = 0;
 
-        ArrayList<Player> players = new ArrayList<>(num);
+        gm = GameModel.getInstance(Optional.ofNullable(points));
 
         System.out.println("Please enter the number of players:");
         boolean isNum = false;
@@ -39,7 +38,7 @@ public class StartGame {
                 String input = inputValidationTool.readUser();
                 if (inputValidationTool.inputValidation(input, "NAME")) {
                     String name = input;
-                    players.add(new Player(Optional.ofNullable(name)));
+                    gm.addPlayer(name);
                     isName = true;
                 } else {
                     System.out.println("Input wrong. Please enter again.");
@@ -47,7 +46,7 @@ public class StartGame {
             }
         }
 
-        System.out.println("Please enter the points need to win:");
+        System.out.println("Please enter the points need to win (Integer):");
         boolean isPoints = false;
         while (!isPoints) {
             String input = inputValidationTool.readUser();
@@ -58,8 +57,7 @@ public class StartGame {
                 System.out.println("Input wrong. Please enter again.");
             }
         }
-
-        gm = GameModel.getInstance(Optional.ofNullable(players), Optional.ofNullable(points));
+        gm.setPoints(Optional.ofNullable(points));
         gm.sortOrder();
     }
 
@@ -93,26 +91,24 @@ public class StartGame {
                     boolean isLeaf=false;
                     while (isContinuous) {
                         // Draw card randomly
-                        Card card = gm.drawCard();
+                        gm.drawCard();
 //                        Card card=new StraightCard(Optional.ofNullable(Suit.STRAIGHT));
 
-//                        Card card = gm.drawCard();
-
-                        if (card.getSuit() == Suit.BONUS) {
-                            System.out.println("You have drawn Bonus Card, the bonus points are " + ((BonusCard) card).getBonus());
+                        if (gm.getClassName().equals("BonusCard")) {
+                            System.out.println("You have drawn Bonus Card, the bonus points are " + gm.getBonus());
                         } else {
-                            System.out.println("You have drawn " + card.getSuit() + " Card.");
+                            System.out.println("You have drawn " + gm.getClassName() + " Card.");
                         }
 
                         //Play game
-                        Optional<Integer> pointsFromCard = gm.playGame(card);
+                        Optional<Integer> pointsFromCard = gm.playGame();
 
                         // Deal with PM Card-------------------------------------
-                        if (card.getSuit() == Suit.PM) {
+                        if (gm.getClassName().equals("PMCard")) {
                             isPM = true;
                         }
 
-                        if (card.getSuit() == Suit.LEAF) {
+                        if (gm.getClassName().equals("LeafCard")) {
                             if (pointsFromCard.get()==99999) {
                                 winner[i] = currentPlayerName;
                                 isLeaf=true;
@@ -130,7 +126,7 @@ public class StartGame {
                             playPoints = pointsFromCard.get() + playPoints;
                         }
 
-                        isContinuous = gm.isContinuous(card);
+                        isContinuous = gm.isContinuous();
                         if(isContinuous){
                             System.out.println("You chose continue after TUTTO. Draw card again.");
                         }

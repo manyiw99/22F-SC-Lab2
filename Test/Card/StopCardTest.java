@@ -1,6 +1,6 @@
 package Card;
 
-import Tools.DiceCalculationOtherCards;
+import DiceCalculation.DiceCalculationOtherCards;
 import Tools.InputValidation;
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;

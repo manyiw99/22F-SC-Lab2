@@ -1,15 +1,13 @@
 package Card;
 
-import Tools.DiceCalculationOtherCards;
+import DiceCalculation.DiceCalculationOtherCards;
 import Tools.InputValidation;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-import java.util.List;
 import java.util.Optional;
 
 public class BonusCardTest {

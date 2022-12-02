@@ -1,9 +1,9 @@
-package Tools;
+package DiceCalculation;
+
+import Tools.InputValidation;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static Tools.InputValidation.*;
 
 public class DiceCalculationStraight extends DiceCalculation{
 

@@ -11,11 +11,13 @@ public class BonusCard extends Card {
     private int bonus;
 //    public InputValidation inputValidation_tool;
     public DiceCalculationOtherCards diceCalculationTool;
+    public InputValidation inputValidation;
 
     public BonusCard(Optional<Suit> suit, int bonus,  DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
-        super(suit, inputValidation);
+        super(suit);
         this.bonus = bonus;
         this.diceCalculationTool = diceCalculationOtherCards;
+        this.inputValidation = inputValidation;
     }
 
     public int getBonus() {

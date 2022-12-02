@@ -9,10 +9,12 @@ import java.util.Optional;
 public class PMCard extends Card {
 
     public DiceCalculationOtherCards diceCalculationTool;
+    public InputValidation inputValidation;
 
     public PMCard(Optional<Suit> suit, DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
-        super(suit, inputValidation);
+        super(suit);
         this.diceCalculationTool = diceCalculationOtherCards;
+        this.inputValidation = inputValidation;
     }
 
     /**

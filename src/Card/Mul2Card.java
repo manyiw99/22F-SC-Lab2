@@ -9,9 +9,11 @@ import java.util.Optional;
 
 public class Mul2Card extends Card {
     public DiceCalculationOtherCards diceTool;
+    public InputValidation inputValidation;
     public Mul2Card(Optional<Suit> suit, DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
-        super(suit, inputValidation);
+        super(suit);
         this.diceTool = diceCalculationOtherCards;
+        this.inputValidation = inputValidation;
     }
 
     @Override

@@ -7,9 +7,11 @@ import java.util.Optional;
 
 public class StopCard extends Card {
     public DiceCalculationOtherCards diceTool;
+    public InputValidation inputValidation;
     public StopCard(Optional<Suit> suit, DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
-        super(suit, inputValidation);
+        super(suit);
         this.diceTool = diceCalculationOtherCards;
+        this.inputValidation = inputValidation;
     }
 
     /**

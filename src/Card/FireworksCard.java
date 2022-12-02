@@ -11,10 +11,12 @@ import java.util.Optional;
 public class FireworksCard extends Card {
 
     public DiceCalculationOtherCards diceCalculationTool;
+    public InputValidation inputValidation;
 
     public FireworksCard(Optional<Suit> suit, DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
-        super(suit, inputValidation);
+        super(suit);
         this.diceCalculationTool = diceCalculationOtherCards;
+        this.inputValidation = inputValidation;
     }
 
     @Override

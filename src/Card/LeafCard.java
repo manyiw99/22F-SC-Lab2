@@ -48,9 +48,10 @@ public class LeafCard extends Card {
                     TuttoNum++;
                     if (TuttoNum == 2) {
                         System.out.println("You WIN! You finished two TUTTO.");
+                        super.continuousAfterTutto = false;
                         return Optional.ofNullable(99999);// return 99999 score and end game
                     }
-                    System.out.println("TUTTO! You cannot stop before another TUTTO.");
+                    System.out.println("You cannot stop before another TUTTO.");
                     System.out.println("Take another round.");
                     dice = diceCalculationTool.generateDice(6);
                     if (!diceCalculationTool.isValidate(dice)) { //If no valid dice
@@ -58,6 +59,7 @@ public class LeafCard extends Card {
                     }
                 }
                 if (!diceCalculationTool.isValidate(dice)) { //If no valid dice
+
                     break;
                 }
             }
@@ -65,6 +67,7 @@ public class LeafCard extends Card {
         } else {
             super.continuousAfterTutto = false;
         }
+        super.continuousAfterTutto = false;
         System.out.println("You have rolled a null. Next turn.");
         return Optional.empty();
     }

@@ -61,8 +61,8 @@ public class GameModel {
             deck = new Deck();
             drawCard();
         }
-        this.currentCard=Optional.ofNullable(card);
-        //this.currentCard=Optional.ofNullable(new LeafCard(new DiceCalculationOtherCards(),new InputValidation()));
+        //this.currentCard=Optional.ofNullable(card);
+        this.currentCard=Optional.ofNullable(new LeafCard(new DiceCalculationOtherCards(),new InputValidation()));
     }
 
     public String getClassName(){

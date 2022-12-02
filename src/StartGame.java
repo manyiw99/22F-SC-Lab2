@@ -108,10 +108,12 @@ public class StartGame {
                         }
 
                         if (gm.getClassName().equals("LeafCard")) {
-                            if (pointsFromCard.get()==99999) {
-                                winner[i] = currentPlayerName;
-                                isLeaf=true;
-                                break;
+                            if(pointsFromCard.isPresent()) {
+                                if (pointsFromCard.get() == 99999) {
+                                    winner[i] = currentPlayerName;
+                                    isLeaf = true;
+                                    break;
+                                }
                             }
                         }
 

@@ -64,13 +64,14 @@ public class StraightCard extends Card {
                         String chooseInput = super.inputValidation_tool.readUser();
 
                         if (chooseInput.equals("S")) { // stop ----------------------------
-                            continuousAfterTutto = false;
+                            super.continuousAfterTutto = false;
                             dice = Optional.empty();
                             validInput = true;
                         } else if (chooseInput.equals("C")) { // continue---------------------
                             expectedDice = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6));
                             dice = diceTool.generateDice(6);
                             validInput = true;
+                            super.continuousAfterTutto = true;
                         } else {
                             continuousAfterTutto = false;
                             System.out.println("Input wrong. Please enter again.");

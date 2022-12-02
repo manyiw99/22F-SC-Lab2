@@ -27,11 +27,11 @@ public class StraightCard extends Card {
         this.diceTool = diceCalculation;
     }
 
-    private List<Integer> expectedDice = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6));
-    private List<Integer> diceList = new ArrayList<>();
-
     @Override
     public Optional<Integer> playGame() {
+        List<Integer> expectedDice = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6));
+        List<Integer> diceList = new ArrayList<>();
+
         Optional<int[]> dice = diceTool.generateDice(6);
 //        int[] test = {1,2,3,4,5,6};
 //        Optional<int[]> dice = Optional.of(test);
@@ -66,12 +66,14 @@ public class StraightCard extends Card {
                         if (chooseInput.equals("S")) { // stop ----------------------------
                             super.continuousAfterTutto = false;
                             dice = Optional.empty();
-                            validInput = true;
+                            return Optional.ofNullable(playPoints);
+//                            validInput = true;
                         } else if (chooseInput.equals("C")) { // continue---------------------
                             expectedDice = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6));
-                            dice = diceTool.generateDice(6);
-                            validInput = true;
+                            dice = diceTool.generateDice(0);
+//                            validInput = true;
                             super.continuousAfterTutto = true;
+                            return Optional.ofNullable(playPoints);
                         } else {
                             continuousAfterTutto = false;
                             System.out.println("Input wrong. Please enter again.");

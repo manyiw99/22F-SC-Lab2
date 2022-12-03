@@ -48,6 +48,13 @@ public class InputValidation {
     }
 
     @Test
+    public void invalidInputValidationType(){
+        String type = "NUME";
+        String input = "6";
+        assertEquals(false, inputValidation.inputValidation(input, type));
+    }
+
+    @Test
     public void invalidInputValidationNAME(){
         String type = "NAME";
         String input = " f";

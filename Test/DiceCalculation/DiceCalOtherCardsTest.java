@@ -1,5 +1,5 @@
 
-package Tools;
+package DiceCalculation;
 
 import DiceCalculation.DiceCalculationOtherCards;
 

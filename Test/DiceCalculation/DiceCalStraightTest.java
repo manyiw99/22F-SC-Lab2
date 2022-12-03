@@ -1,4 +1,4 @@
-package Tools;
+package DiceCalculation;
 
 import DiceCalculation.DiceCalculationStraight;
 import org.junit.Test;

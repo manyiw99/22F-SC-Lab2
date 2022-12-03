@@ -19,38 +19,29 @@ public class DiceCalculationStraight extends DiceCalculation{
 
         while (true) {
             System.out.println("Please choose the valid dice you want to keep(eg.3,4,6): ");
-            for (Integer integer : allValidDice) {
-                System.out.print(integer + "  ");
+            for (Integer integer : allValidDice) {System.out.print(integer + "  ");
             }
-            System.out.println();
-            String selectedInput = inputValidation.readUser();
+            System.out.println();String selectedInput = inputValidation.readUser();
 
             int[] values;
 
             if (selectedInput != null){
                 //convert input "String" to List<Integer>
-                String[] strings = selectedInput.split(",");
-                values = new int[strings.length];
+                String[] strings = selectedInput.split(",");values = new int[strings.length];
                 for (int i = 0; i < strings.length; i++) {
-                    if (strings[i].equals("1") || strings[i].equals("2") || strings[i].equals("3") || strings[i].equals("4") ||
-                            strings[i].equals("5") || strings[i].equals("6")) {
+                    if (strings[i].equals("1") || strings[i].equals("2") || strings[i].equals("3") || strings[i].equals("4") || strings[i].equals("5") || strings[i].equals("6")) {
                         values[i] = Integer.parseInt(strings[i]);
-                    }else {
-                        values[i] = 7;
+                    }else {values[i] = 7;
                     }
 
                 }
             }else {
-                values = new int[1];
-                values[0] = 7;
+                values = new int[1];values[0] = 7;
             }
             List<Integer> inputList = Arrays.stream(values).boxed().collect(Collectors.toList());
 
-            if (inputValidation.validateSelectStraight(inputList, allValidDice)) {
-//                expectedDice.removeAll(inputList);
-                return values;
-            } else {
-                System.out.println("Your selection is wrong, please enter again.");
+            if (inputValidation.validateSelectStraight(inputList, allValidDice)) {return values;
+            } else {System.out.println("Your selection is wrong, please enter again.");
             }
         }
     }

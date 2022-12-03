@@ -11,10 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,9 +35,19 @@ public class DiceCalOtherCardsTest {
     @Test
     public void validValidateSelectedDiceTest() {
         String input = "[1]";
-        int[] dice = new int[]{1,2,3,4,5,6};
+        int[] dice = new int[]{1,2,2,2,5,6};
 
         assertTrue(diceTool.validateSelectedDice(input, dice));
+        input = "[2,2,2]";
+        assertTrue(diceTool.validateSelectedDice(input, dice));
+        input = "";
+        assertTrue(!diceTool.validateSelectedDice(input, dice));
+        input = "[3,2,1]";
+        assertTrue(!diceTool.validateSelectedDice(input, dice));
+        input = "[6,5,1]";
+        assertTrue(!diceTool.validateSelectedDice(input, dice));
+        input = "[2,2]";
+        assertTrue(!diceTool.validateSelectedDice(input, dice));
     }
 
     @Test
@@ -93,7 +99,7 @@ public class DiceCalOtherCardsTest {
         int[] dice = new int[]{1,2,3,4};
         when(inputValidation.readUser()).thenReturn("[1]");
         when(DiceCalO.validateSelectedDice("[1]",dice)).thenReturn(true);
-        List<int[]> answer = new ArrayList<>();
+        List<int[]> answer;
         answer = DiceCalO.selectDice(dice);
         System.out.println(answer);
 

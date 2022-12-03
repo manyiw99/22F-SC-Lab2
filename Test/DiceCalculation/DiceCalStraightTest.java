@@ -1,6 +1,7 @@
 package DiceCalculation;
 
 import DiceCalculation.DiceCalculationStraight;
+import Tools.InputValidation;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import DiceCalculation.DiceCalculationOtherCards;
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
@@ -36,6 +38,7 @@ public class DiceCalStraightTest {
         diceList.add(5);
         assertEquals(expectedDiceCopy,diceTool.allValidDice(diceList,expectedList));
     }
+
     @Test //Test diceToList method
     public void diceToListTest(){
         int[] values = new int[]{1,2,3};

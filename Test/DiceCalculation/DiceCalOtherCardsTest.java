@@ -52,6 +52,13 @@ public class DiceCalOtherCardsTest {
     }
 
     @Test
+    public void countTest(){
+        int[] dice = new int[]{1,1,1,3,3,3};
+        int[] counter = new int[]{0,3,0,3,0,0,0};
+        assertArrayEquals(counter,diceTool.count(dice));
+    }
+
+    @Test
     public void calculateSingleDices() {
         int[] dice = new int[]{1};
         int point = 100;
@@ -97,6 +104,7 @@ public class DiceCalOtherCardsTest {
         pos.add(2);pos.add(2);pos.add(2);pos.remove(1);pos.add(5);
         assertEquals(pos,diceTool.allValidValue(new int[]{1,2,2,2,5,6}));
     }
+
     @Test //Test calculatePoints method
     public void calculatePointsTest(){
         int point;
@@ -114,6 +122,15 @@ public class DiceCalOtherCardsTest {
         assertEquals(valid, diceTool.isValidate(Optional.of(new int[]{1, 2, 2, 2, 5, 6})));
         valid = false;
         assertEquals(valid, diceTool.isValidate(Optional.of(new int[]{2, 2, 3, 3, 4, 6})));
+    }
+
+    @Test
+    public void validCalculatePoints() {
+        List<int[]> input = new ArrayList<int[]>();
+        input.add(new int[]{3,3,3});
+        input.add(new int[]{1});
+
+        assertEquals(400, diceTool.calculatePoints(input));
     }
 
 

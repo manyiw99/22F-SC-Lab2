@@ -1,4 +1,4 @@
-import Card.*;
+import Card.LeafCard;
 import Game.GameModel;
 import Tools.InputValidation;
 
@@ -92,7 +92,7 @@ public class StartGame {
                     while (isContinuous) {
                         // Draw card randomly
                         gm.drawCard();
-//                        Card card=new StraightCard(Optional.ofNullable(Suit.STRAIGHT));
+//                        Card card=new LeafCard();
 
                         if (gm.getClassName().equals("BonusCard")) {
                             System.out.println("You have drawn Bonus Card, the bonus points are " + gm.getBonus());
@@ -109,10 +109,12 @@ public class StartGame {
                         }
 
                         if (gm.getClassName().equals("LeafCard")) {
-                            if (pointsFromCard.get()==99999) {
-                                winner[i] = currentPlayerName;
-                                isLeaf=true;
-                                break;
+                            if(pointsFromCard.isPresent()) {
+                                if (pointsFromCard.get() == 99999) {
+                                    winner[i] = currentPlayerName;
+                                    isLeaf = true;
+                                    break;
+                                }
                             }
                         }
 

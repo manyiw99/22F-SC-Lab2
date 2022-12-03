@@ -15,7 +15,13 @@ public class GameModel {
     private Optional<Card> currentCard;
     private static GameModel INSTANCE;  //Singleton design pattern
 
+    /**
+     *
+     * @param points
+     * @pre points.isPresent()
+     */
     private GameModel(Optional<Integer> points) {
+        assert points.isPresent();
         this.players = Optional.empty();
         this.points = points;
         this.currentCard=Optional.empty();
@@ -56,13 +62,33 @@ public class GameModel {
     }
 
     public void drawCard() {
-        Card card = deck.draw();
+        Card card = draw();
         if (card == null) {
             deck = new Deck();
             drawCard();
         }
+
+//        this.currentCard=Optional.ofNullable(card);
+//        this.currentCard=Optional.ofNullable(new StraightCard(new DiceCalculationStraight(),new InputValidation()));
+
         this.currentCard=Optional.ofNullable(card);
-        //this.currentCard=Optional.ofNullable(new LeafCard(Optional.ofNullable(Suit.LEAF),new DiceCalculationOtherCards(),new InputValidation()));
+//        this.currentCard=Optional.ofNullable(new LeafCard(new DiceCalculationOtherCards(),new InputValidation()));
+
+    }
+
+
+    /**
+     * Draw a card from the deck
+     * @return null: need to create a new deck and shuffle again
+     */
+    public Card draw(){
+        if(deck.iterator().hasNext()){
+            Card c =  deck.iterator().next();
+            deck.iterator().remove();
+            return c;
+        }else{
+            return null;
+        }
     }
 
     public String getClassName(){
@@ -117,6 +143,7 @@ public class GameModel {
      * Get leading players names according to points, used for PMCard
      *
      * @return
+     * @post res!=null
      */
     public List<String> getLeadingPlayers() {
         List<String> res = new ArrayList<>();
@@ -137,6 +164,7 @@ public class GameModel {
             }
         }
 
+        assert res!=null;
         return res;
     }
 

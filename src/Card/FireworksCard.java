@@ -1,6 +1,6 @@
 package Card;
 
-import DiceCalculation.DiceCalculationOtherCards;
+import DiceCalculation.*;
 import Tools.InputValidation;
 
 import java.util.List;
@@ -13,17 +13,21 @@ public class FireworksCard extends Card {
     public DiceCalculationOtherCards diceCalculationTool;
     public InputValidation inputValidation;
 
-    public FireworksCard(Optional<Suit> suit, DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
-        super(suit);
-        this.diceCalculationTool = diceCalculationOtherCards;
-        this.inputValidation = inputValidation;
+//    public FireworksCard(Optional<Suit> suit, DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
+//        super(suit);
+//        this.diceCalculationTool = diceCalculationOtherCards;
+//        this.inputValidation = inputValidation;
+//    }
+    public FireworksCard(DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
+        super(diceCalculationOtherCards,inputValidation);
+        this.diceCalculationTool=diceCalculationOtherCards;
     }
 
     @Override
     public Optional<Integer> playGame() {
         int playPoints = 0;
         super.continuousAfterTutto = false;
-        Optional<int[]> dice = diceCalculationTool.generateDice(6);
+        Optional<int[]> dice = super.diceCalculation.generateDice(6);
         //for(int i =0; i<6;i++) diceCopy[i] = dice.get()[i];
         //If contains at least one valid dice--------------------------------------------------------
         if (diceCalculationTool.isValidate(dice)) {

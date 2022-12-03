@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DiceCalOtherCardsTest {
     private DiceCalculationOtherCards diceTool = new DiceCalculationOtherCards();
@@ -43,15 +44,32 @@ public class DiceCalOtherCardsTest {
         System.setIn(oldIn);
     }
 
-    @Test //Test formatSelectedInput method
-    public void countTest(){
-        List<String> formatInput = new ArrayList<>();
-        formatInput.add("[1]");
-        assertEquals(formatInput,diceTool.formatSelectedInput("[1]"));
-        formatInput.add("[5]");
-        assertEquals(formatInput,diceTool.formatSelectedInput("[1],[5]"));
-        formatInput.add("[2,2,2]");
-        assertEquals(formatInput,diceTool.formatSelectedInput("[1],[5],[2,2,2]"));
+    @Test //Test allValidValue method
+    public void allValidValueTest(){
+        List<Integer> pos = new ArrayList<Integer>();
+        pos.add(1);
+        pos.add(5);
+        assertEquals(pos,diceTool.allValidValue(new int[]{1,2,3,4,5,6}));
+        pos.add(2);pos.add(2);pos.add(2);pos.remove(1);pos.add(5);
+        assertEquals(pos,diceTool.allValidValue(new int[]{1,2,2,2,5,6}));
+    }
+    @Test //Test calculatePoints method
+    public void calculatePointsTest(){
+        int point;
+        point = 150;
+        assertEquals(point,diceTool.calculatePoints(new int[]{1,2,3,4,5,6}));
+        point = 350;
+        assertEquals(point,diceTool.calculatePoints(new int[]{1,2,2,2,5,6}));
+        point = 1000;
+        assertEquals(point,diceTool.calculatePoints(new int[]{1,1,1,2,3,6}));
+    }
+
+    @Test //Test isValidate method
+    public void isValidateTest(){
+        boolean valid = true;
+        assertEquals(valid, diceTool.isValidate(Optional.of(new int[]{1, 2, 2, 2, 5, 6})));
+        valid = false;
+        assertEquals(valid, diceTool.isValidate(Optional.of(new int[]{2, 2, 3, 3, 4, 6})));
     }
 
 

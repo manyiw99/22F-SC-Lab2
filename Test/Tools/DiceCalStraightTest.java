@@ -36,9 +36,11 @@ public class DiceCalStraightTest {
         diceList.add(5);
         assertEquals(expectedDiceCopy,diceTool.allValidDice(diceList,expectedList));
     }
-
-    public void selectDiceTest(){
-        int[] values = new int[]{};
-
+    @Test //Test diceToList method
+    public void diceToListTest(){
+        int[] values = new int[]{1,2,3};
+        List<Integer> diceList = new ArrayList<>();
+        diceList.add(1);diceList.add(2);diceList.add(3);
+        assertEquals(diceList,diceTool.diceToList(Optional.of(values)));
     }
 }

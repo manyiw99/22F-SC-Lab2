@@ -21,6 +21,7 @@ import java.util.Optional;
 
 public class DiceCalOtherCardsTest {
     InputValidation inputValidation =  mock(InputValidation.class);
+    private DiceCalculationOtherCards DiceCalO = mock(DiceCalculationOtherCards.class);
     private DiceCalculationOtherCards diceTool = new DiceCalculationOtherCards(mock(InputValidation.class));
 
     @Test //Test formatSelectedInput method
@@ -84,16 +85,24 @@ public class DiceCalOtherCardsTest {
         assertFalse(diceTool.exitThreeDices(dice));
     }
 
-//    @Test //Test selectDice method
-//    public void validSelectDiceTestSingle(){
-//        List<int[]> selectedDice = new ArrayList<>();
-//        int[] i=new int[]{1};
-//        selectedDice.add(i);
+    @Test //Test selectDice method
+    public void selectDiceTest(){
+        List<int[]> selectedDice = new ArrayList<>();
+        int[] i=new int[]{1};
+        selectedDice.add(i);
+        int[] dice = new int[]{1,2,3,4};
+        when(inputValidation.readUser()).thenReturn("[1]");
+        when(DiceCalO.validateSelectedDice("[1]",dice)).thenReturn(true);
+        List<int[]> answer = new ArrayList<>();
+        answer = DiceCalO.selectDice(dice);
+        System.out.println(answer);
+
+
 //
 //        when(inputValidation.readUser()).thenReturn("[1]");
 //        List<int[]> result = diceTool.selectDice(new int[]{1,2,3,4,5,6});
 //        assertEquals(selectedDice, result);
-//    }
+    }
 
     @Test //Test allValidValue method
     public void allValidValueTest(){

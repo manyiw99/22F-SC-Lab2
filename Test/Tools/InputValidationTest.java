@@ -1,15 +1,9 @@
-package Tool;
+package Tools;
 
-import static org.mockito.Mockito.mock;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-
-public class InputValidation {
+public class InputValidationTest {
     Tools.InputValidation inputValidation = new Tools.InputValidation();
 
     @Test
@@ -67,5 +61,4 @@ public class InputValidation {
         String input = "34g5";
         assertEquals(false, inputValidation.inputValidation(input, type));
     }
-
 }

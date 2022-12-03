@@ -81,21 +81,21 @@ public class InputValidation {
      * @param len
      * @return
      */
-    public boolean validateSelectNum(String input, int len){
-        if (input == null) {
-            return false;
-        }
-        for (int i = 0; i < input.length(); i++) {
-            if (!Character.isDigit(input.charAt(i))) {
-                return false;
-            }
-        }
-        int inputNum = Integer.parseInt(input);
-        if (inputNum < 1 || inputNum > len + 1) {
-            return false;
-        }
-        return true;
-    }
+//    public boolean validateSelectNum(String input, int len){
+//        if (input == null) {
+//            return false;
+//        }
+//        for (int i = 0; i < input.length(); i++) {
+//            if (!Character.isDigit(input.charAt(i))) {
+//                return false;
+//            }
+//        }
+//        int inputNum = Integer.parseInt(input);
+//        if (inputNum < 1 || inputNum > len + 1) {
+//            return false;
+//        }
+//        return true;
+//    }
 
     public boolean validateSelectStraight(List<Integer> input, List<Integer> allValidDice){
         if (input == null) {

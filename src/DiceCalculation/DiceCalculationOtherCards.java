@@ -6,7 +6,11 @@ import java.util.*;
 
 public class DiceCalculationOtherCards extends DiceCalculation {
 
-    public InputValidation inputValidation = new InputValidation();
+    public InputValidation inputValidation;
+
+    public DiceCalculationOtherCards(InputValidation inputValidation) {
+        this.inputValidation = inputValidation;
+    }
 
     public List<String> formatSelectedInput (String input) {
         List<String> formatInput = new ArrayList<>();
@@ -48,7 +52,6 @@ public class DiceCalculationOtherCards extends DiceCalculation {
                 //System.out.println(Arrays.toString(dices));
                 for (int i = 0; i < dices.length; i++) {
                     //System.out.println("输入逗号分割 - "+ dices[i].length()+ " "+ dice[i]);
-
                     if (dices[i].length() == 3) {
                         int[] formatDice = new int[1];
                         formatDice[0] = Integer.parseInt(dices[i].substring(1, 2));
@@ -87,7 +90,7 @@ public class DiceCalculationOtherCards extends DiceCalculation {
      * @param dice
      * @return
      */
-    private boolean validateSelectedDice(String input, int[] dice) {
+    public boolean validateSelectedDice(String input, int[] dice) {
         // System.out.println("test(manyi) - "+input);   // OK
         if (input == null || !input.contains("[")){
             return false;

@@ -1,0 +1,190 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > LeafCard</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">Card</a>
+</div>
+
+<h1>Coverage Summary for Class: LeafCard (Card)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LeafCard</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (38/38)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package Card;
+&nbsp;
+&nbsp;import DiceCalculation.*;
+&nbsp;import Tools.InputValidation;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;// Prototype design pattern
+&nbsp;public class LeafCard extends Card {
+&nbsp;    public DiceCalculationOtherCards diceCalculationTool;
+&nbsp;    //public InputValidation inputValidation;
+&nbsp;
+&nbsp;//    public LeafCard(Optional&lt;Suit&gt; leaf, DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
+&nbsp;//        super(leaf);
+&nbsp;//        this.diceCalculationTool = diceCalculationOtherCards;
+&nbsp;//        this.inputValidation = inputValidation;
+&nbsp;//    }
+&nbsp;
+&nbsp;    public LeafCard(DiceCalculationOtherCards diceCalculationOtherCards, InputValidation inputValidation) {
+<b class="fc">&nbsp;        super(diceCalculationOtherCards, inputValidation);</b>
+&nbsp;
+<b class="fc">&nbsp;        if (diceCalculation instanceof DiceCalculationOtherCards) {</b>
+<b class="fc">&nbsp;            super.diceCalculation = (DiceCalculationOtherCards) diceCalculation;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        this.diceCalculationTool = diceCalculationOtherCards;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Optional&lt;Integer&gt; playGame() {
+<b class="fc">&nbsp;        System.out.println(&quot;LeafCard! You cannot stop before TUTTO twice or NULL.&quot;);</b>
+<b class="fc">&nbsp;        int TuttoNum = 0; //number of times that Tutto, it has to be 2 to finish</b>
+<b class="fc">&nbsp;        Optional&lt;int[]&gt; dice = diceCalculationTool.generateDice(6);</b>
+<b class="fc">&nbsp;        if (diceCalculationTool.isValidate(dice)) {</b>
+&nbsp;            // Cannot stop until NULL
+<b class="fc">&nbsp;            while (dice.isPresent()) {</b>
+<b class="fc">&nbsp;                List&lt;int[]&gt; selectedDice = diceCalculationTool.selectDice(dice.get());</b>
+&nbsp;
+<b class="fc">&nbsp;                int selectedDiceLength = 0;</b>
+<b class="fc">&nbsp;                for (int l = 0; l &lt; selectedDice.size(); l++) {</b>
+<b class="fc">&nbsp;                    selectedDiceLength = selectedDice.get(l).length + selectedDiceLength;</b>
+&nbsp;                }
+&nbsp;                // Roll the remaining dice
+<b class="fc">&nbsp;                dice = remainingDice(dice, selectedDiceLength);</b>
+<b class="fc">&nbsp;                if (dice.isEmpty()) { //Tutto and continue throwing dice</b>
+<b class="fc">&nbsp;                    TuttoNum++;</b>
+<b class="fc">&nbsp;                    if (TuttoNum == 2) {</b>
+<b class="fc">&nbsp;                        System.out.println(&quot;You WIN! You finished two TUTTO.&quot;);</b>
+<b class="fc">&nbsp;                        super.continuousAfterTutto = false;</b>
+<b class="fc">&nbsp;                        return Optional.ofNullable(99999);// return 99999 score and end game</b>
+&nbsp;                    }
+<b class="fc">&nbsp;                    System.out.println(&quot;You cannot stop before another TUTTO.&quot;);</b>
+<b class="fc">&nbsp;                    System.out.println(&quot;Take another round.&quot;);</b>
+<b class="fc">&nbsp;                    dice = diceCalculationTool.generateDice(6);</b>
+<b class="fc">&nbsp;                    if (!diceCalculationTool.isValidate(dice)) { //If no valid dice</b>
+<b class="fc">&nbsp;                        break;</b>
+&nbsp;                    }
+&nbsp;                }
+<b class="fc">&nbsp;                if (!diceCalculationTool.isValidate(dice)) { //If no valid dice</b>
+&nbsp;
+<b class="fc">&nbsp;                    break;</b>
+&nbsp;                }
+<b class="fc">&nbsp;            }</b>
+&nbsp;            // No valid dice ------------------------------------------------------------------------------------------
+&nbsp;        } else {
+<b class="fc">&nbsp;            super.continuousAfterTutto = false;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        super.continuousAfterTutto = false;</b>
+<b class="fc">&nbsp;        System.out.println(&quot;You have rolled a null. Next turn.&quot;);</b>
+<b class="fc">&nbsp;        return Optional.empty();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Optional&lt;int[]&gt; remainingDice(Optional&lt;int[]&gt; dice, int selectedDiceLength) {
+<b class="fc">&nbsp;        if (dice.get().length - selectedDiceLength == 0) {</b>
+<b class="fc">&nbsp;            dice = Optional.empty();</b>
+<b class="fc">&nbsp;            continuousAfterTutto = true;</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            continuousAfterTutto = false;</b>
+<b class="fc">&nbsp;            dice = diceCalculation.generateDice(dice.get().length - selectedDiceLength);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return dice;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-03 14:14</div>
+</div>
+</body>
+</html>

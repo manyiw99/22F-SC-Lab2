@@ -31,7 +31,7 @@ public class CardCache {
 //    }
 
     public static void loadCache() {
-        DiceCalculationOtherCards diceCalculationOther =new DiceCalculationOtherCards();
+        DiceCalculationOtherCards diceCalculationOther =new DiceCalculationOtherCards(new InputValidation());
         DiceCalculationStraight straight = new DiceCalculationStraight();
         InputValidation inputValidation=new InputValidation();
 

@@ -1,0 +1,153 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CardCache</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">Card</a>
+</div>
+
+<h1>Coverage Summary for Class: CardCache (Card)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CardCache</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/18)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package Card;
+&nbsp;
+&nbsp;import DiceCalculation.DiceCalculation;
+&nbsp;import DiceCalculation.DiceCalculationOtherCards;
+&nbsp;import DiceCalculation.DiceCalculationStraight;
+&nbsp;import Tools.InputValidation;
+&nbsp;
+&nbsp;import java.util.Hashtable;
+&nbsp;import java.util.Optional;
+&nbsp;
+<b class="nc">&nbsp;public class CardCache {</b>
+<b class="nc">&nbsp;    private static Hashtable&lt;String, Card&gt; cardMap = new Hashtable&lt;String, Card&gt;();</b>
+&nbsp;
+&nbsp;    public static Card getCard(String cardKey) {
+<b class="nc">&nbsp;        Card cachedCard = cardMap.get(cardKey);</b>
+<b class="nc">&nbsp;        return (Card) cachedCard.clone();  //shallow clone</b>
+&nbsp;    }
+&nbsp;
+&nbsp;//    public static void loadCache() {
+&nbsp;//        cardMap.put(&quot;LeafCard&quot;,new LeafCard(Optional.ofNullable(Suit.LEAF), new DiceCalculationOtherCards(), new InputValidation()));
+&nbsp;//        cardMap.put(&quot;FireworksCard&quot;,new FireworksCard(Optional.ofNullable(Suit.FIREWORKS), new DiceCalculationOtherCards(), new InputValidation()));
+&nbsp;//        cardMap.put(&quot;StopCard&quot;,new StopCard(Optional.ofNullable(Suit.STOP), new DiceCalculationOtherCards(), new InputValidation()));
+&nbsp;//        cardMap.put(&quot;StraightCard&quot;, new StraightCard(Optional.ofNullable(Suit.STRAIGHT), new InputValidation(), new DiceCalculationStraight()));
+&nbsp;//        cardMap.put(&quot;PMCard&quot;,new PMCard(Optional.ofNullable(Suit.PM), new DiceCalculationOtherCards(), new InputValidation()));
+&nbsp;//        cardMap.put(&quot;Mul2Card&quot;,new Mul2Card(Optional.ofNullable(Suit.MUL2), new DiceCalculationOtherCards(), new InputValidation()));
+&nbsp;//        cardMap.put(&quot;Bonus200&quot;,new BonusCard(Optional.ofNullable(Suit.BONUS),200, new DiceCalculationOtherCards(), new InputValidation()));
+&nbsp;//        cardMap.put(&quot;Bonus300&quot;,new BonusCard(Optional.ofNullable(Suit.BONUS),300, new DiceCalculationOtherCards(), new InputValidation()));
+&nbsp;//        cardMap.put(&quot;Bonus400&quot;,new BonusCard(Optional.ofNullable(Suit.BONUS),400, new DiceCalculationOtherCards(), new InputValidation()));
+&nbsp;//        cardMap.put(&quot;Bonus500&quot;,new BonusCard(Optional.ofNullable(Suit.BONUS),500, new DiceCalculationOtherCards(), new InputValidation()));
+&nbsp;//        cardMap.put(&quot;Bonus600&quot;,new BonusCard(Optional.ofNullable(Suit.BONUS),600, new DiceCalculationOtherCards(), new InputValidation()));
+&nbsp;//    }
+&nbsp;
+&nbsp;    public static void loadCache() {
+<b class="nc">&nbsp;        DiceCalculationOtherCards diceCalculationOther =new DiceCalculationOtherCards();</b>
+<b class="nc">&nbsp;        DiceCalculationStraight straight = new DiceCalculationStraight();</b>
+<b class="nc">&nbsp;        InputValidation inputValidation=new InputValidation();</b>
+&nbsp;
+<b class="nc">&nbsp;        cardMap.put(&quot;LeafCard&quot;,new LeafCard(diceCalculationOther,inputValidation));</b>
+<b class="nc">&nbsp;        cardMap.put(&quot;FireworksCard&quot;,new FireworksCard(diceCalculationOther,inputValidation));</b>
+<b class="nc">&nbsp;        cardMap.put(&quot;StopCard&quot;,new StopCard(diceCalculationOther,inputValidation));</b>
+<b class="nc">&nbsp;        cardMap.put(&quot;StraightCard&quot;, new StraightCard(straight,inputValidation));</b>
+<b class="nc">&nbsp;        cardMap.put(&quot;PMCard&quot;,new PMCard(diceCalculationOther,inputValidation));</b>
+<b class="nc">&nbsp;        cardMap.put(&quot;Mul2Card&quot;,new Mul2Card(diceCalculationOther,inputValidation));</b>
+<b class="nc">&nbsp;        cardMap.put(&quot;Bonus200&quot;,new BonusCard(200, diceCalculationOther,inputValidation));</b>
+<b class="nc">&nbsp;        cardMap.put(&quot;Bonus300&quot;,new BonusCard(300, diceCalculationOther,inputValidation));</b>
+<b class="nc">&nbsp;        cardMap.put(&quot;Bonus400&quot;,new BonusCard(400, diceCalculationOther,inputValidation));</b>
+<b class="nc">&nbsp;        cardMap.put(&quot;Bonus500&quot;,new BonusCard(500, diceCalculationOther,inputValidation));</b>
+<b class="nc">&nbsp;        cardMap.put(&quot;Bonus600&quot;,new BonusCard(600, diceCalculationOther,inputValidation));</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-03 14:14</div>
+</div>
+</body>
+</html>

@@ -3,9 +3,13 @@ package DiceCalculation;
 
 import DiceCalculation.DiceCalculationOtherCards;
 
+import Tools.InputValidation;
 import org.junit.Test;
+import org.mockito.Mockito;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
@@ -16,7 +20,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class DiceCalOtherCardsTest {
-    private DiceCalculationOtherCards diceTool = new DiceCalculationOtherCards();
+    InputValidation inputValidation =  mock(InputValidation.class);
+    private DiceCalculationOtherCards diceTool = new DiceCalculationOtherCards(mock(InputValidation.class));
 
     @Test //Test formatSelectedInput method
     public void formatSelectedInputTest(){
@@ -29,20 +34,59 @@ public class DiceCalOtherCardsTest {
         assertEquals(formatInput,diceTool.formatSelectedInput("[1],[5],[2,2,2]"));
     }
 
-    @Test //Test selectDice method
-    public void selectDiceTest(){
-        final InputStream oldIn = System.in;
-        List<int[]> selectedDice = new ArrayList<>();
-        int[] i=new int[]{1};
-        selectedDice.add(i);
-        System.out.println(selectedDice);
-        String s = "[1]";
-        ByteArrayInputStream in=new ByteArrayInputStream(s.getBytes());
-        System.setIn(in);
-        System.out.println(diceTool.selectDice(new int[]{1,2,3,4,5,6}));
-        //assertEquals(selectedDice,diceTool.selectDice(new int[]{1,2,3,4,5,6}));
-        System.setIn(oldIn);
+
+    @Test
+    public void validValidateSelectedDiceTest() {
+        String input = "[1]";
+        int[] dice = new int[]{1,2,3,4,5,6};
+
+        assertTrue(diceTool.validateSelectedDice(input, dice));
     }
+
+    @Test
+    public void invalidValidateSelectedDiceTest() {
+        String input = "[1]";
+        int[] dice = new int[]{2,2,3,4,5,6};
+
+        assertFalse(diceTool.validateSelectedDice(input, dice));
+    }
+
+    @Test
+    public void calculateSingleDices() {
+        int[] dice = new int[]{1};
+        int point = 100;
+        assertEquals(200, diceTool.calculateSingleDices(dice, point));
+    }
+
+    @Test
+    public void calculateThreeDices() {
+        int[] dice = new int[]{3,3,3};
+        int point = 100;
+        assertEquals(400, diceTool.calculateThreeDices(dice, point));
+    }
+
+    @Test
+    public void validExistThreeDices() {
+        int[] dice = new int[]{3,3,3};
+        assertTrue(diceTool.exitThreeDices(dice));
+    }
+
+    @Test
+    public void invalidExistThreeDices() {
+        int[] dice = new int[]{2,3,3};
+        assertFalse(diceTool.exitThreeDices(dice));
+    }
+
+//    @Test //Test selectDice method
+//    public void validSelectDiceTestSingle(){
+//        List<int[]> selectedDice = new ArrayList<>();
+//        int[] i=new int[]{1};
+//        selectedDice.add(i);
+//
+//        when(inputValidation.readUser()).thenReturn("[1]");
+//        List<int[]> result = diceTool.selectDice(new int[]{1,2,3,4,5,6});
+//        assertEquals(selectedDice, result);
+//    }
 
     @Test //Test allValidValue method
     public void allValidValueTest(){

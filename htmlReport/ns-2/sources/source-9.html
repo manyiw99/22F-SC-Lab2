@@ -1,0 +1,190 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > StraightCard</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">Card</a>
+</div>
+
+<h1>Coverage Summary for Class: StraightCard (Card)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StraightCard</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (36/36)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package Card;
+&nbsp;
+&nbsp;import DiceCalculation.*;
+&nbsp;import Tools.InputValidation;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;public class StraightCard extends Card {
+&nbsp;    private DiceCalculationStraight diceTool;
+&nbsp;
+&nbsp;//    public StraightCard(Optional&lt;Suit&gt; suit, InputValidation inputValidation, DiceCalculationStraight diceTool) {
+&nbsp;//        super(suit);
+&nbsp;//        this.diceTool = diceTool;
+&nbsp;//        this.inputValidation = inputValidation;
+&nbsp;//    }
+&nbsp;
+&nbsp;    public StraightCard(DiceCalculationStraight diceCalculation, InputValidation inputValidation) {
+<b class="fc">&nbsp;        super(diceCalculation, inputValidation);</b>
+&nbsp;
+<b class="fc">&nbsp;        if (diceCalculation instanceof DiceCalculationStraight) {</b>
+<b class="fc">&nbsp;            super.diceCalculation = (DiceCalculationStraight) diceCalculation;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        this.diceTool = diceCalculation;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Optional&lt;Integer&gt; playGame() {
+<b class="fc">&nbsp;        List&lt;Integer&gt; expectedDice = new ArrayList&lt;&gt;(List.of(1, 2, 3, 4, 5, 6));</b>
+<b class="fc">&nbsp;        List&lt;Integer&gt; diceList = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;        Optional&lt;int[]&gt; dice = diceTool.generateDice(6);</b>
+&nbsp;//        int[] test = {1,2,3,4,5,6};
+&nbsp;//        Optional&lt;int[]&gt; dice = Optional.of(test);
+<b class="fc">&nbsp;        int playPoints = 0;</b>
+&nbsp;
+&nbsp;        //If contains at least one valid dice--------------------------------------------------------
+<b class="fc">&nbsp;        while (dice.isPresent()) {</b>
+<b class="fc">&nbsp;            diceList = diceTool.diceToList(dice);</b>
+<b class="fc">&nbsp;            if (Collections.disjoint(expectedDice, diceList)) { //return false if they have same element</b>
+<b class="fc">&nbsp;                super.continuousAfterTutto = false;</b>
+<b class="fc">&nbsp;                System.out.println(&quot;You have rolled a null. Next turn.&quot;);</b>
+<b class="fc">&nbsp;                return Optional.empty();</b>
+&nbsp;            } else {
+&nbsp;                //find all valid dices that users can select
+<b class="fc">&nbsp;                List&lt;Integer&gt; allValidDice = diceTool.allValidDice(diceList, expectedDice);</b>
+&nbsp;
+&nbsp;                // Get the dice to keep----------------------------------------
+<b class="fc">&nbsp;                int[] selectedDice = diceTool.selectDice(allValidDice, expectedDice);</b>
+&nbsp;
+<b class="fc">&nbsp;                expectedDice.removeAll(diceTool.diceToList(Optional.of(selectedDice)));</b>
+&nbsp;
+&nbsp;                // Roll the remaining dice
+<b class="fc">&nbsp;                dice = diceTool.generateDice(diceList.size() - selectedDice.length);</b>
+&nbsp;
+<b class="fc">&nbsp;                if (diceList.size() - selectedDice.length == 0) { //Tutto and continue throwing dice</b>
+<b class="fc">&nbsp;                    playPoints += 2000;</b>
+&nbsp;                    while (true) {
+<b class="fc">&nbsp;                        System.out.println(&quot;TUTTO! Choose Continue or Stop(enter C or S):&quot;);</b>
+<b class="fc">&nbsp;                        String chooseInput = super.inputValidation_tool.readUser();</b>
+&nbsp;
+<b class="fc">&nbsp;                        if (chooseInput.equals(&quot;S&quot;)) { // stop ----------------------------</b>
+<b class="fc">&nbsp;                            super.continuousAfterTutto = false;</b>
+<b class="fc">&nbsp;                            dice = Optional.empty();</b>
+<b class="fc">&nbsp;                            return Optional.ofNullable(playPoints);</b>
+&nbsp;//                            validInput = true;
+<b class="fc">&nbsp;                        } else if (chooseInput.equals(&quot;C&quot;)) { // continue---------------------</b>
+<b class="fc">&nbsp;                            expectedDice = new ArrayList&lt;&gt;(List.of(1, 2, 3, 4, 5, 6));</b>
+<b class="fc">&nbsp;                            dice = diceTool.generateDice(0);</b>
+&nbsp;//                            validInput = true;
+<b class="fc">&nbsp;                            super.continuousAfterTutto = true;</b>
+<b class="fc">&nbsp;                            return Optional.ofNullable(playPoints);</b>
+&nbsp;                        } else {
+<b class="fc">&nbsp;                            continuousAfterTutto = false;</b>
+<b class="fc">&nbsp;                            System.out.println(&quot;Input wrong. Please enter again.&quot;);</b>
+&nbsp;                        }
+<b class="fc">&nbsp;                    }</b>
+&nbsp;                }
+<b class="fc">&nbsp;            }</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return Optional.ofNullable(playPoints);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-03 14:14</div>
+</div>
+</body>
+</html>

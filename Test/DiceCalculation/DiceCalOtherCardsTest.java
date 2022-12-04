@@ -70,6 +70,8 @@ public class DiceCalOtherCardsTest {
         int[] dice = new int[]{1};
         int point = 100;
         assertEquals(200, diceTool.calculateSingleDices(dice, point));
+        dice = new int[]{5};
+        assertEquals(150, diceTool.calculateSingleDices(dice, point));
     }
 
     @Test
@@ -137,6 +139,7 @@ public class DiceCalOtherCardsTest {
         assertEquals(valid, diceTool.isValidate(Optional.of(new int[]{1, 2, 2, 2, 5, 6})));
         valid = false;
         assertEquals(valid, diceTool.isValidate(Optional.of(new int[]{2, 2, 3, 3, 4, 6})));
+        assertTrue(diceTool.isValidate(Optional.of(new int[]{2, 2, 2, 2, 4, 6})));
     }
 
     @Test

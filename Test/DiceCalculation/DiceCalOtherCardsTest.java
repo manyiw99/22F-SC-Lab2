@@ -8,8 +8,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.security.spec.RSAOtherPrimeInfo;
 import java.util.ArrayList;
@@ -56,6 +55,8 @@ public class DiceCalOtherCardsTest {
         int[] dice = new int[]{2,2,3,4,5,6};
 
         assertFalse(diceTool.validateSelectedDice(input, dice));
+        assertFalse(diceTool.validateSelectedDice(null,dice));
+        assertFalse(diceTool.validateSelectedDice("1",dice));
     }
 
     @Test
@@ -94,12 +95,24 @@ public class DiceCalOtherCardsTest {
     }
 
     @Test //Test selectDice method
-    public void selectDiceTest(){
+    public void selectSingleDiceTest(){
         List<int[]> selectedDice = new ArrayList<>();
         int[] i=new int[]{1};
         selectedDice.add(i);
-        int[] dice = new int[]{1,2,3,4};
-        when(inputValidation.readUser()).thenReturn("[1]");
+        int[] dice = new int[]{1,2,3,5};
+        when(inputValidation.readUser()).thenReturn("[1],[7]").thenReturn("[1]");
+        List<int[]> answer;
+        answer = diceTool.selectDice(dice);
+        assertEquals(selectedDice.get(0)[0],answer.get(0)[0]);
+    }
+
+    @Test //Test selectDice method
+    public void selectThreeDiceTest(){
+        List<int[]> selectedDice = new ArrayList<>();
+        int[] i=new int[]{1};
+        selectedDice.add(i);
+        int[] dice = new int[]{1,5,5,5};
+        when(inputValidation.readUser()).thenReturn("[1],[5,5]").thenReturn("[1],[5,5,5]");
         List<int[]> answer;
         answer = diceTool.selectDice(dice);
         assertEquals(selectedDice.get(0)[0],answer.get(0)[0]);

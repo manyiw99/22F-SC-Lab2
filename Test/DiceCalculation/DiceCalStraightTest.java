@@ -23,7 +23,7 @@ import java.util.Optional;
 
 public class DiceCalStraightTest {
 
-    private DiceCalculationStraight diceTool = new DiceCalculationStraight();
+    private DiceCalculationStraight diceTool = new DiceCalculationStraight(new InputValidation());
 
     @Test //Test allValidDice
     public void allValidDiceTest(){

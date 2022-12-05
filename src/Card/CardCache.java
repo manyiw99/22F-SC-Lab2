@@ -31,9 +31,10 @@ public class CardCache {
 //    }
 
     public static void loadCache() {
-        DiceCalculationOtherCards diceCalculationOther =new DiceCalculationOtherCards(new InputValidation());
-        DiceCalculationStraight straight = new DiceCalculationStraight();
         InputValidation inputValidation=new InputValidation();
+
+        DiceCalculationOtherCards diceCalculationOther =new DiceCalculationOtherCards(new InputValidation());
+        DiceCalculationStraight straight = new DiceCalculationStraight(inputValidation);
 
         cardMap.put("LeafCard",new LeafCard(diceCalculationOther,inputValidation));
         cardMap.put("FireworksCard",new FireworksCard(diceCalculationOther,inputValidation));

@@ -16,7 +16,6 @@ public class GameModel {
     private static GameModel INSTANCE;  //Singleton design pattern
 
     /**
-     *
      * @param points
      * @pre points.isPresent()
      */
@@ -24,7 +23,7 @@ public class GameModel {
         assert points.isPresent();
         this.players = Optional.empty();
         this.points = points;
-        this.currentCard=Optional.empty();
+        this.currentCard = Optional.empty();
         deck = new Deck();
     }
 
@@ -42,19 +41,19 @@ public class GameModel {
         return INSTANCE;
     }
 
-    public void setPoints(Optional<Integer> points){
-        this.points=points;
+    public void setPoints(Optional<Integer> points) {
+        this.points = points;
     }
 
-    public void addPlayer(String playerName){
+    public void addPlayer(String playerName) {
         ArrayList<Player> p = null;
-        if(players.isEmpty()){
-            p =new ArrayList<>();
-        }else{
-            p=players.get();
+        if (players.isEmpty()) {
+            p = new ArrayList<>();
+        } else {
+            p = players.get();
         }
         p.add(new Player(Optional.ofNullable(playerName)));
-        this.players=Optional.of(p);
+        this.players = Optional.of(p);
     }
 
     public ArrayList<Player> getPlayers() {
@@ -71,7 +70,7 @@ public class GameModel {
 //        this.currentCard=Optional.ofNullable(card);
 //        this.currentCard=Optional.ofNullable(new StraightCard(new DiceCalculationStraight(),new InputValidation()));
 
-        this.currentCard=Optional.ofNullable(card);
+        this.currentCard = Optional.ofNullable(card);
 //        this.currentCard=Optional.ofNullable(new LeafCard(new DiceCalculationOtherCards(),new InputValidation()));
 
     }
@@ -79,23 +78,24 @@ public class GameModel {
 
     /**
      * Draw a card from the deck
+     *
      * @return null: need to create a new deck and shuffle again
      */
-    public Card draw(){
-        if(deck.iterator().hasNext()){
-            Card c =  deck.iterator().next();
+    public Card draw() {
+        if (deck.iterator().hasNext()) {
+            Card c = deck.iterator().next();
             deck.iterator().remove();
             return c;
-        }else{
+        } else {
             return null;
         }
     }
 
-    public String getClassName(){
+    public String getClassName() {
         return currentCard.get().getClass().getSimpleName();
     }
 
-    public int getBonus(){
+    public int getBonus() {
         return ((BonusCard) currentCard.get()).getBonus();
     }
 
@@ -148,23 +148,23 @@ public class GameModel {
     public List<String> getLeadingPlayers() {
         List<String> res = new ArrayList<>();
 
-        Integer[] points =new Integer[players.get().size()];
-        for(int i=0; i<players.get().size();i++){
-            points[i]=players.get().get(i).getPoints().get();
+        Integer[] points = new Integer[players.get().size()];
+        for (int i = 0; i < players.get().size(); i++) {
+            points[i] = players.get().get(i).getPoints().get();
         }
 
         //After sort: int[] points
         Arrays.sort(points, Collections.reverseOrder());
 
-        for (int i = 0; i < points.length; i++){
-            for(int j=0; j< players.get().size();j++){
-                if(players.get().get(j).getPoints().get()==points[i]){
+        for (int i = 0; i < points.length; i++) {
+            for (int j = 0; j < players.get().size(); j++) {
+                if (players.get().get(j).getPoints().get() == points[i]) {
                     res.add(players.get().get(j).getName().get());
                 }
             }
         }
 
-        assert res!=null;
+        assert res != null;
         return res;
     }
 
@@ -175,9 +175,9 @@ public class GameModel {
         // Set order for each player
 
         // create string array called names
-        String names[]=new String[players.get().size()];
-        for(int i=0; i<players.get().size();i++){
-            names[i]=players.get().get(i).getName().get();
+        String names[] = new String[players.get().size()];
+        for (int i = 0; i < players.get().size(); i++) {
+            names[i] = players.get().get(i).getName().get();
         }
 
         String temp;
@@ -195,9 +195,9 @@ public class GameModel {
 
         // print output array
         // The names in alphabetical order are String[] names
-        for (int i = 0; i < names.length; i++){
-            for(int j=0; j< players.get().size();j++){
-                if(players.get().get(j).getName().get()==names[i]){
+        for (int i = 0; i < names.length; i++) {
+            for (int j = 0; j < players.get().size(); j++) {
+                if (players.get().get(j).getName().get() == names[i]) {
                     players.get().get(j).setOrder(Optional.ofNullable(i));
                 }
             }

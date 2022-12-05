@@ -6,8 +6,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class DiceCalculationStraight extends DiceCalculation{
+    public DiceCalculationStraight(InputValidation inputValidation) {
+        super(inputValidation);
+    }
 
-    public InputValidation inputValidation = new InputValidation();
+//    public InputValidation inputValidation = new InputValidation();
 
     public List<Integer> allValidDice(List<Integer> diceList, List<Integer> expectedList) {
         List<Integer> expectedDiceCopy = new ArrayList<>(expectedList);

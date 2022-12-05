@@ -6,10 +6,8 @@ import java.util.*;
 
 public class DiceCalculationOtherCards extends DiceCalculation {
 
-    public InputValidation inputValidation;
-
     public DiceCalculationOtherCards(InputValidation inputValidation) {
-        this.inputValidation = inputValidation;
+        super(inputValidation);
     }
 
     public List<String> formatSelectedInput (String input) {

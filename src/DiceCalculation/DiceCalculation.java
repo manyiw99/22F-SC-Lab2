@@ -1,9 +1,15 @@
 package DiceCalculation;
 
+import Tools.InputValidation;
+
 import java.util.Optional;
 import java.util.Random;
 
 public class DiceCalculation {
+    public InputValidation inputValidation;
+    public DiceCalculation(InputValidation inputValidation){
+        this.inputValidation = inputValidation;
+    }
     public Optional<int[]> generateDice(int num) {
         System.out.println("The dice are: ");
         Random random = new Random();

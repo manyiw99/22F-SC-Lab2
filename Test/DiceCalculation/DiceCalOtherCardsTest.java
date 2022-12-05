@@ -11,14 +11,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.security.spec.RSAOtherPrimeInfo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class DiceCalOtherCardsTest {
     InputValidation inputValidation =  mock(InputValidation.class);
-    private DiceCalculationOtherCards DiceCalO = mock(DiceCalculationOtherCards.class);
-    private DiceCalculationOtherCards diceTool = new DiceCalculationOtherCards(mock(InputValidation.class));
+    private DiceCalculationOtherCards diceTool = new DiceCalculationOtherCards(inputValidation);
 
     @Test //Test formatSelectedInput method
     public void formatSelectedInputTest(){
@@ -100,16 +100,9 @@ public class DiceCalOtherCardsTest {
         selectedDice.add(i);
         int[] dice = new int[]{1,2,3,4};
         when(inputValidation.readUser()).thenReturn("[1]");
-        when(DiceCalO.validateSelectedDice("[1]",dice)).thenReturn(true);
         List<int[]> answer;
-        answer = DiceCalO.selectDice(dice);
-        System.out.println(answer);
-
-
-//
-//        when(inputValidation.readUser()).thenReturn("[1]");
-//        List<int[]> result = diceTool.selectDice(new int[]{1,2,3,4,5,6});
-//        assertEquals(selectedDice, result);
+        answer = diceTool.selectDice(dice);
+        assertEquals(selectedDice.get(0)[0],answer.get(0)[0]);
     }
 
     @Test //Test allValidValue method
@@ -150,6 +143,5 @@ public class DiceCalOtherCardsTest {
 
         assertEquals(400, diceTool.calculatePoints(input));
     }
-
 
 }

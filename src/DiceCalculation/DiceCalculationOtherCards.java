@@ -10,55 +10,66 @@ public class DiceCalculationOtherCards extends DiceCalculation {
         super(inputValidation);
     }
 
-    public List<String> formatSelectedInput (String input) {
+    public List<String> formatSelectedInput(String input) {
         List<String> formatInput = new ArrayList<>();
-        int length=0;
-        while(length<input.length()){
+        int length = 0;
+        while (length < input.length()) {
             //System.out.println("length===="+length);
-            int index = input.indexOf("],[",length);
+            int index = input.indexOf("],[", length);
 
-            if(index!=-1){
-                String sub = input.substring(length,index+1);
+            if (index != -1) {
+                String sub = input.substring(length, index + 1);
                 formatInput.add(sub);
-                length=index+2;
-            }else{
+                length = index + 2;
+            } else {
                 String sub = input.substring(length);
                 formatInput.add(sub);
-                length=input.length();
+                length = input.length();
             }
         }
         return formatInput;
     }
 
     public List<int[]> selectDice(int[] dice) {
-        List<int[]> selectedDice = new ArrayList<>();boolean isSelected = false;
+        List<int[]> selectedDice = new ArrayList<>();
+        boolean isSelected = false;
         while (!isSelected) {
-            System.out.println("Please enter the valid dice you want to keep( eg. [1],[2,2,2],[5] ): ");String selectedInput = inputValidation.readUser();
+            System.out.println("Please enter the valid dice you want to keep( eg. [1],[2,2,2],[5] ): ");
+            String selectedInput = inputValidation.readUser();
             if (validateSelectedDice(selectedInput, dice)) {
                 String[] dices = null;
-                if(selectedInput.contains("],[")) {
-                    List<String> formatInput = formatSelectedInput(selectedInput);dices=formatInput.toArray(new String[formatInput.size()]);
+                if (selectedInput.contains("],[")) {
+                    List<String> formatInput = formatSelectedInput(selectedInput);
+                    dices = formatInput.toArray(new String[formatInput.size()]);
 
-                }else{dices = new String[]{selectedInput};
+                } else {
+                    dices = new String[]{selectedInput};
                 }
 
                 //System.out.println(Arrays.toString(dices));
                 for (int i = 0; i < dices.length; i++) {
                     //System.out.println("输入逗号分割 - "+ dices[i].length()+ " "+ dice[i]);
                     if (dices[i].length() == 3) {
-                        int[] formatDice = new int[1];formatDice[0] = Integer.parseInt(dices[i].substring(1, 2));selectedDice.add(formatDice);
+                        int[] formatDice = new int[1];
+                        formatDice[0] = Integer.parseInt(dices[i].substring(1, 2));
+                        selectedDice.add(formatDice);
                     } else if (dices[i].length() == 7) {
                         int[] formatDice = new int[3];
-                        formatDice[0] = Integer.parseInt(dices[i].substring(1, 2));formatDice[1] = Integer.parseInt(dices[i].substring(1, 2));formatDice[2] = Integer.parseInt(dices[i].substring(1, 2));
+                        formatDice[0] = Integer.parseInt(dices[i].substring(1, 2));
+                        formatDice[1] = Integer.parseInt(dices[i].substring(1, 2));
+                        formatDice[2] = Integer.parseInt(dices[i].substring(1, 2));
                         selectedDice.add(formatDice);
-                    } else {System.out.println("Your input is invalid dice, please enter again.");break;
+                    } else {
+                        System.out.println("Your input is invalid dice, please enter again.");
+                        break;
                     }
 
                     isSelected = true;
                 }
                 //selectedDice = allValidDice.get(Integer.parseInt(selectedInput) - 1);
 
-            } else {System.out.println("Your input is invalid dice, please enter again.");
+            } else {
+                System.out.println("Your input is invalid dice, please enter again.");
             }
         }
 
@@ -78,7 +89,7 @@ public class DiceCalculationOtherCards extends DiceCalculation {
      */
     public boolean validateSelectedDice(String input, int[] dice) {
         // System.out.println("test(manyi) - "+input);   // OK
-        if (input == null || !input.contains("[")){
+        if (input == null || !input.contains("[")) {
             return false;
         }
         int[] counter = count(dice);
@@ -93,7 +104,7 @@ public class DiceCalculationOtherCards extends DiceCalculation {
                 }
             } else if (i.length() == 7) {
                 StringBuilder sb = new StringBuilder();
-                for (int j = 1; j < i.length(); j += 2){
+                for (int j = 1; j < i.length(); j += 2) {
                     sb.append(i.charAt(j));
                 }
                 String value = sb.toString();
@@ -103,7 +114,8 @@ public class DiceCalculationOtherCards extends DiceCalculation {
                     if (value.charAt(j) != target) {
                         return false;
                     }
-                    if (counter[Character.getNumericValue(target)] < 3) {return false;
+                    if (counter[Character.getNumericValue(target)] < 3) {
+                        return false;
                     }
                 }
             } else {
@@ -144,7 +156,6 @@ public class DiceCalculationOtherCards extends DiceCalculation {
     }
 
 
-
     /**
      * Count all the valid dice from the input and calculate the final points
      *
@@ -155,7 +166,8 @@ public class DiceCalculationOtherCards extends DiceCalculation {
         for (int i = 0; i < dice.length; i++) {
             if (dice[i] == 1) {
                 result += 100;
-            } else {result += 50;
+            } else {
+                result += 50;
             }
 //            dice[i] = 0;
         }
@@ -177,7 +189,8 @@ public class DiceCalculationOtherCards extends DiceCalculation {
         }
 
         if (value == -1) {
-            System.out.println("no value occurs three times");return -1;
+            System.out.println("no value occurs three times");
+            return -1;
         }
         ;
 
@@ -202,7 +215,7 @@ public class DiceCalculationOtherCards extends DiceCalculation {
     }
 
     // Use of overload
-    public int calculatePoints(List<int[]> dice){
+    public int calculatePoints(List<int[]> dice) {
         int point = 0;
         for (int[] i : dice) {
             if (i.length == 1) {
@@ -222,7 +235,7 @@ public class DiceCalculationOtherCards extends DiceCalculation {
             existThree = exitThreeDices(dice);
         }
         for (int i : dice) {
-            if (i == 1 ) {
+            if (i == 1) {
                 point += 100;
             } else if (i == 5) {
                 point += 50;
